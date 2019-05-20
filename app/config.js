@@ -6,10 +6,10 @@ export const SIGNIN_PAGE_URL = '/signin';
 export const DEFAULT_LANGUAGE = 'en';
 
 export const cognitoConfig = {
-  userPoolId: 'us-west-2_H5b19kIOP',
+  userPoolId: 'us-west-2_tRKmWgVg7',
   region: 'us-west-2',
-  userPoolWebClientId: '2nr52a5iheoumqcgr47qnlqojq',
-  identityPoolId: 'us-west-2:dc3b0c22-b71b-4196-a0e5-91896228a809',
+  userPoolWebClientId: '129akg14i97lk19h9k7ft84sne',
+  identityPoolId: 'us-west-2:8fdd942c-2662-4046-8375-edd97c70e7ef',
 };
 
 export const amplifyAuthSignOption = {
@@ -25,7 +25,7 @@ export const amplifyAuthSignOption = {
     ],
   },
   federated: {
-    google_client_id: '953200455973-a81rnojmm1ogtudaqtgsd1ge4bris6gt.apps.googleusercontent.com',
-    facebook_app_id: '405214103389849',
+    google_client_id: '459983539066-jrve8fkm4hhcmjcq6van4rb6omp0ifti.apps.googleusercontent.com',
+    facebook_app_id: '366726577283374',
   },
 };
