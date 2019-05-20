@@ -45,8 +45,8 @@ const styles = theme => ({
 /** Navbar component */
 export class Navbar extends Component {
   static propTypes = {
-    classes: PropTypes.object.isRequired,
-    history: PropTypes.object.isRequired,
+    classes: PropTypes.objectOf(PropTypes.object).isRequired,
+    history: PropTypes.objectOf(PropTypes.object).isRequired,
     user: PropTypes.object,
     logout: PropTypes.func.isRequired,
     currentAuthenticatedUser: PropTypes.func.isRequired,

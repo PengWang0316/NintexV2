@@ -4,7 +4,7 @@ const dict = {
     logout: 'logout',
     message: 'message',
     other: 'other',
-    appName: 'SSCRG CLUB',
+    appName: 'Workflow Manager',
     homePageContent: 'This is the Home Page',
     testPageContent: 'This is the Test Page',
   },
