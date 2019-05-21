@@ -11,6 +11,7 @@ import orange from '@material-ui/core/colors/orange';
 // import { Auth } from 'aws-amplify';
 import I18n from '@kevinwang0316/i18n';
 
+import FileUploadDialog from './FileUploadDialog';
 import {
   HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL, SIGNIN_PAGE_URL,
 } from '../config';
@@ -32,6 +33,7 @@ const styles = theme => ({
     maxHeight: 55,
     position: 'sticky',
     top: 0,
+    zIndex: theme.zIndex.drawer + 1,
   },
   avatar: {
     width: 26,
@@ -54,7 +56,7 @@ export class Navbar extends Component {
 
   static defaultProps = { user: null };
 
-  state = { anchorEl: null };
+  state = { anchorEl: null, isOpenFileUpload: false };
 
   /**
    * Get the authentication user information.
@@ -84,75 +86,84 @@ export class Navbar extends Component {
     } else history.push(SIGNIN_PAGE_URL);
   }
 
+  handleUploadFileBtn = () => this.setState(({ isOpenFileUpload }) => ({ isOpenFileUpload: !isOpenFileUpload }));
+
   /**
    * The render method to render the jsx.
    * @return {jsx} Return jsx.
    */
   render() {
     const { classes, user } = this.props;
-    const { anchorEl } = this.state;
+    const { anchorEl, isOpenFileUpload } = this.state;
     return (
-      <AppBar position="static" className={classes.appbar} data-testid="navbar">
-        <Toolbar>
-          <Link to={HOME_PAGE_URL} className={`${classes.link} ${classes.flex1}`} data-testid="titleLink">
-            <Typography variant="h6" color="inherit">{I18n.get('appName')}</Typography>
-          </Link>
-          <Hidden only="xs">
-            <Link to={HOME_PAGE_URL} className={classes.link}>
-              <Button color="inherit" data-testid="testButton">{I18n.get('dashboard')}</Button>
+      <Fragment>
+        <AppBar position="static" className={classes.appbar} data-testid="navbar">
+          <Toolbar>
+            <Link to={HOME_PAGE_URL} className={`${classes.link} ${classes.flex1}`} data-testid="titleLink">
+              <Typography variant="h6" color="inherit">{I18n.get('appName')}</Typography>
             </Link>
-            <Link to={WORKFLOW_MANAGER_PAGE_URL} className={classes.link}>
-              <Button color="inherit" data-testid="otherButton">{I18n.get('workflowManager')}</Button>
-            </Link>
-            <Button color="inherit" onClick={this.handleLoginButtonClick} data-testid="loginButton">
-              {user ? (
-                <Fragment>
-                  <Avatar className={classes.avatar}><Typography color="inherit">{user.nickname.charAt(0)}</Typography></Avatar>
-                  <Typography color="inherit">{I18n.get('logout')}</Typography>
-                </Fragment>
-              ) : I18n.get('login')}
-            </Button>
-          </Hidden>
-          <Hidden only={['xl', 'lg', 'md', 'sm']}>
-            <IconButton
-              color="inherit"
-              aria-label="Menu"
-              onClick={this.handleMenuIconClick}
-              aria-owns={anchorEl ? 'simple-menu' : null}
-              aria-haspopup="true"
-              data-testid="navbarDropMenuButton"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="simple-menu"
-              anchorEl={anchorEl}
-              open={Boolean(anchorEl)}
-              onClose={this.handleMenuIconClick}
-              data-testid="dropDownMenu"
-            >
-              <MenuItem>
-                <Link to={HOME_PAGE_URL} className={classes.menuLink} data-testid="testLink">
-                  <Typography color="textPrimary">{I18n.get('dashboard')}</Typography>
-                </Link>
-              </MenuItem>
-              <MenuItem>
-                <Link to={WORKFLOW_MANAGER_PAGE_URL} className={classes.menuLink} data-testid="testLink">
-                  <Typography color="textPrimary">{I18n.get('workflowManager')}</Typography>
-                </Link>
-              </MenuItem>
-              <MenuItem onClick={this.handleLoginButtonClick} data-testid="loginMenu">
+            <Hidden only="xs">
+              <Link to={HOME_PAGE_URL} className={classes.link}>
+                <Button color="inherit" data-testid="dashboardButton">{I18n.get('dashboard')}</Button>
+              </Link>
+              <Link to={WORKFLOW_MANAGER_PAGE_URL} className={classes.link}>
+                <Button color="inherit" data-testid="workflowManagerButton">{I18n.get('workflowManager')}</Button>
+              </Link>
+              <Button color="inherit" data-testid="uploadFileButton" onClick={this.handleUploadFileBtn}>{I18n.get('uploadFile')}</Button>
+              <Button color="inherit" onClick={this.handleLoginButtonClick} data-testid="loginButton">
                 {user ? (
                   <Fragment>
                     <Avatar className={classes.avatar}><Typography color="inherit">{user.nickname.charAt(0)}</Typography></Avatar>
-                    <Typography color="textPrimary">{I18n.get('logout')}</Typography>
+                    <Typography color="inherit">{I18n.get('logout')}</Typography>
                   </Fragment>
                 ) : I18n.get('login')}
-              </MenuItem>
-            </Menu>
-          </Hidden>
-        </Toolbar>
-      </AppBar>
+              </Button>
+            </Hidden>
+            <Hidden only={['xl', 'lg', 'md', 'sm']}>
+              <IconButton
+                color="inherit"
+                aria-label="Menu"
+                onClick={this.handleMenuIconClick}
+                aria-owns={anchorEl ? 'simple-menu' : null}
+                aria-haspopup="true"
+                data-testid="navbarDropMenuButton"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="simple-menu"
+                anchorEl={anchorEl}
+                open={Boolean(anchorEl)}
+                onClose={this.handleMenuIconClick}
+                data-testid="dropDownMenu"
+              >
+                <MenuItem>
+                  <Link to={HOME_PAGE_URL} className={classes.menuLink} data-testid="testLink">
+                    <Typography color="textPrimary">{I18n.get('dashboard')}</Typography>
+                  </Link>
+                </MenuItem>
+                <MenuItem>
+                  <Link to={WORKFLOW_MANAGER_PAGE_URL} className={classes.menuLink} data-testid="testLink">
+                    <Typography color="textPrimary">{I18n.get('workflowManager')}</Typography>
+                  </Link>
+                </MenuItem>
+                <MenuItem>
+                  <Typography color="textPrimary" onClick={this.handleUploadFileBtn}>{I18n.get('uploadFile')}</Typography>
+                </MenuItem>
+                <MenuItem onClick={this.handleLoginButtonClick} data-testid="loginMenu">
+                  {user ? (
+                    <Fragment>
+                      <Avatar className={classes.avatar}><Typography color="inherit">{user.nickname.charAt(0)}</Typography></Avatar>
+                      <Typography color="textPrimary">{I18n.get('logout')}</Typography>
+                    </Fragment>
+                  ) : I18n.get('login')}
+                </MenuItem>
+              </Menu>
+            </Hidden>
+          </Toolbar>
+        </AppBar>
+        <FileUploadDialog open={isOpenFileUpload} handleClose={this.handleUploadFileBtn} />
+      </Fragment>
     );
   }
 }
