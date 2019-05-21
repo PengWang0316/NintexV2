@@ -24,21 +24,26 @@ exports[`Navbar NavBar snapshot with user 1`] = `
     >
       <Link
         className="link"
-        to="/test"
+        to="/"
       >
         <Button
           color="inherit"
           data-testid="testButton"
         >
-          message
+          dashboard
         </Button>
       </Link>
-      <Button
-        color="inherit"
-        data-testid="otherButton"
+      <Link
+        className="link"
+        to="/workflowTable"
       >
-        other
-      </Button>
+        <Button
+          color="inherit"
+          data-testid="otherButton"
+        >
+          workflowManager
+        </Button>
+      </Link>
       <Button
         color="inherit"
         data-testid="loginButton"
@@ -91,21 +96,27 @@ exports[`Navbar NavBar snapshot with user 1`] = `
           <Link
             className="menuLink"
             data-testid="testLink"
-            to="/test"
+            to="/"
           >
             <Typography
               color="textPrimary"
             >
-              message
+              dashboard
             </Typography>
           </Link>
         </MenuItem>
         <MenuItem>
-          <Typography
-            color="textPrimary"
+          <Link
+            className="menuLink"
+            data-testid="testLink"
+            to="/workflowTable"
           >
-            other
-          </Typography>
+            <Typography
+              color="textPrimary"
+            >
+              workflowManager
+            </Typography>
+          </Link>
         </MenuItem>
         <MenuItem
           data-testid="loginMenu"
@@ -156,21 +167,26 @@ exports[`Navbar NavBar snapshot without user 1`] = `
     >
       <Link
         className="link"
-        to="/test"
+        to="/"
       >
         <Button
           color="inherit"
           data-testid="testButton"
         >
-          message
+          dashboard
         </Button>
       </Link>
-      <Button
-        color="inherit"
-        data-testid="otherButton"
+      <Link
+        className="link"
+        to="/workflowTable"
       >
-        other
-      </Button>
+        <Button
+          color="inherit"
+          data-testid="otherButton"
+        >
+          workflowManager
+        </Button>
+      </Link>
       <Button
         color="inherit"
         data-testid="loginButton"
@@ -210,21 +226,27 @@ exports[`Navbar NavBar snapshot without user 1`] = `
           <Link
             className="menuLink"
             data-testid="testLink"
-            to="/test"
+            to="/"
           >
             <Typography
               color="textPrimary"
             >
-              message
+              dashboard
             </Typography>
           </Link>
         </MenuItem>
         <MenuItem>
-          <Typography
-            color="textPrimary"
+          <Link
+            className="menuLink"
+            data-testid="testLink"
+            to="/workflowTable"
           >
-            other
-          </Typography>
+            <Typography
+              color="textPrimary"
+            >
+              workflowManager
+            </Typography>
+          </Link>
         </MenuItem>
         <MenuItem
           data-testid="loginMenu"
