@@ -30,7 +30,7 @@ export const UploadSnackbar = ({ open, handleClose, classes }) => (
     open={open}
     onClose={handleClose}
     TransitionComponent={Fade}
-    autoHideDuration={2000}
+    autoHideDuration={3000}
   >
     <SnackbarContent
       className={classes.success}
