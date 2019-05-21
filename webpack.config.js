@@ -17,7 +17,7 @@ const config = {
   //   vendor: ['react', 'react-dom', 'axios', 'redux', 'redux-thunk', 'prop-types']
   // },
   entry: [
-    'react-hot-loader/patch',
+    // 'react-hot-loader/patch',
     './app/index.js',
   ],
   output: {
@@ -52,6 +52,11 @@ const config = {
       name: false,
     },
   },
+  resolve: {
+    alias: {
+      'react-dom': '@hot-loader/react-dom',
+    },
+  },
   plugins: [
     new HtmlWebpackPlugin({ template: 'app/index.html' }),
     new webpack.NamedModulesPlugin(),
@@ -73,6 +78,7 @@ const config = {
 };
 
 if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
+  delete config.resolve; // Remove the react hot loader dom
   /*
   config.module.rules[2] = ({ // In production model, replace the css rules in order to use ExtractTextPlugin. My css rules is in the position 2.
     test: /\.css$/,

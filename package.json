@@ -47,6 +47,7 @@
     "verbose": true
   },
   "dependencies": {
+    "@hot-loader/react-dom": "^16.8.6",
     "@kevinwang0316/i18n": "^1.0.0",
     "@kevinwang0316/react-materialui-pagination": "^1.1.4",
     "@material-ui/core": "^3.9.2",
@@ -56,8 +57,7 @@
     "axios": "^0.18.0",
     "prop-types": "^15.7.2",
     "react": "^16.8.3",
-    "react-dom": "^16.8.3",
-    "react-hot-loader": "^4.7.1",
+    "react-dom": "^16.8.6",
     "react-imported-component": "^5.5.3",
     "react-redux": "^6.0.1",
     "react-router-dom": "^4.3.1",

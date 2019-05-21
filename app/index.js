@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import { AppContainer } from 'react-hot-loader';
+// import { AppContainer } from 'react-hot-loader';
 import { PersistGate } from 'redux-persist/integration/react';
 import I18n from '@kevinwang0316/i18n';
 
@@ -26,13 +26,11 @@ I18n.setDictionary(dict);
 // );
 const render = (Component) => {
   ReactDOM.render(
-    <AppContainer>
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <Component />
-        </PersistGate>
-      </Provider>
-    </AppContainer>,
+    <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
+        <Component />
+      </PersistGate>
+    </Provider>,
     document.getElementById('app'),
   );
 };

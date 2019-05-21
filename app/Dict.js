@@ -2,8 +2,8 @@ const dict = {
   'en-US': {
     login: 'login',
     logout: 'logout',
-    message: 'message',
-    other: 'other',
+    dashboard: 'Dashboard',
+    workflowManager: 'Workflow Manager',
     appName: 'Workflow Manager',
     homePageContent: 'This is the Home Page',
     testPageContent: 'This is the Test Page',
