@@ -1,7 +1,7 @@
 export const BASE_URL = ''; // Production server
 /* URLS */
 export const HOME_PAGE_URL = '/';
-export const TEST_PAGE_URL = '/test';
+export const WORKFLOW_MANAGER_PAGE_URL = '/workflowTable';
 export const SIGNIN_PAGE_URL = '/signin';
 export const DEFAULT_LANGUAGE = 'en';
 

@@ -12,7 +12,7 @@ import orange from '@material-ui/core/colors/orange';
 import I18n from '@kevinwang0316/i18n';
 
 import {
-  HOME_PAGE_URL, TEST_PAGE_URL, SIGNIN_PAGE_URL,
+  HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL, SIGNIN_PAGE_URL,
 } from '../config';
 import * as UserActions from '../actions/UserActions';
 
@@ -98,10 +98,12 @@ export class Navbar extends Component {
             <Typography variant="h6" color="inherit">{I18n.get('appName')}</Typography>
           </Link>
           <Hidden only="xs">
-            <Link to={TEST_PAGE_URL} className={classes.link}>
-              <Button color="inherit" data-testid="testButton">{I18n.get('message')}</Button>
+            <Link to={HOME_PAGE_URL} className={classes.link}>
+              <Button color="inherit" data-testid="testButton">{I18n.get('dashboard')}</Button>
             </Link>
-            <Button color="inherit" data-testid="otherButton">{I18n.get('other')}</Button>
+            <Link to={WORKFLOW_MANAGER_PAGE_URL} className={classes.link}>
+              <Button color="inherit" data-testid="otherButton">{I18n.get('workflowManager')}</Button>
+            </Link>
             <Button color="inherit" onClick={this.handleLoginButtonClick} data-testid="loginButton">
               {user ? (
                 <Fragment>
@@ -130,12 +132,14 @@ export class Navbar extends Component {
               data-testid="dropDownMenu"
             >
               <MenuItem>
-                <Link to={TEST_PAGE_URL} className={classes.menuLink} data-testid="testLink">
-                  <Typography color="textPrimary">{I18n.get('message')}</Typography>
+                <Link to={HOME_PAGE_URL} className={classes.menuLink} data-testid="testLink">
+                  <Typography color="textPrimary">{I18n.get('dashboard')}</Typography>
                 </Link>
               </MenuItem>
               <MenuItem>
-                <Typography color="textPrimary">{I18n.get('other')}</Typography>
+                <Link to={WORKFLOW_MANAGER_PAGE_URL} className={classes.menuLink} data-testid="testLink">
+                  <Typography color="textPrimary">{I18n.get('workflowManager')}</Typography>
+                </Link>
               </MenuItem>
               <MenuItem onClick={this.handleLoginButtonClick} data-testid="loginMenu">
                 {user ? (
