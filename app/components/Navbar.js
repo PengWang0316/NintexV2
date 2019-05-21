@@ -11,7 +11,6 @@ import orange from '@material-ui/core/colors/orange';
 // import { Auth } from 'aws-amplify';
 import I18n from '@kevinwang0316/i18n';
 
-import FileUploadDialog from './FileUploadDialog';
 import {
   HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL, SIGNIN_PAGE_URL,
 } from '../config';
@@ -56,7 +55,7 @@ export class Navbar extends Component {
 
   static defaultProps = { user: null };
 
-  state = { anchorEl: null, isOpenFileUpload: false };
+  state = { anchorEl: null };
 
   /**
    * Get the authentication user information.
@@ -86,7 +85,6 @@ export class Navbar extends Component {
     } else history.push(SIGNIN_PAGE_URL);
   }
 
-  handleUploadFileBtn = () => this.setState(({ isOpenFileUpload }) => ({ isOpenFileUpload: !isOpenFileUpload }));
 
   /**
    * The render method to render the jsx.
@@ -103,13 +101,12 @@ export class Navbar extends Component {
               <Typography variant="h6" color="inherit">{I18n.get('appName')}</Typography>
             </Link>
             <Hidden only="xs">
-              <Link to={HOME_PAGE_URL} className={classes.link}>
+              {/* <Link to={HOME_PAGE_URL} className={classes.link}>
                 <Button color="inherit" data-testid="dashboardButton">{I18n.get('dashboard')}</Button>
               </Link>
               <Link to={WORKFLOW_MANAGER_PAGE_URL} className={classes.link}>
                 <Button color="inherit" data-testid="workflowManagerButton">{I18n.get('workflowManager')}</Button>
-              </Link>
-              <Button color="inherit" data-testid="uploadFileButton" onClick={this.handleUploadFileBtn}>{I18n.get('uploadFile')}</Button>
+              </Link> */}
               <Button color="inherit" onClick={this.handleLoginButtonClick} data-testid="loginButton">
                 {user ? (
                   <Fragment>
@@ -137,7 +134,7 @@ export class Navbar extends Component {
                 onClose={this.handleMenuIconClick}
                 data-testid="dropDownMenu"
               >
-                <MenuItem>
+                {/* <MenuItem>
                   <Link to={HOME_PAGE_URL} className={classes.menuLink} data-testid="testLink">
                     <Typography color="textPrimary">{I18n.get('dashboard')}</Typography>
                   </Link>
@@ -146,10 +143,7 @@ export class Navbar extends Component {
                   <Link to={WORKFLOW_MANAGER_PAGE_URL} className={classes.menuLink} data-testid="testLink">
                     <Typography color="textPrimary">{I18n.get('workflowManager')}</Typography>
                   </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Typography color="textPrimary" onClick={this.handleUploadFileBtn}>{I18n.get('uploadFile')}</Typography>
-                </MenuItem>
+                </MenuItem> */}
                 <MenuItem onClick={this.handleLoginButtonClick} data-testid="loginMenu">
                   {user ? (
                     <Fragment>
@@ -162,7 +156,6 @@ export class Navbar extends Component {
             </Hidden>
           </Toolbar>
         </AppBar>
-        <FileUploadDialog open={isOpenFileUpload} handleClose={this.handleUploadFileBtn} />
       </Fragment>
     );
   }

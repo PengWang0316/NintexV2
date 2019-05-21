@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { useState, Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
+import { Link } from 'react-router-dom';
 import {
   Drawer, List, Divider, ListItem, ListItemIcon, ListItemText,
 } from '@material-ui/core';
 import { Dashboard as DashBoardIcon, CloudUpload as UploadFileIcon, List as WorkflowManagerIcon } from '@material-ui/icons';
 import I18n from '@kevinwang0316/i18n';
 import { indigo, blue, amber } from '@material-ui/core/colors';
+
+import FileUploadDialog from './FileUploadDialog';
+import { HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL } from '../config';
 
 const styles = theme => ({
   drawerClose: {
@@ -17,7 +21,7 @@ const styles = theme => ({
     overflowX: 'hidden',
     width: theme.spacing.unit * 7 + 1,
     [theme.breakpoints.up('sm')]: {
-      width: theme.spacing.unit * 9 + 1,
+      width: theme.spacing.unit * 7 + 1,
     },
   },
   list: {
@@ -34,34 +38,50 @@ const styles = theme => ({
   },
 });
 
-const MenuDrawer = ({ classes }) => (
-  <Drawer
-    variant="permanent"
-    className={classes.drawerClose}
-    classes={{
-      paper: classes.drawerClose,
-    }}
-    open={false}
-  >
-    <List className={classes.list}>
-      <ListItem button>
-        <ListItemIcon><DashBoardIcon className={classes.dashboardIcon} /></ListItemIcon>
-        <ListItemText primary={I18n.get('dashboard')} />
-      </ListItem>
-      <ListItem button>
-        <ListItemIcon><WorkflowManagerIcon className={classes.workflowManagerIcon} /></ListItemIcon>
-        <ListItemText primary={I18n.get('workflowManager')} />
-      </ListItem>
-    </List>
-    <Divider />
-    <List>
-      <ListItem button>
-        <ListItemIcon><UploadFileIcon className={classes.fileUploadIcon} /></ListItemIcon>
-        <ListItemText primary={I18n.get('uploadFile')} />
-      </ListItem>
-    </List>
-  </Drawer>
-);
+const MenuDrawer = ({ classes }) => {
+  const [isOpenFileUpload, setIsOpenFileUpload] = useState(false);
+
+  const handleUploadFileBtn = () => setIsOpenFileUpload(state => !state);
+
+  return (
+    <Fragment>
+      <Drawer
+        variant="permanent"
+        className={classes.drawerClose}
+        classes={{
+          paper: classes.drawerClose,
+        }}
+        open={false}
+      >
+        <List className={classes.list}>
+          <Link to={HOME_PAGE_URL}>
+            <ListItem button>
+              <ListItemIcon><DashBoardIcon className={classes.dashboardIcon} /></ListItemIcon>
+              <ListItemText primary={I18n.get('dashboard')} />
+            </ListItem>
+          </Link>
+          <Link to={WORKFLOW_MANAGER_PAGE_URL}>
+            <ListItem button>
+              <ListItemIcon>
+                <WorkflowManagerIcon className={classes.workflowManagerIcon} />
+              </ListItemIcon>
+              <ListItemText primary={I18n.get('workflowManager')} />
+            </ListItem>
+          </Link>
+        </List>
+        <Divider />
+        <List>
+          <ListItem button onClick={handleUploadFileBtn}>
+            <ListItemIcon><UploadFileIcon className={classes.fileUploadIcon} /></ListItemIcon>
+            <ListItemText primary={I18n.get('uploadFile')} />
+          </ListItem>
+        </List>
+      </Drawer>
+      <FileUploadDialog open={isOpenFileUpload} handleClose={handleUploadFileBtn} />
+    </Fragment>
+  );
+};
+
 MenuDrawer.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
 };
