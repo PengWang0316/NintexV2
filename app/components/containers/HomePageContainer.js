@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { Typography } from '@material-ui/core';
 import I18n from '@kevinwang0316/i18n';
 import PropTypes from 'prop-types';
+import { withAuthenticator } from 'aws-amplify-react';
+import { amplifyAuthSignOption } from '../../config';
 
 import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../actions/UserActions';
 
@@ -26,4 +28,7 @@ const mapStateToProps = state => ({ user: state.user });
 const mapDispatchToProps = dispatch => ({
   currentAuthenticatedUser: user => dispatch(currentAuthenticatedUserAction(user)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(HomePage);
+export default withAuthenticator(
+  connect(mapStateToProps, mapDispatchToProps)(HomePage),
+  amplifyAuthSignOption,
+);
