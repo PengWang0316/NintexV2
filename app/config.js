@@ -9,7 +9,7 @@ export const cognitoConfig = {
   userPoolId: 'us-west-2_tRKmWgVg7',
   region: 'us-west-2',
   userPoolWebClientId: '129akg14i97lk19h9k7ft84sne',
-  identityPoolId: 'us-west-2:8fdd942c-2662-4046-8375-edd97c70e7ef',
+  // identityPoolId: 'us-west-2:8fdd942c-2662-4046-8375-edd97c70e7ef',
 };
 
 export const amplifyAuthSignOption = {
@@ -24,8 +24,8 @@ export const amplifyAuthSignOption = {
       },
     ],
   },
-  federated: {
-    google_client_id: '459983539066-jrve8fkm4hhcmjcq6van4rb6omp0ifti.apps.googleusercontent.com',
-    facebook_app_id: '366726577283374',
-  },
+  // federated: {
+  //   google_client_id: '459983539066-jrve8fkm4hhcmjcq6van4rb6omp0ifti.apps.googleusercontent.com',
+  //   facebook_app_id: '366726577283374',
+  // },
 };
