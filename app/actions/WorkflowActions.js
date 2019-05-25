@@ -1,20 +1,26 @@
+/* eslint-disable no-plusplus */
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
 
-import { POST_WORKFLOWS_API } from './Urls';
+import { POST_WORKFLOWS_API, POST_INSTANCES_API } from './Urls';
 
 // Set a batch size to send the payload parallely
 const BATCH_SIZE = 500;
 
-export const uploadWorkflows = async (text) => {
+const getTokenAndData = async (text) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
-  const workflowArray = text.replace(/\r/g, '\n').split(/\n/g);
+  const dataArray = text.replace(/\r/g, '\n').split(/\n/g);
+  return [dataArray, jwtToken];
+};
+
+export const uploadWorkflows = async (text) => {
+  const [dataArray, jwtToken] = await getTokenAndData(text);
   let workflows = [];
 
-  for (let i = 7, { length } = workflowArray; i < length; i++) {
-    if (workflowArray[i] !== '') {
+  for (let i = 7, { length } = dataArray; i < length; i++) {
+    if (dataArray[i] !== '') {
       const workflow = [];
-      const tempArr = workflowArray[i].split(',');
+      const tempArr = dataArray[i].split(',');
       tempArr.forEach((item, index) => {
         // Concat 17 and 18 for the SlicerDate
         if (index === 17) workflow.push(new Date(`${item},${tempArr[18]}`).toISOString());
@@ -37,6 +43,30 @@ export const uploadWorkflows = async (text) => {
   if (workflows.length !== 0) axios.post(POST_WORKFLOWS_API, { workflows }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
 };
 
-export const uploadInstances = (text) => {
+export const uploadInstances = async (text) => {
+  const [dataArray, jwtToken] = await getTokenAndData(text);
+  let instances = [];
+
+  for (let i = 8, { length } = dataArray; i < length; i++) {
+    if (dataArray[i] !== '') {
+      const instance = [];
+      const tempArr = dataArray[i].split(',');
+      tempArr.forEach((item, index) => {
+        // Concat 0 and 1 for the StatusDate
+        if (index === 0) instance.push(new Date(`${item},${tempArr[1]}`).toISOString());
+        else if (index === 9 || index === 10) instance.push(item && item !== '' ? item.slice(1, item.length - 1) : item);
+        else if (index !== 1) instance.push(item);
+      });
+      if (instance.length === 10) instances.push(instance);
+      if (instances.length === BATCH_SIZE) {
+        axios.post(POST_INSTANCES_API, { instances }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+        instances = [];
+      }
+    }
+  }
+  if (instances.length !== 0) axios.post(POST_INSTANCES_API, { instances }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+};
+
+export const uploadActions = (text) => {
 
 };
