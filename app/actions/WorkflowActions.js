@@ -6,11 +6,30 @@ import { POST_WORKFLOWS_API, POST_INSTANCES_API } from './Urls';
 
 // Set a batch size to send the payload parallely
 const BATCH_SIZE = 500;
+// const REMOVE_COMMA_REGEXP = /(".*?),(.*?")/g;
+const FIND_COMMA_REGEXP = /(".*?,.*?")/g;
+const REMOVE_BRACKET_REGEXP = /[{}]/g;
+const REMOVE_COMMAN_QUOTE_REGEXP = /[,"]/g;
+// const REPLACE_DOUBLE_QUOTE_REGEXP = /".*?"".*?"".*?"/g;
 
 const getTokenAndData = async (text) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
-  const dataArray = text.replace(/\r/g, '\n').split(/\n/g);
+  const dataArray = text.replace(/\r/g, '\n')
+    .replace(REMOVE_BRACKET_REGEXP, '').split(/\n/g);
   return [dataArray, jwtToken];
+};
+
+const removeCommaAndQuote = (text) => {
+  // Replace double quote to a single comma first for more processing
+  let newText = text.replace(/""/g, ',');
+  // Remove quote and comma
+  const result = newText.match(FIND_COMMA_REGEXP);
+  if (result) {
+    result.forEach((item) => {
+      newText = newText.replace(item, item.replace(REMOVE_COMMAN_QUOTE_REGEXP, ''));
+    });
+  }
+  return newText;
 };
 
 export const uploadWorkflows = async (text) => {
@@ -50,12 +69,17 @@ export const uploadInstances = async (text) => {
   for (let i = 8, { length } = dataArray; i < length; i++) {
     if (dataArray[i] !== '') {
       const instance = [];
-      const tempArr = dataArray[i].split(',');
+      const tempArr = removeCommaAndQuote(dataArray[i]).split(',');
       tempArr.forEach((item, index) => {
         // Concat 0 and 1 for the StatusDate
-        if (index === 0) instance.push(new Date(`${item},${tempArr[1]}`).toISOString());
-        else if (index === 9 || index === 10) instance.push(item && item !== '' ? item.slice(1, item.length - 1) : item);
-        else if (index !== 1) instance.push(item);
+        if (index === 0) {
+          try { // prevent the date format error in the source CSV file
+            instance.push(new Date(item).toISOString());
+          } catch (err) {
+            console.warn(err);
+            console.log(dataArray[i]);
+          }
+        } else instance.push(item);
       });
       if (instance.length === 10) instances.push(instance);
       if (instances.length === BATCH_SIZE) {
@@ -67,6 +91,30 @@ export const uploadInstances = async (text) => {
   if (instances.length !== 0) axios.post(POST_INSTANCES_API, { instances }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
 };
 
-export const uploadActions = (text) => {
-
+export const uploadActions = async (text) => {
+  const [dataArray, jwtToken] = await getTokenAndData(text);
+  let actions = [];
+  // console.log(dataArray);
+  for (let i = 7, { length } = dataArray; i < length; i++) {
+    if (dataArray[i] !== '') {
+      const action = [];
+      const tempArr = removeCommaAndQuote(dataArray[i]).split(',');
+      tempArr.forEach((item, index) => {
+        if (index === 6) {
+          try { // prevent the date format error in the source CSV file
+            action.push(new Date(item).toISOString());
+          } catch (err) {
+            console.warn(err);
+            console.log(dataArray[i]);
+          }
+        } else action.push(item);
+      });
+      if (action.length === 26) actions.push(action);
+      if (actions.length === BATCH_SIZE) {
+        axios.post(POST_INSTANCES_API, { actions }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+        actions = [];
+      }
+    }
+  }
+  if (actions.length !== 0) axios.post(POST_INSTANCES_API, { actions }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
 };
