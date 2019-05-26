@@ -32,7 +32,7 @@ export const DashboardNumCard = ({
             {title}
           </Box>
           <Box fontSize={26} fontWeight={1600} color="textSecondary">
-            {displayNum.toString().replace(NUM_FORMATE_REGEXP, '$1,')}
+            {displayNum ? displayNum.toString().replace(NUM_FORMATE_REGEXP, '$1,') : '--'}
           </Box>
         </div>
         {icon}
