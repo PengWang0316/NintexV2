@@ -2,7 +2,11 @@
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
 
-import { POST_WORKFLOWS_API, POST_INSTANCES_API } from './Urls';
+import {
+  POST_WORKFLOWS_API, POST_INSTANCES_API, POST_ACTIONS_API,
+  GET_WORKFLOWS_COUNT_API,
+} from './Urls';
+import { FETCH_WORKFLOWS_COUNT_SUCCESS } from './ActionTypes';
 
 // Set a batch size to send the payload parallely
 const BATCH_SIZE = 500;
@@ -11,6 +15,11 @@ const FIND_COMMA_REGEXP = /(".*?,.*?")/g;
 const REMOVE_BRACKET_REGEXP = /[{}]/g;
 const REMOVE_COMMAN_QUOTE_REGEXP = /[,"]/g;
 // const REPLACE_DOUBLE_QUOTE_REGEXP = /".*?"".*?"".*?"/g;
+
+const fetchWorkflowsCountSuccess = workflowsCount => ({
+  type: FETCH_WORKFLOWS_COUNT_SUCCESS,
+  workflowsCount,
+});
 
 const getTokenAndData = async (text) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
@@ -121,10 +130,16 @@ export const uploadActions = async (text) => {
       });
       if (action.length === 26) actions.push(action);
       if (actions.length === BATCH_SIZE) {
-        axios.post(POST_INSTANCES_API, { actions }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+        axios.post(POST_ACTIONS_API, { actions }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
         actions = [];
       }
     }
   }
-  if (actions.length !== 0) axios.post(POST_INSTANCES_API, { actions }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  if (actions.length !== 0) axios.post(POST_ACTIONS_API, { actions }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+};
+
+export const fetchWorkflowsCount = dispatch => async () => {
+  const { idToken: { jwtToken } } = await Auth.currentSession();
+  const { data } = axios.get(GET_WORKFLOWS_COUNT_API, {}, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  dispatch(fetchWorkflowsCountSuccess(data));
 };
