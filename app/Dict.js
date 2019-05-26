@@ -17,6 +17,10 @@ const dict = {
     homePageContent: 'This is the Home Page',
     testPageContent: 'This is the Test Page',
     uploadFileDialogContent: 'You can upload workflows, instances, and actions CSV files. Please use different file input to upload files.',
+    cardTitleTotalWorkflows: 'Total Workflows',
+    cardTitleWorkflowInstances: 'Workflow Instances',
+    cardTitleWorkflowPublisher: 'Workflow Publisher',
+    cardTitleWorkflowHealth: 'Workflow Health Score',
   },
 };
 
