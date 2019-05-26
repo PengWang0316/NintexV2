@@ -8,24 +8,15 @@ import {
 } from './Urls';
 import { FETCH_WORKFLOWS_COUNT_SUCCESS } from './ActionTypes';
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
+import getTokenAndData from './libs/GetTokenAndData';
 
 // Set a batch size to send the payload parallely
 const BATCH_SIZE = 500;
-// const REMOVE_COMMA_REGEXP = /(".*?),(.*?")/g;
-const REMOVE_BRACKET_REGEXP = /[{}]/g;
-// const REPLACE_DOUBLE_QUOTE_REGEXP = /".*?"".*?"".*?"/g;
 
 const fetchWorkflowsCountSuccess = workflowsCount => ({
   type: FETCH_WORKFLOWS_COUNT_SUCCESS,
   workflowsCount,
 });
-
-const getTokenAndData = async (text) => {
-  const { idToken: { jwtToken } } = await Auth.currentSession();
-  const dataArray = text.replace(/\r/g, '\n')
-    .replace(REMOVE_BRACKET_REGEXP, '').split(/\n/g);
-  return [dataArray, jwtToken];
-};
 
 export const uploadWorkflows = async (text) => {
   const [dataArray, jwtToken] = await getTokenAndData(text);
