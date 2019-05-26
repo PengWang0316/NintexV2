@@ -1,23 +1,47 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { Typography } from '@material-ui/core';
-import I18n from '@kevinwang0316/i18n';
+import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { withAuthenticator } from 'aws-amplify-react';
-import { amplifyAuthSignOption } from '../../config';
 
+import { amplifyAuthSignOption } from '../../config';
+import WorkflowRunInstanceChart from '../WorkflowRunInstanceChart';
+import WorkflowLocationChart from '../WorkflowLocationChart';
+import WorkflowCountCard from '../cards/WorkflowCountCard';
+import InstanceCountCard from '../cards/InstanceCountCard';
 import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../actions/UserActions';
 
-const HomePage = ({ user, currentAuthenticatedUser }) => {
+const styles = {
+  cardContainer: {
+    display: 'flex',
+    justifyContent: 'center',
+    marginTop: 20,
+  },
+};
+
+const HomePage = ({ user, currentAuthenticatedUser, classes }) => {
   useEffect(() => {
     if (!user) currentAuthenticatedUser();
   });
 
-  return <Typography color="textPrimary" variant="h6">{I18n.get('homePageContent')}</Typography>;
+  return (
+    <Fragment>
+      <div className={classes.cardContainer}>
+        <WorkflowCountCard />
+        <InstanceCountCard />
+      </div>
+      <div className={classes.cardContainer}>
+        <WorkflowRunInstanceChart />
+        <WorkflowLocationChart />
+      </div>
+    </Fragment>
+
+  );
 };
 
 HomePage.propTypes = {
-  user: PropTypes.object,
+  classes: PropTypes.objectOf(PropTypes.string).isRequired,
+  user: PropTypes.objectOf(PropTypes.any),
   currentAuthenticatedUser: PropTypes.func.isRequired,
 };
 HomePage.defaultProps = { user: null };
@@ -29,6 +53,6 @@ const mapDispatchToProps = dispatch => ({
   currentAuthenticatedUser: user => dispatch(currentAuthenticatedUserAction(user)),
 });
 export default withAuthenticator(
-  connect(mapStateToProps, mapDispatchToProps)(HomePage),
+  withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(HomePage)),
   amplifyAuthSignOption,
 );
