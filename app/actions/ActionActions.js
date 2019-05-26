@@ -1,12 +1,19 @@
 /* eslint-disable no-plusplus */
 import axios from 'axios';
+import { Auth } from 'aws-amplify';
 
-import { POST_ACTIONS_API } from './Urls';
+import { POST_ACTIONS_API, GET_PUBLISHER_COUNT_API } from './Urls';
+import { FETCH_PUBLISHER_COUNT_SUCCESS } from './ActionTypes';
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
 import getTokenAndData from './libs/GetTokenAndData';
 
 // Set a batch size to send the payload parallely
 const BATCH_SIZE = 500;
+
+const fetchPublisherCountSuccess = publisherCount => ({
+  type: FETCH_PUBLISHER_COUNT_SUCCESS,
+  publisherCount,
+});
 
 export const uploadActions = async (text) => {
   const [dataArray, jwtToken] = await getTokenAndData(text);
@@ -34,4 +41,9 @@ export const uploadActions = async (text) => {
   }
   if (actions.length !== 0) axios.post(POST_ACTIONS_API, { actions }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
 };
-export default uploadActions;
+
+export const fetchPublisherCount = () => async (dispatch) => {
+  const { idToken: { jwtToken } } = await Auth.currentSession();
+  const { data: { count } } = await axios.get(GET_PUBLISHER_COUNT_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  dispatch(fetchPublisherCountSuccess(count));
+};
