@@ -42,8 +42,9 @@ export const DashboardNumCard = ({
 );
 DashboardNumCard.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  displayNum: PropTypes.number.isRequired,
+  displayNum: PropTypes.number,
   title: PropTypes.string.isRequired,
   icon: PropTypes.objectOf(PropTypes.any).isRequired,
 };
+DashboardNumCard.defaultProps = { displayNum: null };
 export default withStyles(styles)(DashboardNumCard);
