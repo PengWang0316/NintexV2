@@ -138,8 +138,8 @@ export const uploadActions = async (text) => {
   if (actions.length !== 0) axios.post(POST_ACTIONS_API, { actions }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
 };
 
-export const fetchWorkflowsCount = dispatch => async () => {
+export const fetchWorkflowsCount = () => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
-  const { data } = axios.get(GET_WORKFLOWS_COUNT_API, {}, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
-  dispatch(fetchWorkflowsCountSuccess(data));
+  const { data: { rows: [{ count }] } } = await axios.get(GET_WORKFLOWS_COUNT_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  dispatch(fetchWorkflowsCountSuccess(count));
 };
