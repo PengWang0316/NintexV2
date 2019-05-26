@@ -8,6 +8,7 @@ import Amplify from 'aws-amplify';
 import { withAuthenticator } from 'aws-amplify-react';
 
 import Navbar from './Navbar';
+import MenuDrawer from './MenuDrawer';
 import {
   HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL, SIGNIN_PAGE_URL, cognitoConfig, amplifyAuthSignOption,
 } from '../config';
@@ -50,6 +51,7 @@ export default () => (
       <div>
         <CssBaseline />
         <Navbar />
+        <MenuDrawer />
         <main>
           <Switch>
             <Route exact path={HOME_PAGE_URL} component={HomePage} />
