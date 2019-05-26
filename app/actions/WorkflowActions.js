@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Auth } from 'aws-amplify';
 
 import {
-  POST_WORKFLOWS_API, POST_INSTANCES_API, POST_ACTIONS_API,
+  POST_WORKFLOWS_API, POST_ACTIONS_API,
   GET_WORKFLOWS_COUNT_API,
 } from './Urls';
 import { FETCH_WORKFLOWS_COUNT_SUCCESS } from './ActionTypes';
@@ -49,35 +49,6 @@ export const uploadWorkflows = async (text) => {
     }
   }
   if (workflows.length !== 0) axios.post(POST_WORKFLOWS_API, { workflows }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
-};
-
-export const uploadInstances = async (text) => {
-  const [dataArray, jwtToken] = await getTokenAndData(text);
-  let instances = [];
-
-  for (let i = 8, { length } = dataArray; i < length; i++) {
-    if (dataArray[i] !== '') {
-      const instance = [];
-      const tempArr = removeCommaAndQuote(dataArray[i]).split(',');
-      tempArr.forEach((item, index) => {
-        // Concat 0 and 1 for the StatusDate
-        if (index === 0) {
-          try { // prevent the date format error in the source CSV file
-            instance.push(new Date(item).toISOString());
-          } catch (err) {
-            console.warn(err);
-            console.log(dataArray[i]);
-          }
-        } else instance.push(item);
-      });
-      if (instance.length === 10) instances.push(instance);
-      if (instances.length === BATCH_SIZE) {
-        axios.post(POST_INSTANCES_API, { instances }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
-        instances = [];
-      }
-    }
-  }
-  if (instances.length !== 0) axios.post(POST_INSTANCES_API, { instances }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
 };
 
 export const uploadActions = async (text) => {
