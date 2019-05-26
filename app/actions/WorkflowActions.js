@@ -5,16 +5,16 @@ import { Auth } from 'aws-amplify';
 import {
   POST_WORKFLOWS_API, GET_WORKFLOWS_COUNT_API,
 } from './Urls';
-import { FETCH_WORKFLOWS_COUNT_SUCCESS } from './ActionTypes';
+import { FETCH_WORKFLOW_COUNT_SUCCESS } from './ActionTypes';
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
 import getTokenAndData from './libs/GetTokenAndData';
 
 // Set a batch size to send the payload parallely
 const BATCH_SIZE = 500;
 
-const fetchWorkflowsCountSuccess = workflowsCount => ({
-  type: FETCH_WORKFLOWS_COUNT_SUCCESS,
-  workflowsCount,
+const fetchWorkflowCountSuccess = workflowCount => ({
+  type: FETCH_WORKFLOW_COUNT_SUCCESS,
+  workflowCount,
 });
 
 export const uploadWorkflows = async (text) => {
@@ -50,8 +50,8 @@ export const uploadWorkflows = async (text) => {
   if (workflows.length !== 0) axios.post(POST_WORKFLOWS_API, { workflows }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
 };
 
-export const fetchWorkflowsCount = () => async (dispatch) => {
+export const fetchWorkflowCount = () => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
   const { data: { rows: [{ count }] } } = await axios.get(GET_WORKFLOWS_COUNT_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
-  dispatch(fetchWorkflowsCountSuccess(count));
+  dispatch(fetchWorkflowCountSuccess(count));
 };

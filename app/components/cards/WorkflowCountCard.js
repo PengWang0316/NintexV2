@@ -7,7 +7,7 @@ import { Stars } from '@material-ui/icons';
 import I18n from '@kevinwang0316/i18n';
 
 import DashboardNumCard from './DashboardNumCard';
-import { fetchWorkflowsCount as fetchWorkflowsCountAction } from '../../actions/WorkflowActions';
+import { fetchWorkflowCount as fetchWorkflowCountAction } from '../../actions/WorkflowActions';
 
 const styles = {
   cardIcon: {
@@ -16,22 +16,22 @@ const styles = {
   },
 };
 
-export const WorkflowCountCard = ({ classes, workflowsCount, fetchWorkflowsCount }) => {
+export const WorkflowCountCard = ({ classes, workflowCount, fetchWorkflowCount }) => {
   useEffect(() => {
-    if (!workflowsCount) fetchWorkflowsCount();
+    if (!workflowCount) fetchWorkflowCount();
   });
 
-  return <DashboardNumCard displayNum={workflowsCount} title={I18n.get('cardTitleTotalWorkflows')} icon={<Stars className={classes.cardIcon} />} />;
+  return <DashboardNumCard displayNum={workflowCount} title={I18n.get('cardTitleTotalWorkflows')} icon={<Stars className={classes.cardIcon} />} />;
 };
 
 WorkflowCountCard.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  workflowsCount: PropTypes.number,
-  fetchWorkflowsCount: PropTypes.func.isRequired,
+  workflowCount: PropTypes.number,
+  fetchWorkflowCount: PropTypes.func.isRequired,
 };
 WorkflowCountCard.defaultProps = {
-  workflowsCount: null,
+  workflowCount: null,
 };
-const mapStateToProps = state => ({ workflowsCount: state.workflowsCount });
-const mapDispatchToProps = { fetchWorkflowsCount: fetchWorkflowsCountAction };
+const mapStateToProps = state => ({ workflowCount: state.workflowCount });
+const mapDispatchToProps = { fetchWorkflowCount: fetchWorkflowCountAction };
 export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(WorkflowCountCard));
