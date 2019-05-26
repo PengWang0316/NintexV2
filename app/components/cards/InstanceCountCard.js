@@ -21,7 +21,7 @@ export const InstanceCountCard = ({ classes, instanceCount, fetchInstanceCount }
     if (!instanceCount) fetchInstanceCount();
   });
 
-  return <DashboardNumCard displayNum={instanceCount} title={I18n.get('cardTitleTotalInstances')} icon={<GroupWork className={classes.cardIcon} />} />;
+  return <DashboardNumCard displayNum={instanceCount} title={I18n.get('cardTitleWorkflowInstances')} icon={<GroupWork className={classes.cardIcon} />} />;
 };
 
 InstanceCountCard.propTypes = {
