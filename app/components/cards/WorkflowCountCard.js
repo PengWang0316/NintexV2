@@ -16,7 +16,7 @@ const styles = {
   },
 };
 
-export const WorkflowsCard = ({ classes, workflowsCount, fetchWorkflowsCount }) => {
+export const WorkflowCountCard = ({ classes, workflowsCount, fetchWorkflowsCount }) => {
   useEffect(() => {
     if (!workflowsCount) fetchWorkflowsCount();
   });
@@ -24,14 +24,14 @@ export const WorkflowsCard = ({ classes, workflowsCount, fetchWorkflowsCount }) 
   return <DashboardNumCard displayNum={workflowsCount} title={I18n.get('cardTitleTotalWorkflows')} icon={<Stars className={classes.cardIcon} />} />;
 };
 
-WorkflowsCard.propTypes = {
+WorkflowCountCard.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
   workflowsCount: PropTypes.number,
   fetchWorkflowsCount: PropTypes.func.isRequired,
 };
-WorkflowsCard.defaultProps = {
+WorkflowCountCard.defaultProps = {
   workflowsCount: null,
 };
 const mapStateToProps = state => ({ workflowsCount: state.workflowsCount });
 const mapDispatchToProps = { fetchWorkflowsCount: fetchWorkflowsCountAction };
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(WorkflowsCard));
+export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(WorkflowCountCard));
