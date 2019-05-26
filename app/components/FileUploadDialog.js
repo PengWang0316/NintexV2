@@ -10,8 +10,9 @@ import I18n from '@kevinwang0316/i18n';
 
 import UploadSnackbar from './UploadSnackbar';
 import ProgressDialog from './ProgressDialog';
-import { uploadWorkflows, uploadActions } from '../actions/WorkflowActions';
+import { uploadWorkflows } from '../actions/WorkflowActions';
 import { uploadInstances } from '../actions/InstanceActions';
+import { uploadActions } from '../actions/ActionActions';
 
 const styles = {
   uploadTitle: { marginTop: 15 },
