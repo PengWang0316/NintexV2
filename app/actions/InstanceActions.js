@@ -46,6 +46,6 @@ export const uploadInstances = async (text) => {
 
 export const fetchInstanceCount = () => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
-  const { data: { rows: [{ count }] } } = await axios.get(GET_INSTANCE_COUNT_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  const { data: { count } } = await axios.get(GET_INSTANCE_COUNT_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
   dispatch(fetchInstanceCountSuccess(count));
 };
