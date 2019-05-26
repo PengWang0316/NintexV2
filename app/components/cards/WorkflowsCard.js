@@ -7,7 +7,7 @@ import { Stars } from '@material-ui/icons';
 import I18n from '@kevinwang0316/i18n';
 
 import DashboardNumCard from './DashboardNumCard';
-import { fetchWorkflowsCount as fetchWorkflowsCountAction } from '../actions/WorkflowActions';
+import { fetchWorkflowsCount as fetchWorkflowsCountAction } from '../../actions/WorkflowActions';
 
 const styles = {
   cardIcon: {
