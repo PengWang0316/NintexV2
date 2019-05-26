@@ -22,7 +22,7 @@ const styles = {
 const NUM_FORMATE_REGEXP = /(\d)(?=(\d{3})+(?!\d))/g;
 
 export const DashboardNumCard = ({
-  classes, displayNum, title, icon,
+  classes, displayNum, title, icon, extraContent,
 }) => (
   <Card className={classes.card}>
     <CardContent>
@@ -37,6 +37,7 @@ export const DashboardNumCard = ({
         </div>
         {icon}
       </div>
+      {extraContent}
     </CardContent>
   </Card>
 );
@@ -45,6 +46,7 @@ DashboardNumCard.propTypes = {
   displayNum: PropTypes.number,
   title: PropTypes.string.isRequired,
   icon: PropTypes.objectOf(PropTypes.any).isRequired,
+  extraContent: PropTypes.element,
 };
-DashboardNumCard.defaultProps = { displayNum: null };
+DashboardNumCard.defaultProps = { displayNum: null, extraContent: null };
 export default withStyles(styles)(DashboardNumCard);
