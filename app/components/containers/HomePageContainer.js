@@ -10,6 +10,7 @@ import WorkflowLocationChart from '../WorkflowLocationChart';
 import WorkflowCountCard from '../cards/WorkflowCountCard';
 import InstanceCountCard from '../cards/InstanceCountCard';
 import PublisherCountCard from '../cards/PublisherCountCard';
+import HealthScoreCard from '../cards/HealthScoreCard';
 import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../actions/UserActions';
 
 const styles = {
@@ -31,6 +32,7 @@ const HomePage = ({ user, currentAuthenticatedUser, classes }) => {
         <WorkflowCountCard />
         <InstanceCountCard />
         <PublisherCountCard />
+        <HealthScoreCard />
       </div>
       <div className={classes.cardContainer}>
         <WorkflowRunInstanceChart />
