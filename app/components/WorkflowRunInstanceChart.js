@@ -4,6 +4,9 @@ import PropTypes from 'prop-types';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
+import {
+ lightGreen, red, pink, blue, purple 
+} from '@material-ui/core/colors';
 
 import { fetchInstanceStatusByTime as fetchInstanceStatusByTimeAction } from '../actions/InstanceActions';
 
@@ -26,13 +29,13 @@ export const WorkflowRunInstanceChart = ({ instanceStatusByTime, fetchInstanceSt
       <YAxis />
       <Tooltip />
       <Legend />
-      <Line type="monotone" dataKey="completed" stroke="#8884d8" activeDot={{ r: 8 }} />
-      <Line type="monotone" dataKey="failed" stroke="#82ca9d" />
-      <Line type="monotone" dataKey="started" stroke="#82ca9d" />
-      <Line type="monotone" dataKey="faulting" stroke="#82ca9d" />
-      <Line type="monotone" dataKey="running" stroke="#82ca9d" />
-      <Line type="monotone" dataKey="terminated" stroke="#82ca9d" />
-      <Line type="monotone" dataKey="cancelled" stroke="#82ca9d" />
+      <Line type="monotone" dataKey="completed" stroke={lightGreen[500]} dot={false} activeDot />
+      <Line type="monotone" dataKey="failed" stroke={red[500]} dot={false} activeDot />
+      <Line type="monotone" dataKey="started" stroke={lightGreen[900]} dot={false} activeDot />
+      <Line type="monotone" dataKey="faulting" stroke={pink[300]} dot={false} activeDot />
+      <Line type="monotone" dataKey="running" stroke={blue[300]} dot={false} activeDot />
+      <Line type="monotone" dataKey="terminated" stroke={purple[400]} dot={false} activeDot />
+      <Line type="monotone" dataKey="cancelled" stroke={blue[900]} dot={false} activeDot />
     </LineChart>
   );
 };
