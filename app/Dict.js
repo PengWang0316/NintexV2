@@ -21,6 +21,9 @@ const dict = {
     cardTitleWorkflowInstances: 'Workflow Instances',
     cardTitleWorkflowPublisher: 'Workflow Publisher',
     cardTitleWorkflowHealth: 'Workflow Health Score',
+    topPublisherTitle: 'Top Five Publishers',
+    toPublisherTotal: 'Total published',
+
   },
 };
 

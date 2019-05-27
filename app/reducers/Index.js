@@ -8,6 +8,7 @@ import publisherCount from './PublisherCount';
 import instanceStatus from './InstanceStatus';
 import instanceStatusByTime from './InstanceStatusByTime';
 import workflowLocationCount from './WorkflowLocationCount';
+import topPublishersCount from './TopPublishersCount';
 
 export default combineReducers({
   instanceCount,
@@ -15,6 +16,7 @@ export default combineReducers({
   instanceStatusByTime,
   publisherCount,
   user,
+  topPublishersCount,
   workflowCount,
   workflowLocationCount,
 });
