@@ -31,9 +31,7 @@ const WorkflowLocationChart = ({ fetchWorkflowLocationCount, workflowLocationCou
 };
 WorkflowLocationChart.propTypes = {
   fetchWorkflowLocationCount: PropTypes.func.isRequired,
-  workflowLocationCount: PropTypes.objectOf(
-    PropTypes.oneOfType([PropTypes.boolean, PropTypes.array]),
-  ).isRequired,
+  workflowLocationCount: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 const mapStateToProps = state => ({
   workflowLocationCount: state.workflowLocationCount,

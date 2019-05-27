@@ -40,9 +40,7 @@ export const WorkflowActionUseWordCloud = ({ actionNameCount, fetchActionNameCou
 };
 WorkflowActionUseWordCloud.propTypes = {
   fetchActionNameCount: PropTypes.func.isRequired,
-  actionNameCount: PropTypes.objectOf(PropTypes.oneOfType([
-    PropTypes.boolean, PropTypes.array,
-  ])).isRequired,
+  actionNameCount: PropTypes.objectOf(PropTypes.any).isRequired,
 };
 const mapStateToProps = state => ({
   actionNameCount: state.actionNameCount,

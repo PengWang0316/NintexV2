@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
+  LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Brush,
 } from 'recharts';
 import {
   lightGreen, red, pink, blue, purple,
@@ -29,6 +29,7 @@ export const WorkflowRunInstanceChart = ({ instanceStatusByTime, fetchInstanceSt
       <YAxis />
       <Tooltip />
       <Legend />
+      <Brush dataKey="statusDate" height={10} stroke={lightGreen[900]} />
       <Line type="monotone" dataKey="completed" stroke={lightGreen[500]} dot={false} activeDot />
       <Line type="monotone" dataKey="failed" stroke={red[500]} dot={false} activeDot />
       <Line type="monotone" dataKey="started" stroke={lightGreen[900]} dot={false} activeDot />
