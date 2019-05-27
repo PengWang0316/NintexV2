@@ -43,7 +43,7 @@ export const DashboardNumCard = ({
 );
 DashboardNumCard.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  displayNum: PropTypes.number,
+  displayNum: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
   title: PropTypes.string.isRequired,
   icon: PropTypes.objectOf(PropTypes.any).isRequired,
   extraContent: PropTypes.element,
