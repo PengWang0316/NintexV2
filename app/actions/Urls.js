@@ -7,3 +7,4 @@ export const GET_INSTANCE_COUNT_API = `${AWS_API_BASE}/instance/count`;
 export const GET_PUBLISHER_COUNT_API = `${AWS_API_BASE}/action/publisher/count`;
 export const GET_INSTANCE_STATUS_API = `${AWS_API_BASE}/instance/status`;
 export const GET_INSTANCE_STATUS_BYTIME_API = `${AWS_API_BASE}/instance/status/time`;
+export const GET_WORKFLOWS_LOCATION_COUNT_API = `${AWS_API_BASE}/workflow/location/count`;

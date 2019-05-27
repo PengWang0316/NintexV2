@@ -3,9 +3,9 @@ import axios from 'axios';
 import { Auth } from 'aws-amplify';
 
 import {
-  POST_WORKFLOWS_API, GET_WORKFLOWS_COUNT_API,
+  POST_WORKFLOWS_API, GET_WORKFLOWS_COUNT_API, GET_WORKFLOWS_LOCATION_COUNT_API,
 } from './Urls';
-import { FETCH_WORKFLOW_COUNT_SUCCESS } from './ActionTypes';
+import { FETCH_WORKFLOW_COUNT_SUCCESS, FETCH_WORKFLOW_LOCATION_COUNT_SUCCESS } from './ActionTypes';
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
 import getTokenAndData from './libs/GetTokenAndData';
 
@@ -15,6 +15,11 @@ const BATCH_SIZE = 500;
 const fetchWorkflowCountSuccess = workflowCount => ({
   type: FETCH_WORKFLOW_COUNT_SUCCESS,
   workflowCount,
+});
+
+const fetchWorkflowLocationCountSuccess = workflowLocationCount => ({
+  type: FETCH_WORKFLOW_LOCATION_COUNT_SUCCESS,
+  workflowLocationCount,
 });
 
 export const uploadWorkflows = async (text) => {
@@ -54,4 +59,10 @@ export const fetchWorkflowCount = () => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
   const { data: { count } } = await axios.get(GET_WORKFLOWS_COUNT_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
   dispatch(fetchWorkflowCountSuccess(count));
+};
+
+export const fetchWorkflowLocationCount = () => async (dispatch) => {
+  const { idToken: { jwtToken } } = await Auth.currentSession();
+  const { data } = await axios.get(GET_WORKFLOWS_LOCATION_COUNT_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  dispatch(fetchWorkflowLocationCountSuccess(data));
 };
