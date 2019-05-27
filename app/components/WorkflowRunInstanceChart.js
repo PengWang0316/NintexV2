@@ -5,7 +5,7 @@ import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 } from 'recharts';
 import {
- lightGreen, red, pink, blue, purple 
+  lightGreen, red, pink, blue, purple,
 } from '@material-ui/core/colors';
 
 import { fetchInstanceStatusByTime as fetchInstanceStatusByTimeAction } from '../actions/InstanceActions';
