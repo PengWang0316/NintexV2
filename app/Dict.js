@@ -23,7 +23,7 @@ const dict = {
     cardTitleWorkflowHealth: 'Workflow Health Score',
     topPublisherTitle: 'Top Five Publishers',
     toPublisherTotal: 'Total published',
-
+    workflowUseChartTitle: 'Workflow Assigned Use',
   },
 };
 
