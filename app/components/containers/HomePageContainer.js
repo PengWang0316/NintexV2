@@ -11,7 +11,8 @@ import WorkflowCountCard from '../cards/WorkflowCountCard';
 import InstanceCountCard from '../cards/InstanceCountCard';
 import PublisherCountCard from '../cards/PublisherCountCard';
 import HealthScoreCard from '../cards/HealthScoreCard';
-import TopPublisherList from '../TopPublishersList';
+import TopPublishersList from '../TopPublishersList';
+import WorkflowUseChart from '../WorkflowUseChart';
 import WorkflowActionUseWordCloud from '../WorkflowActionUseWordCloud';
 import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../actions/UserActions';
 
@@ -41,7 +42,8 @@ const HomePage = ({ user, currentAuthenticatedUser, classes }) => {
         <WorkflowLocationChart />
       </div>
       <div className={classes.cardContainer}>
-        <TopPublisherList />
+        <TopPublishersList />
+        <WorkflowUseChart />
         <WorkflowActionUseWordCloud />
       </div>
     </Fragment>

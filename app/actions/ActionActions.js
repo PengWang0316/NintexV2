@@ -3,10 +3,13 @@ import axios from 'axios';
 import { Auth } from 'aws-amplify';
 
 import {
-  POST_ACTIONS_API, GET_PUBLISHER_COUNT_API,
+  POST_ACTIONS_API, GET_PUBLISHER_COUNT_API, GET_WORKFLOW_USE_COUNT_API,
   GET_TOP_PUBLISHERS_COUNT_API, GET_ACTION_NAME_COUNT_API,
 } from './Urls';
-import { FETCH_PUBLISHER_COUNT_SUCCESS, FETCH_TOP_PUBLISHERS_COUNT_SUCCESS, FETCH_ACTION_NAME_COUNT_SUCCESS } from './ActionTypes';
+import {
+  FETCH_PUBLISHER_COUNT_SUCCESS, FETCH_TOP_PUBLISHERS_COUNT_SUCCESS,
+  FETCH_ACTION_NAME_COUNT_SUCCESS, FETCH_WORKFLOW_USE_COUNT_SUCCESS,
+} from './ActionTypes';
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
 import getTokenAndData from './libs/GetTokenAndData';
 
@@ -26,6 +29,11 @@ const fetchTopPublishersCountSuccess = topPublishersCount => ({
 const fetchActionNameCountSuccess = actionNameCount => ({
   type: FETCH_ACTION_NAME_COUNT_SUCCESS,
   actionNameCount,
+});
+
+const fetchWorkflowUseCountSuccess = workflowUseCount => ({
+  type: FETCH_WORKFLOW_USE_COUNT_SUCCESS,
+  workflowUseCount,
 });
 
 export const uploadActions = async (text) => {
@@ -71,4 +79,10 @@ export const fetchActionNameCount = () => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
   const { data } = await axios.get(GET_ACTION_NAME_COUNT_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
   dispatch(fetchActionNameCountSuccess(data));
+};
+
+export const fetchWorkflowUseCount = () => async (dispatch) => {
+  const { idToken: { jwtToken } } = await Auth.currentSession();
+  const { data } = await axios.get(GET_WORKFLOW_USE_COUNT_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  dispatch(fetchWorkflowUseCountSuccess(data));
 };
