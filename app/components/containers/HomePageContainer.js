@@ -1,6 +1,6 @@
 import React, { useEffect, Fragment } from 'react';
 import { connect } from 'react-redux';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { withAuthenticator } from 'aws-amplify-react';
 
@@ -16,26 +16,38 @@ import WorkflowUseChart from '../WorkflowUseChart';
 import WorkflowActionUseWordCloud from '../WorkflowActionUseWordCloud';
 import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../actions/UserActions';
 
-const styles = {
+const useStyles = makeStyles({
   cardContainer: {
     display: 'flex',
     justifyContent: 'center',
-    marginTop: 20,
+    margin: '20px 0 30px 0',
+    flexWrap: 'wrap',
+    '& > div': {
+      marginBottom: 10,
+    },
   },
-};
+  rootDiv: {
+    paddingLeft: 50,
+  },
+});
 
-const HomePage = ({ user, currentAuthenticatedUser, classes }) => {
+const HomePage = ({ user, currentAuthenticatedUser }) => {
   useEffect(() => {
     if (!user) currentAuthenticatedUser();
   });
+  const classes = useStyles();
 
   return (
-    <Fragment>
+    <div className={classes.rootDiv}>
       <div className={classes.cardContainer}>
-        <WorkflowCountCard />
-        <InstanceCountCard />
-        <PublisherCountCard />
-        <HealthScoreCard />
+        <div className={classes.cardContainer}>
+          <WorkflowCountCard />
+          <InstanceCountCard />
+        </div>
+        <div className={classes.cardContainer}>
+          <PublisherCountCard />
+          <HealthScoreCard />
+        </div>
       </div>
       <div className={classes.cardContainer}>
         <WorkflowRunInstanceChart />
@@ -46,13 +58,12 @@ const HomePage = ({ user, currentAuthenticatedUser, classes }) => {
         <WorkflowUseChart />
         <WorkflowActionUseWordCloud />
       </div>
-    </Fragment>
+    </div>
 
   );
 };
 
 HomePage.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
   user: PropTypes.objectOf(PropTypes.any),
   currentAuthenticatedUser: PropTypes.func.isRequired,
 };
@@ -65,6 +76,6 @@ const mapDispatchToProps = dispatch => ({
   currentAuthenticatedUser: user => dispatch(currentAuthenticatedUserAction(user)),
 });
 export default withAuthenticator(
-  withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(HomePage)),
+  connect(mapStateToProps, mapDispatchToProps)(HomePage),
   amplifyAuthSignOption,
 );
