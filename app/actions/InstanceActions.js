@@ -2,8 +2,11 @@
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
 
-import { POST_INSTANCES_API, GET_INSTANCE_COUNT_API, GET_INSTANCE_STATUS_API } from './Urls';
-import { FETCH_INSTANCE_COUNT_SUCCESS, FETCH_INSTANCE_STATUS_SUCCESS } from './ActionTypes';
+import {
+  POST_INSTANCES_API, GET_INSTANCE_COUNT_API, GET_INSTANCE_STATUS_API,
+  GET_INSTANCE_STATUS_BYTIME_API,
+} from './Urls';
+import { FETCH_INSTANCE_COUNT_SUCCESS, FETCH_INSTANCE_STATUS_SUCCESS, FETCH_INSTANCE_STATUS_BYTIME_SUCCESS } from './ActionTypes';
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
 import getTokenAndData from './libs/GetTokenAndData';
 
@@ -17,6 +20,11 @@ const fetchInstanceCountSuccess = instanceCount => ({
 
 const fetchInstanceStatusSuccess = instanceStatus => ({
   type: FETCH_INSTANCE_STATUS_SUCCESS,
+  instanceStatus,
+});
+
+const fetchInstanceStatusByTimeSuccess = instanceStatus => ({
+  type: FETCH_INSTANCE_STATUS_BYTIME_SUCCESS,
   instanceStatus,
 });
 
@@ -59,4 +67,10 @@ export const fetchInstanceStatus = () => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
   const { data } = await axios.get(GET_INSTANCE_STATUS_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
   dispatch(fetchInstanceStatusSuccess(data));
+};
+
+export const fetchInstanceStatusByTime = () => async (dispatch) => {
+  const { idToken: { jwtToken } } = await Auth.currentSession();
+  const { data } = await axios.get(GET_INSTANCE_STATUS_BYTIME_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  dispatch(fetchInstanceStatusByTimeSuccess(data));
 };
