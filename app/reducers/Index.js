@@ -9,8 +9,10 @@ import instanceStatus from './InstanceStatus';
 import instanceStatusByTime from './InstanceStatusByTime';
 import workflowLocationCount from './WorkflowLocationCount';
 import topPublishersCount from './TopPublishersCount';
+import actionNameCount from './ActionNameCount';
 
 export default combineReducers({
+  actionNameCount,
   instanceCount,
   instanceStatus,
   instanceStatusByTime,

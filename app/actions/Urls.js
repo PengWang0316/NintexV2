@@ -9,3 +9,4 @@ export const GET_INSTANCE_STATUS_API = `${AWS_API_BASE}/instance/status`;
 export const GET_INSTANCE_STATUS_BYTIME_API = `${AWS_API_BASE}/instance/status/time`;
 export const GET_WORKFLOWS_LOCATION_COUNT_API = `${AWS_API_BASE}/workflow/location/count`;
 export const GET_TOP_PUBLISHERS_COUNT_API = `${AWS_API_BASE}/action/topPublishers/count`;
+export const GET_ACTION_NAME_COUNT_API = `${AWS_API_BASE}/action/name/count`;

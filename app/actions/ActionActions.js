@@ -2,7 +2,10 @@
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
 
-import { POST_ACTIONS_API, GET_PUBLISHER_COUNT_API, GET_TOP_PUBLISHERS_COUNT_API } from './Urls';
+import {
+  POST_ACTIONS_API, GET_PUBLISHER_COUNT_API,
+  GET_TOP_PUBLISHERS_COUNT_API, GET_ACTION_NAME_COUNT_API,
+} from './Urls';
 import { FETCH_PUBLISHER_COUNT_SUCCESS, FETCH_TOP_PUBLISHERS_COUNT_SUCCESS, FETCH_ACTION_NAME_COUNT_SUCCESS } from './ActionTypes';
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
 import getTokenAndData from './libs/GetTokenAndData';
@@ -62,4 +65,10 @@ export const fetchTopPublishersCount = () => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
   const { data } = await axios.get(GET_TOP_PUBLISHERS_COUNT_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
   dispatch(fetchTopPublishersCountSuccess(data));
+};
+
+export const fetchActionNameCount = () => async (dispatch) => {
+  const { idToken: { jwtToken } } = await Auth.currentSession();
+  const { data } = await axios.get(GET_ACTION_NAME_COUNT_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  dispatch(fetchActionNameCountSuccess(data));
 };
