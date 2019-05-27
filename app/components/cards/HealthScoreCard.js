@@ -42,7 +42,7 @@ export const HealthScoreCard = ({ classes, instanceStatus, fetchInstanceStatus }
 
 HealthScoreCard.propTypes = {
   classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  instanceStatus: PropTypes.objectOf(PropTypes.string),
+  instanceStatus: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
   fetchInstanceStatus: PropTypes.func.isRequired,
 };
 HealthScoreCard.defaultProps = {
