@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
-  Pie, PieChart, Cell, Legend, Tooltip,
+  Pie, PieChart, Cell, Legend, Tooltip, ResponsiveContainer,
 } from 'recharts';
 // import I18n from '@kevinwang0316/i18n';
 
@@ -37,25 +37,24 @@ export const WorkflowUseChart = ({ fetchWorkflowUseCount, workflowUseCount }) =>
     if (!workflowUseCount.isFetched) fetchWorkflowUseCount();
   });
   return (
-    <PieChart width={390} height={370}>
-      <Legend dataKey="actionUse" />
-      <Tooltip />
-      <Pie
-        data={workflowUseCount.data}
-        cx={200}
-        cy={200}
-        labelLine={false}
-        label={renderCustomizedLabel}
-        outerRadius={120}
-        fill="#8884d8"
-        nameKey="actionUse"
-        dataKey="useCount"
-      >
-        {
+    <ResponsiveContainer width="100%" height={370}>
+      <PieChart>
+        <Legend dataKey="actionUse" />
+        <Tooltip />
+        <Pie
+          data={workflowUseCount.data}
+          labelLine={false}
+          label={renderCustomizedLabel}
+          fill="#8884d8"
+          nameKey="actionUse"
+          dataKey="useCount"
+        >
+          {
             workflowUseCount.data.map((entry, index) => <Cell key={`cell-${entry.actionUse}`} fill={COLORS[index % COLORS.length]} />)
           }
-      </Pie>
-    </PieChart>
+        </Pie>
+      </PieChart>
+    </ResponsiveContainer>
   );
 };
 WorkflowUseChart.propTypes = {

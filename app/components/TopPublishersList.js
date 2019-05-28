@@ -11,8 +11,7 @@ import { fetchTopPublishersCount as fetchTopPublishersCountAction } from '../act
 
 const useStyles = makeStyles(theme => ({
   root: {
-    width: '100%',
-    maxWidth: 360,
+    width: '90%',
     backgroundColor: theme.palette.background.paper,
   },
   inline: {

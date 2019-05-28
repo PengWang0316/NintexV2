@@ -8,7 +8,8 @@ import { fetchActionNameCount as fetchActionNameCountAction } from '../actions/A
 
 const useStyles = makeStyles(() => ({
   rootDiv: {
-    width: 600,
+    width: '100%',
+    // maxWidth: 360,
     height: 400,
   },
 }));

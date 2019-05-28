@@ -54,11 +54,11 @@ const HomePage = ({ user, currentAuthenticatedUser }) => {
         <Grid item md={6} sm={12} xs={12}><WorkflowRunInstanceChart /></Grid>
         <Grid item md={6} sm={12} xs={12}><WorkflowLocationChart /></Grid>
       </Grid>
-      <div className={classes.cardContainer}>
-        <TopPublishersList />
-        <WorkflowUseChart />
-        <WorkflowActionUseWordCloud />
-      </div>
+      <Grid container alignContent="center" style={{ paddingLeft: 20 }}>
+        <Grid item lg={4} md={5} sm={6} xs={12}><TopPublishersList /></Grid>
+        <Grid item lg={4} md={7} sm={6} xs={12}><WorkflowUseChart /></Grid>
+        <Grid item lg={4} md={12} sm={12} xs={12}><WorkflowActionUseWordCloud /></Grid>
+      </Grid>
     </div>
 
   );
