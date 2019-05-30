@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Auth } from 'aws-amplify';
 
 import {
-  POST_WORKFLOWS_API, GET_WORKFLOWS_COUNT_API,
+  POST_WORKFLOWS_API, GET_WORKFLOWS_COUNT_API, REMOVE_TAG_FROM_WORKFLOW_API,
   GET_WORKFLOWS_LOCATION_COUNT_API, GET_WORKFLOWS_BY_USER_API,
 } from './Urls';
 import {
@@ -91,6 +91,6 @@ export const fetchWorkflowsByUser = () => async (dispatch) => {
 export const removeTagFromWorkflow = (workflowId, tagIds) => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
   // In the future, we may consider to wait the backend result and handle the potential failures.
-  // axios.put(REMOVE_TAG_FROM_WORKFLOW_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  axios.put(REMOVE_TAG_FROM_WORKFLOW_API, { tags: tagIds }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
   dispatch(removeTagFromWorkflowSuccess(workflowId, tagIds));
 };
