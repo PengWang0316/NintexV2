@@ -1,3 +1,4 @@
+/* eslint-disable react/destructuring-assignment */
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
@@ -12,9 +13,10 @@ import orange from '@material-ui/core/colors/orange';
 import I18n from '@kevinwang0316/i18n';
 
 import {
-  HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL, SIGNIN_PAGE_URL,
+  HOME_PAGE_URL, SIGNIN_PAGE_URL,
 } from '../config';
 import * as UserActions from '../actions/UserActions';
+import { fetchTags as fetchTagsAction } from '../actions/TagActions';
 
 /* istanbul ignore next */
 const styles = theme => ({
@@ -48,12 +50,14 @@ export class Navbar extends Component {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     history: PropTypes.objectOf(PropTypes.any).isRequired,
-    user: PropTypes.object,
+    user: PropTypes.objectOf(PropTypes.string),
     logout: PropTypes.func.isRequired,
     currentAuthenticatedUser: PropTypes.func.isRequired,
+    fetchTags: PropTypes.func.isRequired,
+    tags: PropTypes.objectOf(PropTypes.array),
   };
 
-  static defaultProps = { user: null };
+  static defaultProps = { user: null, tags: null };
 
   state = { anchorEl: null };
 
@@ -61,8 +65,8 @@ export class Navbar extends Component {
    * Get the authentication user information.
    */
   componentDidMount() {
-    // eslint-disable-next-line react/destructuring-assignment
     this.props.currentAuthenticatedUser();
+    if (!this.props.tags) this.props.fetchTags();
   }
 
   /**
@@ -162,11 +166,12 @@ export class Navbar extends Component {
 }
 
 /* istanbul ignore next */
-const mapStateToProps = state => ({ user: state.user });
+const mapStateToProps = state => ({ user: state.user, tags: state.tags });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   currentAuthenticatedUser: () => dispatch(UserActions.currentAuthenticatedUser()),
   logout: () => dispatch(UserActions.logout()),
+  fetchTags: () => dispatch(fetchTagsAction()),
 });
 
 /* Putting the withRouter to the first position because when test code mocks Link
