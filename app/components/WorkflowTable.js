@@ -16,11 +16,14 @@ const columns = [
     field: 'publishDate',
     align: 'left',
     sorter: 'date',
-    // formatter: 'date',
-    // sorterParams: {
-    //   format: 'YYYY-MM-DD',
-    //   alignEmptyValues: 'top',
-    // },
+    formatter: 'datetime',
+    formatterParams: {
+      outputFormat: 'YYYY-MM-DD',
+    },
+    sorterParams: {
+      format: 'YYYY-MM-DD',
+      alignEmptyValues: 'top',
+    },
   },
   {
     title: I18n.get('tbTitleName'), field: 'publisher', align: 'left', sorter: 'string',
@@ -45,7 +48,7 @@ const columns = [
 
 const tableOptions = {
   pagination: 'local',
-  paginationSize: 20,
+  paginationSize: 15,
   height: '100%',
 };
 
