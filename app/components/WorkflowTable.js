@@ -60,7 +60,7 @@ const tableOptions = {
   pagination: 'local',
   paginationSize: 15,
   height: '100%',
-  resizableRows: true,
+  // resizableRows: true,
 };
 
 export const WorkflowTable = ({
