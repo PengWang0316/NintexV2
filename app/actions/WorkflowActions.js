@@ -6,7 +6,10 @@ import {
   POST_WORKFLOWS_API, GET_WORKFLOWS_COUNT_API,
   GET_WORKFLOWS_LOCATION_COUNT_API, GET_WORKFLOWS_BY_USER_API,
 } from './Urls';
-import { FETCH_WORKFLOW_COUNT_SUCCESS, FETCH_WORKFLOW_LOCATION_COUNT_SUCCESS, FETCH_WORKFLOWS_BY_USER_SUCCESS } from './ActionTypes';
+import {
+  FETCH_WORKFLOW_COUNT_SUCCESS, FETCH_WORKFLOW_LOCATION_COUNT_SUCCESS,
+  FETCH_WORKFLOWS_BY_USER_SUCCESS, REMOVE_TAG_FROM_WORKFLOW_SUCCESS,
+} from './ActionTypes';
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
 import getTokenAndData from './libs/GetTokenAndData';
 
@@ -26,6 +29,12 @@ const fetchWorkflowLocationCountSuccess = workflowLocationCount => ({
 const fetchWorkflowsByUserSuccess = workflows => ({
   type: FETCH_WORKFLOWS_BY_USER_SUCCESS,
   workflows,
+});
+
+const removeTagFromWorkflowSuccess = (workflowId, tagId) => ({
+  type: REMOVE_TAG_FROM_WORKFLOW_SUCCESS,
+  workflowId,
+  tagId,
 });
 
 export const uploadWorkflows = async (text) => {
@@ -77,4 +86,10 @@ export const fetchWorkflowsByUser = () => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
   const { data } = await axios.get(GET_WORKFLOWS_BY_USER_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
   dispatch(fetchWorkflowsByUserSuccess(data));
+};
+
+export const removeTagFromWorkflow = (workflowId, tagId) => async (dispatch) => {
+  const { idToken: { jwtToken } } = await Auth.currentSession();
+  // const { data } = await axios.get(GET_WORKFLOWS_BY_USER_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  dispatch(removeTagFromWorkflowSuccess(workflowId, tagId));
 };
