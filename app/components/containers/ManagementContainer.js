@@ -1,18 +1,32 @@
 import React, { useEffect } from 'react';
 import { withAuthenticator } from 'aws-amplify-react';
-import { Typography } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
-import I18n from '@kevinwang0316/i18n';
 
 import { amplifyAuthSignOption } from '../../config';
 import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../actions/UserActions';
+import WorkflowTable from '../WorkflowTable';
+
+const useStyles = makeStyles({
+  rootDiv: {
+    width: '95%',
+    display: 'flex',
+    justifyContent: 'center',
+    padding: '30px 0 0 85px',
+  },
+});
 
 const ManagementContainer = ({ user, currentAuthenticatedUser }) => {
+  const classes = useStyles();
   useEffect(() => {
     if (!user) currentAuthenticatedUser();
   });
-  return <Typography color="textPrimary" variant="h6">{I18n.get('testPageContent')}</Typography>;
+  return (
+    <div className={classes.rootDiv}>
+      <WorkflowTable />
+    </div>
+  );
 };
 
 ManagementContainer.propTypes = {

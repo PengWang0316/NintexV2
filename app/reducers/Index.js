@@ -11,6 +11,7 @@ import workflowLocationCount from './WorkflowLocationCount';
 import topPublishersCount from './TopPublishersCount';
 import actionNameCount from './ActionNameCount';
 import workflowUseCount from './WorkflowUseCount';
+import workflows from './Workflows';
 
 export default combineReducers({
   actionNameCount,
@@ -23,4 +24,5 @@ export default combineReducers({
   workflowCount,
   workflowLocationCount,
   workflowUseCount,
+  workflows,
 });
