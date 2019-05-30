@@ -10,3 +10,4 @@ export const FETCH_TOP_PUBLISHERS_COUNT_SUCCESS = 'fetchTopPublisherCountSuccess
 export const FETCH_ACTION_NAME_COUNT_SUCCESS = 'fetchActionNameCountSuccess';
 export const FETCH_WORKFLOW_USE_COUNT_SUCCESS = 'fetchWorkflowUseCountSuccess';
 export const FETCH_WORKFLOWS_BY_USER_SUCCESS = 'fetchWorkflowsByUserSuccess';
+export const FETCH_TAGS_SUCCESS = 'fetchTagsSuccess';

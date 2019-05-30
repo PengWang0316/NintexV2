@@ -12,3 +12,4 @@ export const GET_TOP_PUBLISHERS_COUNT_API = `${AWS_API_BASE}/action/topPublisher
 export const GET_ACTION_NAME_COUNT_API = `${AWS_API_BASE}/action/name/count`;
 export const GET_WORKFLOW_USE_COUNT_API = `${AWS_API_BASE}/action/use/count`;
 export const GET_WORKFLOWS_BY_USER_API = `${AWS_API_BASE}/workflow/byUser`;
+export const GET_TAGS_API = `${AWS_API_BASE}/tag`;
