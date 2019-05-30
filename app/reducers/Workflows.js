@@ -2,7 +2,7 @@ import { FETCH_WORKFLOWS_BY_USER_SUCCESS, REMOVE_TAG_FROM_WORKFLOW_SUCCESS } fro
 
 const workflows = (
   state = { isFetched: false, data: {} }, {
-    type, workflows: workflowsByUser, workflowId, tagId,
+    type, workflows: workflowsByUser, workflowId, tagIds,
   },
 ) => {
   switch (type) {
@@ -14,8 +14,8 @@ const workflows = (
       return { isFetched: true, data: workflowsObj };
     }
     case REMOVE_TAG_FROM_WORKFLOW_SUCCESS: {
-      const workflowsObj = { isFetched: true, data: { ...state.data } };
-      workflowsObj.data[workflowId].tags = workflowsObj.data[workflowId].tags.split(',').filter(item => item !== tagId).join(',');
+      const workflowsObj = { ...state };
+      workflowsObj.data[workflowId].tags = tagIds;
       return workflowsObj;
     }
     default:

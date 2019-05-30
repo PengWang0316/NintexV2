@@ -31,10 +31,10 @@ const fetchWorkflowsByUserSuccess = workflows => ({
   workflows,
 });
 
-const removeTagFromWorkflowSuccess = (workflowId, tagId) => ({
+const removeTagFromWorkflowSuccess = (workflowId, tagIds) => ({
   type: REMOVE_TAG_FROM_WORKFLOW_SUCCESS,
   workflowId,
-  tagId,
+  tagIds,
 });
 
 export const uploadWorkflows = async (text) => {
@@ -88,8 +88,9 @@ export const fetchWorkflowsByUser = () => async (dispatch) => {
   dispatch(fetchWorkflowsByUserSuccess(data));
 };
 
-export const removeTagFromWorkflow = (workflowId, tagId) => async (dispatch) => {
+export const removeTagFromWorkflow = (workflowId, tagIds) => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
-  // const { data } = await axios.get(GET_WORKFLOWS_BY_USER_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
-  dispatch(removeTagFromWorkflowSuccess(workflowId, tagId));
+  // In the future, we may consider to wait the backend result and handle the potential failures.
+  // axios.put(REMOVE_TAG_FROM_WORKFLOW_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  dispatch(removeTagFromWorkflowSuccess(workflowId, tagIds));
 };
