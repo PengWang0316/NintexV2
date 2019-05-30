@@ -24,6 +24,11 @@ const dict = {
     topPublisherTitle: 'Top Five Publishers',
     toPublisherTotal: 'Total published',
     workflowUseChartTitle: 'Workflow Assigned Use',
+    tbTitleName: 'Workflow Name',
+    tbTitlePublishDate: 'Publish Date',
+    tbTitleAuthorName: 'Author Name',
+    tbTitleTag: 'Tags',
+    tbTitleAction: 'Actions',
   },
 };
 
