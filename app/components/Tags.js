@@ -1,4 +1,4 @@
-import React, { Fragment } from 'react';
+import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { Chip } from '@material-ui/core';
 
@@ -16,8 +16,11 @@ export const Tags = ({ cell, tags, handleRemoveTag }) => {
     handleRemoveTag(workflowId, newTags.length === 0 ? null : newTags.join(','));
   };
 
+  // Update the row height after the tags data was loaded.
+  useEffect(() => cell.getRow().normalizeHeight());
+
   return (
-    <Fragment>
+    <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {(tagIds && tags) && tagIds.map(tag => (
         <Chip
           label={`${tags[tag][0]}`}
@@ -25,10 +28,10 @@ export const Tags = ({ cell, tags, handleRemoveTag }) => {
           name={`${tag}`}
           clickable
           onDelete={handleDelete}
-          style={{ backgroundColor: `#${tags[tag][1]}`, marginRight: 10, color: 'white' }}
+          style={{ backgroundColor: `#${tags[tag][1]}`, margin: '0 10px 5px 0', color: 'white' }}
         />
       ))}
-    </Fragment>
+    </div>
   );
 };
 Tags.propTypes = {

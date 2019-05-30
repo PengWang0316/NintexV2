@@ -38,6 +38,7 @@ const columns = [
     field: 'tags',
     align: 'left',
     headerSort: false,
+    variableHeight: true,
     // formatter: reactFormatter(<Tags tags={tags} />),
   },
   {
@@ -59,6 +60,7 @@ const tableOptions = {
   pagination: 'local',
   paginationSize: 15,
   height: '100%',
+  resizableRows: true,
 };
 
 export const WorkflowTable = ({
