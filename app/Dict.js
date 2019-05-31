@@ -29,6 +29,8 @@ const dict = {
     tbTitleAuthorName: 'Author Name',
     tbTitleTag: 'Tags',
     tbTitleAction: 'Actions',
+    addTagDialogTitle: 'Add A Tag',
+    addTagDialogContent: 'Please select one tag you want to add',
   },
 };
 

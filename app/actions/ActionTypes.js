@@ -12,4 +12,4 @@ export const FETCH_WORKFLOW_USE_COUNT_SUCCESS = 'fetchWorkflowUseCountSuccess';
 export const FETCH_WORKFLOWS_BY_USER_SUCCESS = 'fetchWorkflowsByUserSuccess';
 export const FETCH_TAGS_SUCCESS = 'fetchTagsSuccess';
 export const REMOVE_TAG_SUCCESS = 'removeTagSuccess';
-export const REMOVE_TAG_FROM_WORKFLOW_SUCCESS = 'removeTagFromWorkflowSuccess';
+export const UPDATE_TAG_FROM_WORKFLOW_SUCCESS = 'updateTagFromWorkflowSuccess';

@@ -3,12 +3,12 @@ import axios from 'axios';
 import { Auth } from 'aws-amplify';
 
 import {
-  POST_WORKFLOWS_API, GET_WORKFLOWS_COUNT_API, REMOVE_TAG_FROM_WORKFLOW_API,
+  POST_WORKFLOWS_API, GET_WORKFLOWS_COUNT_API, UPDATE_TAG_FROM_WORKFLOW_API,
   GET_WORKFLOWS_LOCATION_COUNT_API, GET_WORKFLOWS_BY_USER_API,
 } from './Urls';
 import {
   FETCH_WORKFLOW_COUNT_SUCCESS, FETCH_WORKFLOW_LOCATION_COUNT_SUCCESS,
-  FETCH_WORKFLOWS_BY_USER_SUCCESS, REMOVE_TAG_FROM_WORKFLOW_SUCCESS,
+  FETCH_WORKFLOWS_BY_USER_SUCCESS, UPDATE_TAG_FROM_WORKFLOW_SUCCESS,
 } from './ActionTypes';
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
 import getTokenAndData from './libs/GetTokenAndData';
@@ -31,8 +31,8 @@ const fetchWorkflowsByUserSuccess = workflows => ({
   workflows,
 });
 
-const removeTagFromWorkflowSuccess = (workflowId, tagIds) => ({
-  type: REMOVE_TAG_FROM_WORKFLOW_SUCCESS,
+const updateTagFromWorkflowSuccess = (workflowId, tagIds) => ({
+  type: UPDATE_TAG_FROM_WORKFLOW_SUCCESS,
   workflowId,
   tagIds,
 });
@@ -88,9 +88,9 @@ export const fetchWorkflowsByUser = () => async (dispatch) => {
   dispatch(fetchWorkflowsByUserSuccess(data));
 };
 
-export const removeTagFromWorkflow = (workflowId, tagIds) => async (dispatch) => {
+export const updateTagFromWorkflow = (workflowId, tagIds) => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
   // In the future, we may consider to wait the backend result and handle the potential failures.
-  axios.put(REMOVE_TAG_FROM_WORKFLOW_API, { tags: tagIds, id: workflowId }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
-  dispatch(removeTagFromWorkflowSuccess(workflowId, tagIds));
+  axios.put(UPDATE_TAG_FROM_WORKFLOW_API, { tags: tagIds, id: workflowId }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  dispatch(updateTagFromWorkflowSuccess(workflowId, tagIds));
 };
