@@ -5,11 +5,15 @@ import { Link } from 'react-router-dom';
 import {
   Drawer, List, Divider, ListItem, ListItemIcon, ListItemText, Tooltip,
 } from '@material-ui/core';
-import { Dashboard as DashBoardIcon, CloudUpload as UploadFileIcon, List as WorkflowManagerIcon } from '@material-ui/icons';
+import {
+  Dashboard as DashBoardIcon, CloudUpload as UploadFileIcon,
+  List as WorkflowManagerIcon, Queue as AddTagIcon,
+} from '@material-ui/icons';
 import I18n from '@kevinwang0316/i18n';
 import { indigo, blue, amber } from '@material-ui/core/colors';
 
 import FileUploadDialog from './FileUploadDialog';
+import AddTagDialog from './AddTagDialog';
 import { HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL } from '../config';
 
 const styles = theme => ({
@@ -36,12 +40,17 @@ const styles = theme => ({
   fileUploadIcon: {
     color: amber[300],
   },
+  addTagIcon: {
+    color: amber[900],
+  },
 });
 
 const MenuDrawer = ({ classes }) => {
   const [isOpenFileUpload, setIsOpenFileUpload] = useState(false);
+  const [isOpenAddTag, setIsOpenAddTag] = useState(false);
 
   const handleUploadFileBtn = () => setIsOpenFileUpload(state => !state);
+  const handleAddTagBtn = () => setIsOpenAddTag(state => !state);
 
   return (
     <Fragment>
@@ -72,9 +81,13 @@ const MenuDrawer = ({ classes }) => {
               </ListItem>
             </Tooltip>
           </Link>
-        </List>
-        <Divider />
-        <List>
+          <Divider />
+          <Tooltip title={I18n.get('createTag')} placement="right-end">
+            <ListItem button onClick={handleAddTagBtn}>
+              <ListItemIcon><AddTagIcon className={classes.addTagIcon} /></ListItemIcon>
+              <ListItemText primary={I18n.get('createTag')} />
+            </ListItem>
+          </Tooltip>
           <Tooltip title={I18n.get('uploadFile')} placement="right-end">
             <ListItem button onClick={handleUploadFileBtn}>
               <ListItemIcon><UploadFileIcon className={classes.fileUploadIcon} /></ListItemIcon>
@@ -84,6 +97,7 @@ const MenuDrawer = ({ classes }) => {
         </List>
       </Drawer>
       <FileUploadDialog open={isOpenFileUpload} handleClose={handleUploadFileBtn} />
+      <AddTagDialog open={isOpenAddTag} handleClose={handleAddTagBtn} />
     </Fragment>
   );
 };

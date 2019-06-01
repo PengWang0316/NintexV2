@@ -4,6 +4,7 @@ const dict = {
     logout: 'logout',
     dashboard: 'Dashboard',
     workflowManager: 'Workflow Manager',
+    createTag: 'New tag',
     uploadFile: 'Upload Files',
     appName: 'Workflow Manager',
     close: 'Close',
@@ -30,7 +31,11 @@ const dict = {
     tbTitleTag: 'Tags',
     tbTitleAction: 'Actions',
     addTagDialogTitle: 'Add A Tag',
-    addTagDialogContent: 'Please select one tag you want to add',
+    attachTagDialogContent: 'Please select one tag you want to add',
+    addTagDialogContent: 'Create a new tag by type the content and select a background color',
+    addTagDialogExist: 'Existed Tags list:',
+    tagContentTitle: 'Tag Text',
+    add: 'Add',
   },
 };
 
