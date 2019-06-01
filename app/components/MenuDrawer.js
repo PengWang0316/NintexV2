@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import {
-  Drawer, List, Divider, ListItem, ListItemIcon, ListItemText,
+  Drawer, List, Divider, ListItem, ListItemIcon, ListItemText, Tooltip,
 } from '@material-ui/core';
 import { Dashboard as DashBoardIcon, CloudUpload as UploadFileIcon, List as WorkflowManagerIcon } from '@material-ui/icons';
 import I18n from '@kevinwang0316/i18n';
@@ -55,26 +55,32 @@ const MenuDrawer = ({ classes }) => {
       >
         <List className={classes.list}>
           <Link to={HOME_PAGE_URL}>
-            <ListItem button>
-              <ListItemIcon><DashBoardIcon className={classes.dashboardIcon} /></ListItemIcon>
-              <ListItemText primary={I18n.get('dashboard')} />
-            </ListItem>
+            <Tooltip title={I18n.get('dashboard')} placement="right-end">
+              <ListItem button>
+                <ListItemIcon><DashBoardIcon className={classes.dashboardIcon} /></ListItemIcon>
+                <ListItemText primary={I18n.get('dashboard')} />
+              </ListItem>
+            </Tooltip>
           </Link>
           <Link to={WORKFLOW_MANAGER_PAGE_URL}>
-            <ListItem button>
-              <ListItemIcon>
-                <WorkflowManagerIcon className={classes.workflowManagerIcon} />
-              </ListItemIcon>
-              <ListItemText primary={I18n.get('workflowManager')} />
-            </ListItem>
+            <Tooltip title={I18n.get('workflowManager')} placement="right-end">
+              <ListItem button>
+                <ListItemIcon>
+                  <WorkflowManagerIcon className={classes.workflowManagerIcon} />
+                </ListItemIcon>
+                <ListItemText primary={I18n.get('workflowManager')} />
+              </ListItem>
+            </Tooltip>
           </Link>
         </List>
         <Divider />
         <List>
-          <ListItem button onClick={handleUploadFileBtn}>
-            <ListItemIcon><UploadFileIcon className={classes.fileUploadIcon} /></ListItemIcon>
-            <ListItemText primary={I18n.get('uploadFile')} />
-          </ListItem>
+          <Tooltip title={I18n.get('uploadFile')} placement="right-end">
+            <ListItem button onClick={handleUploadFileBtn}>
+              <ListItemIcon><UploadFileIcon className={classes.fileUploadIcon} /></ListItemIcon>
+              <ListItemText primary={I18n.get('uploadFile')} />
+            </ListItem>
+          </Tooltip>
         </List>
       </Drawer>
       <FileUploadDialog open={isOpenFileUpload} handleClose={handleUploadFileBtn} />
