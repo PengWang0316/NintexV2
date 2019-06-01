@@ -10,7 +10,7 @@ import { updateTagFromWorkflow as updateTagFromWorkflowAction } from '../actions
 
 const Transition = React.forwardRef((props, ref) => <Slide direction="down" ref={ref} {...props} />);
 
-export const AddTagDialog = ({
+export const AttachTagDialog = ({
   isOpen, handleClose, tags, workflowId, workflows, updateTagFromWorkflow,
 }) => {
   const existedTagIds = Object.keys(workflows.data).length !== 0 && workflowId && workflows.data[workflowId].tags ? workflows.data[workflowId].tags.split(',') : [];
@@ -58,7 +58,7 @@ export const AddTagDialog = ({
     </Dialog>
   );
 };
-AddTagDialog.propTypes = {
+AttachTagDialog.propTypes = {
   isOpen: PropTypes.bool.isRequired,
   workflowId: PropTypes.string,
   workflows: PropTypes.objectOf(PropTypes.any),
@@ -66,12 +66,13 @@ AddTagDialog.propTypes = {
   updateTagFromWorkflow: PropTypes.func.isRequired,
   tags: PropTypes.objectOf(PropTypes.array),
 };
-AddTagDialog.defaultProps = { tags: null, workflowId: null, workflows: null };
+AttachTagDialog.defaultProps = { tags: null, workflowId: null, workflows: null };
 const mapStateToProps = state => ({
   tags: state.tags,
   workflows: state.workflows,
 });
 const mapDispatchToProps = dispatch => ({
-  updateTagFromWorkflow: (workflowId, tagIds) => dispatch(updateTagFromWorkflowAction(workflowId, tagIds)),
+  updateTagFromWorkflow:
+    (workflowId, tagIds) => dispatch(updateTagFromWorkflowAction(workflowId, tagIds)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(AddTagDialog);
+export default connect(mapStateToProps, mapDispatchToProps)(AttachTagDialog);

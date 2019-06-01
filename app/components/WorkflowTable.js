@@ -11,7 +11,7 @@ import {
   fetchWorkflowsByUser as fetchWorkflowsByUserAction,
   updateTagFromWorkflow as updateTagFromWorkflowAction,
 } from '../actions/WorkflowActions';
-import AddTagDialog from './AddTagDialog';
+import AttachTagDialog from './AttachTagDialog';
 
 // TODO: Hide some columns to fit into different screen sizes
 const columns = [
@@ -80,13 +80,12 @@ export const WorkflowTable = ({
     toggleTagDialog();
   };
 
-  // const handleTagClick = (event) => {
-  //   // addTagToWorkflow(workflowId, `${workflows.data[workflowId].tags},${event.taget.tagName === 'span' ? event.target.parentNode.parentNode.getAttribute('name') : event.target.parentNode.getAttribute('name')}`);
-  //   toggleTagDialog();
-  // };
-
   // After tags load from Redux, set it as the formatter
-  if (tags) columns[3].formatter = reactFormatter(<Tags tags={tags} handleRemoveTag={updateTagFromWorkflow} handleAddTag={showTagDialog} />);
+  if (tags) {
+    columns[3].formatter = reactFormatter(
+      <Tags tags={tags} handleRemoveTag={updateTagFromWorkflow} handleAddTag={showTagDialog} />,
+    );
+  }
 
   return (
     <Fragment>
@@ -100,7 +99,7 @@ export const WorkflowTable = ({
         options={tableOptions}
       />
       )}
-      <AddTagDialog isOpen={isOpen} handleClose={toggleTagDialog} workflowId={workflowId} />
+      <AttachTagDialog isOpen={isOpen} handleClose={toggleTagDialog} workflowId={workflowId} />
     </Fragment>
   );
 };
@@ -114,6 +113,7 @@ WorkflowTable.defaultProps = { tags: null };
 const mapStateToProps = ({ workflows, tags }) => ({ workflows, tags });
 const mapDispatchToProps = dispatch => ({
   fetchWorkflowsByUser: () => dispatch(fetchWorkflowsByUserAction()),
-  updateTagFromWorkflow: (workflowId, tagIds) => dispatch(updateTagFromWorkflowAction(workflowId, tagIds)),
+  updateTagFromWorkflow:
+    (workflowId, tagIds) => dispatch(updateTagFromWorkflowAction(workflowId, tagIds)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(WorkflowTable);
