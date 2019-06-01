@@ -43,7 +43,7 @@ export const Tags = ({
           name={`${tag}`}
           clickable
           onDelete={handleDelete}
-          style={{ backgroundColor: `#${tags[tag][1]}`, margin: '0 10px 5px 0', color: 'white' }}
+          style={{ backgroundColor: `${tags[tag][1]}`, margin: '0 10px 5px 0', color: 'white' }}
         />
       ))}
       <IconButton className={classes.addBtn} onClick={handleAddTagClick}><AddCircle fontSize="small" /></IconButton>

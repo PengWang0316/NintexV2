@@ -33,7 +33,7 @@ export const AttachTagDialog = ({
       <DialogTitle id="alert-dialog-slide-title">{I18n.get('addTagDialogTitle')}</DialogTitle>
       <DialogContent>
         <DialogContentText id="alert-dialog-slide-description">
-          {I18n.get('addTagDialogContent')}
+          {I18n.get('attachTagDialogContent')}
         </DialogContentText>
         {tags && workflows && (
           <div>
@@ -44,7 +44,7 @@ export const AttachTagDialog = ({
                 name={`${tag}`}
                 clickable
                 onClick={handleTagClick}
-                style={{ backgroundColor: `#${tags[tag][1]}`, margin: '0 10px 5px 0', color: 'white' }}
+                style={{ backgroundColor: `${tags[tag][1]}`, margin: '0 10px 5px 0', color: 'white' }}
               />
             ))}
           </div>
