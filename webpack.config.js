@@ -28,7 +28,8 @@ const config = {
   module: {
     rules: [
       { test: /\.(js)$/, exclude: /node_modules/, use: 'babel-loader' },
-      // { test: /\.css$/, use: ['style-loader', 'css-loader'] },
+      // { test: /\.module\.css$/, use: ['style-loader', 'css-loader'] },
+      // { test: /\.module\.css$/, use: ['style-loader', 'css-loader'] },
       {// Use the MiniCssExtractPlugin to extract css file
         test: /\.css$/,
         use: [

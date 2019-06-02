@@ -4,14 +4,15 @@ import PropTypes from 'prop-types';
 import I18n from '@kevinwang0316/i18n';
 import { ReactTabulator, reactFormatter } from 'react-tabulator';
 import Tags from './Tags';
-
-import '../styles/tabulator_bootstrap4.min.module.css';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 import {
   fetchWorkflowsByUser as fetchWorkflowsByUserAction,
   updateTagFromWorkflow as updateTagFromWorkflowAction,
 } from '../actions/WorkflowActions';
 import AttachTagDialog from './AttachTagDialog';
+
+// import does not work well with the MiniCssExtractPlugin
+require('../styles/tabulator_bootstrap4.css');
 
 // TODO: Hide some columns to fit into different screen sizes
 const columns = [
