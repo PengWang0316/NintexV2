@@ -81,10 +81,13 @@ export const WorkflowTable = ({
     toggleTagDialog();
   };
 
-  // After tags load from Redux, set it as the formatter
+  // After tags load from Redux, set formatters to some column
   if (tags) {
     columns[3].formatter = reactFormatter(
       <Tags tags={tags} handleRemoveTag={updateTagFromWorkflow} handleAddTag={showTagDialog} />,
+    );
+    columns[4].formatter = reactFormatter(
+      <WorkflowActions tags={tags} />,
     );
   }
 
