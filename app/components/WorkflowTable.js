@@ -10,6 +10,7 @@ import {
   updateTagFromWorkflow as updateTagFromWorkflowAction,
 } from '../actions/WorkflowActions';
 import AttachTagDialog from './AttachTagDialog';
+import WorkflowActions from './WorkflowActions';
 
 // import does not work well with the MiniCssExtractPlugin
 require('../styles/tabulator_bootstrap4.css');
