@@ -45,7 +45,11 @@ const columns = [
     // formatter: reactFormatter(<Tags tags={tags} />),
   },
   {
-    title: I18n.get('tbTitleAction'), align: 'left', sorter: 'string',
+    title: I18n.get('tbTitleAction'),
+    align: 'left',
+    sorter: 'string',
+    headerSort: false,
+    variableHeight: true,
   },
   {
     titel: '',
