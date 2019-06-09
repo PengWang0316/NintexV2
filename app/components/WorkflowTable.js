@@ -68,6 +68,7 @@ const tableOptions = {
   pagination: 'local',
   paginationSize: 15,
   height: '100%',
+  initialSort: [{ column: 'publishDate', dir: 'desc' }],
   // resizableRows: true,
 };
 
@@ -91,8 +92,10 @@ export const WorkflowTable = ({
     columns[3].formatter = reactFormatter(
       <Tags tags={tags} handleRemoveTag={updateTagFromWorkflow} handleAddTag={showTagDialog} />,
     );
+  }
+  if (workflows.isFetched) {
     columns[4].formatter = reactFormatter(
-      <WorkflowActions tags={tags} />,
+      <WorkflowActions workflows={workflows.data} />,
     );
   }
 

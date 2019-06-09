@@ -1,4 +1,5 @@
-import React from 'react';
+/* eslint-disable no-underscore-dangle */
+import React, { Fragment } from 'react';
 import PropTypes from 'prop-types';
 import { IconButton } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
@@ -13,18 +14,24 @@ const useStyles = makeStyles({
   },
 });
 
-export const WorkflowActions = ({ cell }) => {
+export const WorkflowActions = ({ cell, workflows }) => {
   const classes = useStyles();
   return (
     <div className={classes.rootDiv}>
-      <IconButton size="small"><PlayCircleFilled fontSize="inherit" /></IconButton>
-      <IconButton size="small"><ScreenShare fontSize="inherit" /></IconButton>
-      <IconButton size="small"><Unarchive fontSize="inherit" /></IconButton>
-      <IconButton size="small"><DeleteForever fontSize="inherit" /></IconButton>
+      {workflows && cell && workflows[cell._cell.row.data.workflowId].tenant && (
+        <Fragment>
+          <IconButton size="small"><PlayCircleFilled fontSize="inherit" /></IconButton>
+          <IconButton size="small"><ScreenShare fontSize="inherit" /></IconButton>
+          <IconButton size="small"><Unarchive fontSize="inherit" /></IconButton>
+          <IconButton size="small"><DeleteForever fontSize="inherit" /></IconButton>
+        </Fragment>
+      )}
     </div>
   );
 };
 WorkflowActions.propTypes = {
-  cell: PropTypes.objectOf(PropTypes.any).isRequired,
+  cell: PropTypes.objectOf(PropTypes.any),
+  workflows: PropTypes.objectOf(PropTypes.any),
 };
+WorkflowActions.defaultProps = { cell: null, workflows: null };
 export default WorkflowActions;
