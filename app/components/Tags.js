@@ -1,10 +1,11 @@
 /* eslint-disable no-underscore-dangle */
 import React, { useEffect } from 'react';
 import PropTypes from 'prop-types';
-import { Chip, IconButton } from '@material-ui/core';
+import { Chip, IconButton, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { AddCircle } from '@material-ui/icons';
 import { blue } from '@material-ui/core/colors';
+import I18n from '@kevinwang0316/i18n';
 
 const useStyles = makeStyles({
   addBtn: {
@@ -46,7 +47,7 @@ export const Tags = ({
           style={{ backgroundColor: `${tags[tag][1]}`, margin: '0 10px 5px 0', color: 'white' }}
         />
       ))}
-      <IconButton className={classes.addBtn} onClick={handleAddTagClick}><AddCircle fontSize="small" /></IconButton>
+      <Tooltip title={I18n.get('addTag')} placement="right-end"><IconButton className={classes.addBtn} onClick={handleAddTagClick} size="small"><AddCircle fontSize="inherit" /></IconButton></Tooltip>
     </div>
   );
 };
