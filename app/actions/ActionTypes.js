@@ -17,3 +17,6 @@ export const ADD_TAG_SUCCESS = 'addTagSuccess';
 export const FETCH_NWCKEY_SUCCESS = 'fetchNwckeySuccess';
 export const ADD_NWCKEY_SUCCESS = 'addNwckeySuccess';
 export const DELETE_NWCKEY_SUCCESS = 'deleteNwckeySuccess';
+export const FETCH_OFFICEKEY_SUCCESS = 'fetchOfficekeySuccess';
+export const ADD_OFFICEKEY_SUCCESS = 'addOfficekeySuccess';
+export const DELETE_OFFICEKEY_SUCCESS = 'deleteOfficekeySuccess';
