@@ -49,10 +49,9 @@ const columns = [
   },
   {
     title: I18n.get('tbTitleAction'),
-    align: 'left',
-    sorter: 'string',
+    field: 'isActive',
+    align: 'right',
     headerSort: false,
-    variableHeight: true,
     width: 120,
   },
   {
@@ -74,12 +73,17 @@ const tableOptions = {
   initialSort: [{ column: 'publishDate', dir: 'desc' }],
   // resizableRows: true,
 };
+// Use to make sure the fetching is just called onece
+let isFetching = false;
 
 export const WorkflowTable = ({
   workflows, fetchWorkflowsByUser, tags, updateTagFromWorkflow,
 }) => {
   useEffect(() => {
-    if (!workflows.isFetched) fetchWorkflowsByUser();
+    if (!workflows.isFetched && !isFetching) {
+      fetchWorkflowsByUser();
+      isFetching = true;
+    }
   });
   const [isOpen, setIsOpen] = useState(false);
   const [workflowId, setWorkflowId] = useState(null);
@@ -90,15 +94,13 @@ export const WorkflowTable = ({
     toggleTagDialog();
   };
 
+  columns[4].formatter = reactFormatter(
+    <WorkflowActions />,
+  );
   // After tags load from Redux, set formatters to some column
   if (tags) {
     columns[3].formatter = reactFormatter(
       <Tags tags={tags} handleRemoveTag={updateTagFromWorkflow} handleAddTag={showTagDialog} />,
-    );
-  }
-  if (Object.keys(workflows.data).length !== 0) {
-    columns[4].formatter = reactFormatter(
-      <WorkflowActions workflows={workflows.data} />,
     );
   }
 
