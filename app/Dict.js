@@ -42,6 +42,7 @@ const dict = {
     actionMove: 'Move the workflow',
     actionDelete: 'Delete the workflow',
     addTag: 'Add a new tag',
+    keyManage: 'API keys',
   },
 };
 

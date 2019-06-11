@@ -7,7 +7,7 @@ import {
 } from '@material-ui/core';
 import {
   Dashboard as DashBoardIcon, CloudUpload as UploadFileIcon,
-  List as WorkflowManagerIcon, Queue as AddTagIcon,
+  List as WorkflowManagerIcon, Queue as AddTagIcon, VpnKey as KeyIcon,
 } from '@material-ui/icons';
 import I18n from '@kevinwang0316/i18n';
 import { indigo, blue, amber } from '@material-ui/core/colors';
@@ -42,6 +42,9 @@ const styles = theme => ({
   },
   addTagIcon: {
     color: amber[900],
+  },
+  keyIcon: {
+    color: blue[900],
   },
 });
 
@@ -82,6 +85,12 @@ const MenuDrawer = ({ classes }) => {
             </Tooltip>
           </Link>
           <Divider />
+          <Tooltip title={I18n.get('keyManage')} placement="right-end">
+            <ListItem button onClick={handleAddTagBtn}>
+              <ListItemIcon><KeyIcon className={classes.keyIcon} /></ListItemIcon>
+              <ListItemText primary={I18n.get('keyManage')} />
+            </ListItem>
+          </Tooltip>
           <Tooltip title={I18n.get('createTag')} placement="right-end">
             <ListItem button onClick={handleAddTagBtn}>
               <ListItemIcon><AddTagIcon className={classes.addTagIcon} /></ListItemIcon>
