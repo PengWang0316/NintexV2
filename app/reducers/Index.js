@@ -13,12 +13,14 @@ import actionNameCount from './ActionNameCount';
 import workflowUseCount from './WorkflowUseCount';
 import workflows from './Workflows';
 import tags from './Tags';
+import nwcKeys from './NWCKeys';
 
 export default combineReducers({
   actionNameCount,
   instanceCount,
   instanceStatus,
   instanceStatusByTime,
+  nwcKeys,
   publisherCount,
   user,
   tags,

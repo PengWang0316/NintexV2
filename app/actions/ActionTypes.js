@@ -14,3 +14,6 @@ export const FETCH_TAGS_SUCCESS = 'fetchTagsSuccess';
 export const REMOVE_TAG_SUCCESS = 'removeTagSuccess';
 export const UPDATE_TAG_FROM_WORKFLOW_SUCCESS = 'updateTagFromWorkflowSuccess';
 export const ADD_TAG_SUCCESS = 'addTagSuccess';
+export const FETCH_NWCKEY_SUCCESS = 'fetchNwckeySuccess';
+export const ADD_NWCKEY_SUCCESS = 'addNwckeySuccess';
+export const DELETE_NWCKEY_SUCCESS = 'deleteNwckeySuccess';
