@@ -14,6 +14,7 @@ import { indigo, blue, amber } from '@material-ui/core/colors';
 
 import FileUploadDialog from './FileUploadDialog';
 import AddTagDialog from './AddTagDialog';
+import KeyManageDialog from './KeyManageDialog';
 import { HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL } from '../config';
 
 const styles = theme => ({
@@ -51,9 +52,11 @@ const styles = theme => ({
 const MenuDrawer = ({ classes }) => {
   const [isOpenFileUpload, setIsOpenFileUpload] = useState(false);
   const [isOpenAddTag, setIsOpenAddTag] = useState(false);
+  const [isOpenKeyManage, setIsOpenKeyManage] = useState(false);
 
   const handleUploadFileBtn = () => setIsOpenFileUpload(state => !state);
   const handleAddTagBtn = () => setIsOpenAddTag(state => !state);
+  const handleKeyBtn = () => setIsOpenKeyManage(state => !state);
 
   return (
     <Fragment>
@@ -86,7 +89,7 @@ const MenuDrawer = ({ classes }) => {
           </Link>
           <Divider />
           <Tooltip title={I18n.get('keyManage')} placement="right-end">
-            <ListItem button onClick={handleAddTagBtn}>
+            <ListItem button onClick={handleKeyBtn}>
               <ListItemIcon><KeyIcon className={classes.keyIcon} /></ListItemIcon>
               <ListItemText primary={I18n.get('keyManage')} />
             </ListItem>
@@ -107,6 +110,7 @@ const MenuDrawer = ({ classes }) => {
       </Drawer>
       <FileUploadDialog open={isOpenFileUpload} handleClose={handleUploadFileBtn} />
       <AddTagDialog open={isOpenAddTag} handleClose={handleAddTagBtn} />
+      <KeyManageDialog open={isOpenKeyManage} handleClose={handleKeyBtn} />
     </Fragment>
   );
 };

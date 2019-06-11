@@ -43,6 +43,8 @@ const dict = {
     actionDelete: 'Delete the workflow',
     addTag: 'Add a new tag',
     keyManage: 'API keys',
+    keyManageDialogTitle: 'Manage API keys',
+    keyManageDialogContent: 'You can add or remove your API keys from here',
   },
 };
 
