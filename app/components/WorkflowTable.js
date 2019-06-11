@@ -18,7 +18,7 @@ require('../styles/tabulator_bootstrap4.css');
 // TODO: Hide some columns to fit into different screen sizes
 const columns = [
   {
-    title: I18n.get('tbTitleName'), field: 'workflowName', align: 'left', sorter: 'string',
+    title: I18n.get('tbTitleName'), field: 'workflowName', align: 'left', sorter: 'string', widthGrow: 2,
   },
   {
     title: I18n.get('tbTitlePublishDate'),
@@ -33,9 +33,10 @@ const columns = [
       format: 'YYYY-MM-DD',
       alignEmptyValues: 'top',
     },
+    width: 150,
   },
   {
-    title: I18n.get('tbTitleName'), field: 'publisher', align: 'left', sorter: 'string',
+    title: I18n.get('tbTitleName'), field: 'publisher', align: 'left', sorter: 'string', widthGrow: 1,
   },
   {
     title: I18n.get('tbTitleTag'),
@@ -43,6 +44,7 @@ const columns = [
     align: 'left',
     headerSort: false,
     variableHeight: true,
+    widthGrow: 2,
     // formatter: reactFormatter(<Tags tags={tags} />),
   },
   {
@@ -51,6 +53,7 @@ const columns = [
     sorter: 'string',
     headerSort: false,
     variableHeight: true,
+    width: 120,
   },
   {
     titel: '',
@@ -93,7 +96,7 @@ export const WorkflowTable = ({
       <Tags tags={tags} handleRemoveTag={updateTagFromWorkflow} handleAddTag={showTagDialog} />,
     );
   }
-  if (workflows.isFetched) {
+  if (Object.keys(workflows.data).length !== 0) {
     columns[4].formatter = reactFormatter(
       <WorkflowActions workflows={workflows.data} />,
     );
