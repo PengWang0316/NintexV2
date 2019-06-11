@@ -67,9 +67,10 @@ export class Navbar extends Component {
     currentAuthenticatedUser: PropTypes.func.isRequired,
     fetchTags: PropTypes.func.isRequired,
     tags: PropTypes.objectOf(PropTypes.array),
+    nwcKeys: PropTypes.objectOf(PropTypes.string),
   };
 
-  static defaultProps = { user: null, tags: null };
+  static defaultProps = { user: null, tags: null, nwcKeys: null };
 
   state = { anchorEl: null, isAutoFetching: false };
 
@@ -116,7 +117,7 @@ export class Navbar extends Component {
    * @return {jsx} Return jsx.
    */
   render() {
-    const { classes, user } = this.props;
+    const { classes, user, nwcKeys } = this.props;
     const { anchorEl, isAutoFetching } = this.state;
     return (
       <Fragment>
@@ -137,6 +138,7 @@ export class Navbar extends Component {
                   <Switch
                     checked={isAutoFetching}
                     onChange={this.handleAutoFetchingClick}
+                    disabled={!nwcKeys}
                     classes={{
                       switchBase: classes.switchBase,
                       track: classes.track,
@@ -189,6 +191,7 @@ export class Navbar extends Component {
                       <Switch
                         checked={isAutoFetching}
                         onChange={this.handleAutoFetchingClick}
+                        disabled={!nwcKeys}
                         classes={{
                           switchBase: classes.switchBase,
                           track: classes.track,
@@ -217,7 +220,7 @@ export class Navbar extends Component {
 }
 
 /* istanbul ignore next */
-const mapStateToProps = state => ({ user: state.user, tags: state.tags });
+const mapStateToProps = state => ({ user: state.user, tags: state.tags, nwcKeys: state.nwcKeys });
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   currentAuthenticatedUser: () => dispatch(UserActions.currentAuthenticatedUser()),
