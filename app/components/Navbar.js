@@ -4,11 +4,12 @@ import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import {
-  MenuItem, Menu, IconButton, Hidden, Button, Typography, Toolbar, AppBar, Avatar,
+  MenuItem, Menu, IconButton, Hidden, Button, Typography,
+  Toolbar, AppBar, Avatar, Switch, FormControlLabel,
 } from '@material-ui/core';
 import { withStyles } from '@material-ui/core/styles';
 import MenuIcon from '@material-ui/icons/Menu';
-import orange from '@material-ui/core/colors/orange';
+import { orange, green } from '@material-ui/core/colors';
 // import { Auth } from 'aws-amplify';
 import I18n from '@kevinwang0316/i18n';
 
@@ -43,6 +44,17 @@ const styles = theme => ({
     color: '#fff',
     backgroundColor: orange[800],
   },
+  switchBase: {
+    color: 'white',
+    '&$checked': {
+      color: green[400],
+    },
+    '&$checked + $track': {
+      backgroundColor: green[400],
+    },
+  },
+  checked: {},
+  track: {},
 });
 
 /** Navbar component */
@@ -59,7 +71,7 @@ export class Navbar extends Component {
 
   static defaultProps = { user: null, tags: null };
 
-  state = { anchorEl: null };
+  state = { anchorEl: null, isAutoFetching: false };
 
   /**
    * Get the authentication user information.
@@ -89,6 +101,15 @@ export class Navbar extends Component {
     } else history.push(SIGNIN_PAGE_URL);
   }
 
+  handleAutoFetchingClick = () => {
+    if (this.isAutoFetching) {
+      console.log('stop');
+    } else {
+      console.log('start');
+    }
+    this.setState(({ isAutoFetching }) => ({ isAutoFetching: !isAutoFetching }));
+  };
+
 
   /**
    * The render method to render the jsx.
@@ -96,7 +117,7 @@ export class Navbar extends Component {
    */
   render() {
     const { classes, user } = this.props;
-    const { anchorEl, isOpenFileUpload } = this.state;
+    const { anchorEl, isAutoFetching } = this.state;
     return (
       <Fragment>
         <AppBar position="static" className={classes.appbar} data-testid="navbar">
@@ -111,6 +132,20 @@ export class Navbar extends Component {
               <Link to={WORKFLOW_MANAGER_PAGE_URL} className={classes.link}>
                 <Button color="inherit" data-testid="workflowManagerButton">{I18n.get('workflowManager')}</Button>
               </Link> */}
+              <FormControlLabel
+                control={(
+                  <Switch
+                    checked={isAutoFetching}
+                    onChange={this.handleAutoFetchingClick}
+                    classes={{
+                      switchBase: classes.switchBase,
+                      track: classes.track,
+                      checked: classes.checked,
+                    }}
+                  />
+                )}
+                label="Auto Fetching"
+              />
               <Button color="inherit" onClick={this.handleLoginButtonClick} data-testid="loginButton">
                 {user ? (
                   <Fragment>
@@ -148,6 +183,22 @@ export class Navbar extends Component {
                     <Typography color="textPrimary">{I18n.get('workflowManager')}</Typography>
                   </Link>
                 </MenuItem> */}
+                <MenuItem>
+                  <FormControlLabel
+                    control={(
+                      <Switch
+                        checked={isAutoFetching}
+                        onChange={this.handleAutoFetchingClick}
+                        classes={{
+                          switchBase: classes.switchBase,
+                          track: classes.track,
+                          checked: classes.checked,
+                        }}
+                      />
+                    )}
+                    label="Auto Fetching"
+                  />
+                </MenuItem>
                 <MenuItem onClick={this.handleLoginButtonClick} data-testid="loginMenu">
                   {user ? (
                     <Fragment>
