@@ -44,7 +44,12 @@ const dict = {
     addTag: 'Add a new tag',
     keyManage: 'API keys',
     keyManageDialogTitle: 'Manage API keys',
-    keyManageDialogContent: 'You can add or remove your API keys from here',
+    keyManageNWCContent: 'NWC API keys',
+    keyManageOfficeContent: 'Office365 API keys',
+    tenant: 'Tenant',
+    apiKey: 'API Key',
+    endpoint: 'Office 365 Endpoint',
+    cookie: 'Authorization Cookie',
   },
 };
 
