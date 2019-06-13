@@ -14,3 +14,6 @@ export const GET_WORKFLOW_USE_COUNT_API = `${AWS_API_BASE}/action/use/count`;
 export const GET_WORKFLOWS_BY_USER_API = `${AWS_API_BASE}/workflow/byUser`;
 export const GET_TAGS_API = `${AWS_API_BASE}/tag`;
 export const UPDATE_TAG_FROM_WORKFLOW_API = `${AWS_API_BASE}/workflow/tags`;
+export const FETCH_NWC_KEYS_API = `${AWS_API_BASE}/nwckey`;
+export const ADD_NWC_KEY_API = FETCH_NWC_KEYS_API;
+export const DELETE_NWC_KEY_API = FETCH_NWC_KEYS_API;
