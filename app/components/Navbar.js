@@ -67,7 +67,7 @@ export class Navbar extends Component {
     currentAuthenticatedUser: PropTypes.func.isRequired,
     fetchTags: PropTypes.func.isRequired,
     tags: PropTypes.objectOf(PropTypes.array),
-    nwcKeys: PropTypes.objectOf(PropTypes.string),
+    nwcKeys: PropTypes.objectOf(PropTypes.any),
   };
 
   static defaultProps = { user: null, tags: null, nwcKeys: null };
@@ -138,7 +138,7 @@ export class Navbar extends Component {
                   <Switch
                     checked={isAutoFetching}
                     onChange={this.handleAutoFetchingClick}
-                    disabled={!nwcKeys}
+                    disabled={!nwcKeys.data}
                     classes={{
                       switchBase: classes.switchBase,
                       track: classes.track,
