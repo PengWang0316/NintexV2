@@ -34,7 +34,7 @@ export const addNwcKey = (tenant, key) => async (dispatch) => {
 
 export const deleteNwcKey = (tenant, id) => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
-  axios.delete(DELETE_NWC_KEY_API, { params: { id } }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  axios.delete(DELETE_NWC_KEY_API, { params: { id }, headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
   dispatch(deleteNwcKeySuccess(tenant));
 };
 
