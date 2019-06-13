@@ -1,16 +1,16 @@
 import { FETCH_NWCKEY_SUCCESS, ADD_NWCKEY_SUCCESS, DELETE_NWCKEY_SUCCESS } from '../actions/ActionTypes';
 
 const NWCKeys = (state = { isFetch: false, data: null }, {
-  type, keys, tenant, key,
+  type, keys, tenant, key, id,
 }) => {
   switch (type) {
     case FETCH_NWCKEY_SUCCESS: {
       const data = {};
-      keys.forEach((item) => { data[item.tenant] = item.apiKey; });
+      keys.forEach((item) => { data[item.tenant] = [item.id, item.apiKey]; });
       return { isFetch: true, data: keys.length === 0 ? null : data };
     }
     case ADD_NWCKEY_SUCCESS:
-      return { isFetch: true, data: state.data ? { ...state.data, [tenant]: key } : { [tenant]: key } };
+      return { isFetch: true, data: state.data ? { ...state.data, [tenant]: [id, key] } : { [tenant]: [id, key] } };
     case DELETE_NWCKEY_SUCCESS: {
       if (state.data === null) return { isFetch: true, data: null };
       const data = { ...state.data };
