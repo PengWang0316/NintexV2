@@ -7,6 +7,8 @@ import { AddCircle } from '@material-ui/icons';
 import { blue } from '@material-ui/core/colors';
 import I18n from '@kevinwang0316/i18n';
 
+import getChipAttribute from '../libs/GetChipAttribute';
+
 const useStyles = makeStyles({
   addBtn: {
     color: blue[300],
@@ -22,8 +24,7 @@ export const Tags = ({
   const tagIds = (cell && cell._cell.value) ? cell._cell.value.split(',') : null;
 
   const handleDelete = (event) => {
-    const divElement = event.target.tagName === 'path' ? event.target.parentNode.parentNode : event.target.parentNode;
-    const tagId = divElement.getAttribute('name');
+    const tagId = getChipAttribute(event, 'name');
     const { _cell: { row: { data: { workflowId } } } } = cell;
     // Create a new tags string and pass to the action
     const newTags = tagIds.filter(id => id !== tagId);
