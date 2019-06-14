@@ -141,7 +141,7 @@ export const KeyManageDialog = ({
                 <Chip
                   label={key}
                   key={key}
-                  className={classes.nwcTag}
+                  className={classes.officeTag}
                   onDelete={handleOfficeDelete}
                   endpoint={key}
                   name={officeKeys.data[key][0]}
