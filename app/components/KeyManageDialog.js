@@ -44,9 +44,9 @@ export const KeyManageDialog = ({
   const classes = useStyles();
   const [nwcTenant, setNwcTenant] = useState('');
   const [nwcKey, setNwcKey] = useState('');
-  const [officeEndpoint, setOfficeEndpoint] = useState();
-  const [officeKey, setOfficeKey] = useState();
-  const [officeCookie, setOfficeCookie] = useState();
+  const [officeEndpoint, setOfficeEndpoint] = useState('');
+  const [officeKey, setOfficeKey] = useState('');
+  const [officeCookie, setOfficeCookie] = useState('');
 
   useEffect(() => {
     if (!nwcKeys.isFetch) fetchNwcKey();
