@@ -13,6 +13,9 @@ import {
   fetchNwcKey as fetchNwcKeyAction,
   addNwcKey as addNwcKeyAction,
   deleteNwcKey as deleteNwcKeyAction,
+  fetchOfficeKey as fetchOfficeKeyAction,
+  addOfficeKey as addOfficeKeyAction,
+  deleteOfficeKey as deleteOfficeKeyAction,
 } from '../actions/ApiKeyActions';
 import getChipAttribute from '../libs/GetChipAttribute';
 
@@ -36,6 +39,7 @@ const useStyles = makeStyles({
 
 export const KeyManageDialog = ({
   open, handleClose, nwcKeys, officeKeys, fetchNwcKey, addNwcKey, deleteNwcKey,
+  fetchOfficeKey, addOfficeKey, deleteOfficeKey,
 }) => {
   const classes = useStyles();
   const [nwcTenant, setNwcTenant] = useState('');
@@ -46,6 +50,7 @@ export const KeyManageDialog = ({
 
   useEffect(() => {
     if (!nwcKeys.isFetch) fetchNwcKey();
+    if (!officeKeys.isFetch) fetchOfficeKey();
   });
 
   const handleNwcTenantChange = event => setNwcTenant(event.target.value);
@@ -64,6 +69,7 @@ export const KeyManageDialog = ({
 
   const handleOfficeAdd = () => {
     if (officeEndpoint && officeEndpoint !== '' && officeKey && officeKey !== '' && officeCookie && officeCookie !== '') {
+      addOfficeKey(officeEndpoint, officeKey, officeCookie);
       setOfficeCookie('');
       setOfficeEndpoint('');
       setOfficeKey('');
@@ -72,9 +78,10 @@ export const KeyManageDialog = ({
 
   const handleNwcDelete = event => deleteNwcKey(getChipAttribute(event, 'tenant'), getChipAttribute(event, 'name'));
 
-  const handleOfficeDelete = () => {
-
-  };
+  const handleOfficeDelete = event => deleteOfficeKey(
+    getChipAttribute(event, 'endpoint'),
+    getChipAttribute(event, 'name'),
+  );
 
   return (
     <Dialog
@@ -136,7 +143,8 @@ export const KeyManageDialog = ({
                   key={key}
                   className={classes.nwcTag}
                   onDelete={handleOfficeDelete}
-                  name={nwcKeys.data[key][0]}
+                  endpoint={key}
+                  name={officeKeys.data[key][0]}
                 />
               ))}
             </div>
@@ -183,6 +191,9 @@ KeyManageDialog.propTypes = {
   fetchNwcKey: PropTypes.func.isRequired,
   addNwcKey: PropTypes.func.isRequired,
   deleteNwcKey: PropTypes.func.isRequired,
+  fetchOfficeKey: PropTypes.func.isRequired,
+  addOfficeKey: PropTypes.func.isRequired,
+  deleteOfficeKey: PropTypes.func.isRequired,
   nwcKeys: PropTypes.objectOf(PropTypes.any),
   officeKeys: PropTypes.objectOf(PropTypes.any),
 };
@@ -195,5 +206,8 @@ const mapDispatchToProps = dispatch => ({
   fetchNwcKey: () => dispatch(fetchNwcKeyAction()),
   addNwcKey: (tenant, key) => dispatch(addNwcKeyAction(tenant, key)),
   deleteNwcKey: (tenant, id) => dispatch(deleteNwcKeyAction(tenant, id)),
+  fetchOfficeKey: () => dispatch(fetchOfficeKeyAction()),
+  addOfficeKey: (endpoint, key, cookie) => dispatch(addOfficeKeyAction(endpoint, key, cookie)),
+  deleteOfficeKey: (endpoint, id) => dispatch(deleteOfficeKeyAction(endpoint, id)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(KeyManageDialog);
