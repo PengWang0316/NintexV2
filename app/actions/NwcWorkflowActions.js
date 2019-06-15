@@ -4,6 +4,13 @@ import { Auth } from 'aws-amplify';
 import { ADD_NWC_WORKFLOWS_API } from './Urls';
 import { BEARER_HEADER, NWC_LIST_WORKFLOWS_API, NWC_PLATFORM } from '../config';
 import { appandWorkflows } from './WorkflowActions';
+import { UPDATE_NWC_LAST_DATE_SUCCESS } from './ActionTypes';
+
+const updateLastDateSuccess = (tenant, lastDate) => ({
+  type: UPDATE_NWC_LAST_DATE_SUCCESS,
+  tenant,
+  lastDate,
+});
 
 const formatWorkflow = (workflow, tenant) => {
   const isPublished = Object.keys(workflow.published).length !== 0;
@@ -97,64 +104,19 @@ const fetchNwcWorkflows = async (key) => {
     {
       headers: { authorization: `${BEARER_HEADER} ${key}` },
       params: {
-        limit: '1000', sortBy: 'created', sortOrder: 'desc', tenant: key,
+        limit: '1000', sortBy: 'created', sortOrder: 'desc',
       },
     },
   );
   return workflows;
 };
 
-// In charge of turning the workflow object to one array and one object
-// One for insert and another one for updating the Redux state
-// const transferToInsertWorkflows = (workflows, existedWorkflows) => {
-//   const insertWorkflows = [];
-//   const reduxState = {};
-//   workflows.forEach((workflow) => {
-//     if (!existedWorkflows[workflow.workflowId]) {
-//       const {
-//         workflowId, status, name, authorName, authorId, authorEmail,
-//         created, eventConfiguration, eventType, active, lastPublished, publishedType,
-//         publishedId, tenant, description,
-//       } = workflow;
-
-//       insertWorkflows.push([
-//         workflowId,
-//         status === 'Published' ? 1 : 0,
-//         name,
-//         authorName,
-//         authorId,
-//         authorEmail,
-//         created,
-//         JSON.stringify(eventConfiguration),
-//         JSON.stringify(eventType),
-//         active === '' ? 0 : 1,
-//         lastPublished,
-//         publishedType,
-//         publishedId,
-//         tenant,
-//         description,
-//       ]);
-
-//       reduxState[workflowId] = {
-//         workflowId,
-//         workflowName: name,
-//         publishDate: created,
-//         publisher: authorName,
-//         tag: null,
-//         isActive: active === '' ? 0 : 1,
-//         tenant,
-//       };
-//     }
-//   });
-//   return { insertWorkflows, reduxState };
-// };
-
 export const addNwcWorkflows = (tenant, key, existedWorkflows) => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
   const rawWorkflows = await fetchNwcWorkflows(key);
+  // Dispatch the lastest update date for this tenant
+  dispatch(updateLastDateSuccess(tenant, formatWorkflow(rawWorkflows[0]).created));
   const { insertWorkflows, reduxState } = parseData(rawWorkflows, tenant, existedWorkflows);
-  console.log(insertWorkflows);
-  console.log(reduxState);
   // If any workflow that has to be inserted, the Redux state also should be updated
   if (insertWorkflows.length !== 0) {
     dispatch(appandWorkflows(reduxState));
