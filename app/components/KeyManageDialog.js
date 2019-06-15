@@ -17,6 +17,7 @@ import {
   addOfficeKey as addOfficeKeyAction,
   deleteOfficeKey as deleteOfficeKeyAction,
 } from '../actions/ApiKeyActions';
+import { addNwcWorkflows as addNwcWorkflowsAction } from '../actions/NwcWorkflowActions';
 import getChipAttribute from '../libs/GetChipAttribute';
 
 const useStyles = makeStyles({
@@ -39,7 +40,7 @@ const useStyles = makeStyles({
 
 export const KeyManageDialog = ({
   open, handleClose, nwcKeys, officeKeys, fetchNwcKey, addNwcKey, deleteNwcKey,
-  fetchOfficeKey, addOfficeKey, deleteOfficeKey,
+  fetchOfficeKey, addOfficeKey, deleteOfficeKey, addNwcWorkflows, workflows,
 }) => {
   const classes = useStyles();
   const [nwcTenant, setNwcTenant] = useState('');
@@ -62,6 +63,7 @@ export const KeyManageDialog = ({
   const handleNwcAdd = () => {
     if (nwcKey && nwcKey !== '' && nwcTenant && nwcTenant !== '') {
       addNwcKey(nwcTenant, nwcKey);
+      addNwcWorkflows(nwcTenant, nwcKey, workflows.data);
       setNwcKey('');
       setNwcTenant('');
     }
@@ -194,13 +196,15 @@ KeyManageDialog.propTypes = {
   fetchOfficeKey: PropTypes.func.isRequired,
   addOfficeKey: PropTypes.func.isRequired,
   deleteOfficeKey: PropTypes.func.isRequired,
-  nwcKeys: PropTypes.objectOf(PropTypes.any),
-  officeKeys: PropTypes.objectOf(PropTypes.any),
+  addNwcWorkflows: PropTypes.func.isRequired,
+  nwcKeys: PropTypes.objectOf(PropTypes.any).isRequired,
+  officeKeys: PropTypes.objectOf(PropTypes.any).isRequired,
+  workflows: PropTypes.objectOf(PropTypes.any).isRequired,
 };
-KeyManageDialog.defaultProps = { nwcKeys: null, officeKeys: null };
 const mapStateToProps = state => ({
   nwcKeys: state.nwcKeys,
   officeKeys: state.officeKeys,
+  workflows: state.workflows,
 });
 const mapDispatchToProps = dispatch => ({
   fetchNwcKey: () => dispatch(fetchNwcKeyAction()),
@@ -209,5 +213,6 @@ const mapDispatchToProps = dispatch => ({
   fetchOfficeKey: () => dispatch(fetchOfficeKeyAction()),
   addOfficeKey: (endpoint, key, cookie) => dispatch(addOfficeKeyAction(endpoint, key, cookie)),
   deleteOfficeKey: (endpoint, id) => dispatch(deleteOfficeKeyAction(endpoint, id)),
+  addNwcWorkflows: (tenant, key, existedWorkflows) => dispatch(addNwcWorkflowsAction(tenant, key, existedWorkflows)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(KeyManageDialog);
