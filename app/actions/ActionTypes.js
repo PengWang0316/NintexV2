@@ -20,3 +20,4 @@ export const DELETE_NWCKEY_SUCCESS = 'deleteNwckeySuccess';
 export const FETCH_OFFICEKEY_SUCCESS = 'fetchOfficekeySuccess';
 export const ADD_OFFICEKEY_SUCCESS = 'addOfficekeySuccess';
 export const DELETE_OFFICEKEY_SUCCESS = 'deleteOfficekeySuccess';
+export const APPEND_WORKFLOWS_SUCCESS = 'appendWorkflowsSuccess';
