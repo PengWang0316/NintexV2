@@ -1,4 +1,4 @@
-import { FETCH_WORKFLOWS_BY_USER_SUCCESS, UPDATE_TAG_FROM_WORKFLOW_SUCCESS } from '../actions/ActionTypes';
+import { FETCH_WORKFLOWS_BY_USER_SUCCESS, UPDATE_TAG_FROM_WORKFLOW_SUCCESS, APPEND_WORKFLOWS_SUCCESS } from '../actions/ActionTypes';
 
 const workflows = (
   state = { isFetched: false, data: {} }, {
@@ -18,6 +18,8 @@ const workflows = (
       workflowsObj.data[workflowId].tags = tagIds;
       return workflowsObj;
     }
+    case APPEND_WORKFLOWS_SUCCESS:
+      return { isFetched: true, data: { ...state.data, ...workflowsByUser } };
     default:
       return state;
   }

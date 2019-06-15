@@ -9,6 +9,7 @@ import {
 import {
   FETCH_WORKFLOW_COUNT_SUCCESS, FETCH_WORKFLOW_LOCATION_COUNT_SUCCESS,
   FETCH_WORKFLOWS_BY_USER_SUCCESS, UPDATE_TAG_FROM_WORKFLOW_SUCCESS,
+  APPEND_WORKFLOWS_SUCCESS,
 } from './ActionTypes';
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
 import getTokenAndData from './libs/GetTokenAndData';
@@ -35,6 +36,11 @@ const updateTagFromWorkflowSuccess = (workflowId, tagIds) => ({
   type: UPDATE_TAG_FROM_WORKFLOW_SUCCESS,
   workflowId,
   tagIds,
+});
+
+export const appandWorkflows = workflows => ({
+  type: APPEND_WORKFLOWS_SUCCESS,
+  workflows,
 });
 
 export const uploadWorkflows = async (text) => {
