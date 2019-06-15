@@ -38,7 +38,7 @@ const dict = {
     add: 'Add',
     actionRun: 'Run the workflow',
     actionStop: 'Stop the workflow',
-    actionShare: 'Share the workflow',
+    actionExport: 'Export the workflow',
     actionMove: 'Move the workflow',
     actionDelete: 'Delete the workflow',
     addTag: 'Add a new tag',

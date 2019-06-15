@@ -31,7 +31,7 @@ export const WorkflowActions = ({ cell }) => {
         <Fragment>
           {cell._cell.value === 0 && <Tooltip title={I18n.get('actionRun')} placement="top-end"><IconButton size="small"><PlayCircleFilled className={classes.runIcon} fontSize="inherit" /></IconButton></Tooltip>}
           {cell._cell.value === 1 && <Tooltip title={I18n.get('actionStop')} placement="top-end"><IconButton size="small"><PauseCircleFilled className={classes.stopIcon} fontSize="inherit" /></IconButton></Tooltip>}
-          <Tooltip title={I18n.get('actionShare')} placement="top-end"><IconButton size="small"><ScreenShare className={classes.shareIcon} fontSize="inherit" /></IconButton></Tooltip>
+          <Tooltip title={I18n.get('actionExport')} placement="top-end"><IconButton size="small"><ScreenShare className={classes.shareIcon} fontSize="inherit" /></IconButton></Tooltip>
           <Tooltip title={I18n.get('actionMove')} placement="top-end"><IconButton size="small"><Unarchive className={classes.moveIcon} fontSize="inherit" /></IconButton></Tooltip>
           <Tooltip title={I18n.get('actionDelete')} placement="top-end"><IconButton size="small"><DeleteForever className={classes.deleteIcon} fontSize="inherit" /></IconButton></Tooltip>
         </Fragment>
