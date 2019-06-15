@@ -15,12 +15,14 @@ import workflows from './Workflows';
 import tags from './Tags';
 import nwcKeys from './NWCKeys';
 import officeKeys from './OfficeKeys';
+import lastNwc from './LastNwc';
 
 export default combineReducers({
   actionNameCount,
   instanceCount,
   instanceStatus,
   instanceStatusByTime,
+  lastNwc,
   nwcKeys,
   officeKeys,
   publisherCount,
