@@ -4,15 +4,17 @@ import { Auth } from 'aws-amplify';
 
 import {
   POST_WORKFLOWS_API, GET_WORKFLOWS_COUNT_API, UPDATE_TAG_FROM_WORKFLOW_API,
-  GET_WORKFLOWS_LOCATION_COUNT_API, GET_WORKFLOWS_BY_USER_API,
+  GET_WORKFLOWS_LOCATION_COUNT_API, GET_WORKFLOWS_BY_USER_API, NWC_LIST_WORKFLOWS_API,
+  UPDATE_NWC_ACTIVE_API,
 } from './Urls';
 import {
   FETCH_WORKFLOW_COUNT_SUCCESS, FETCH_WORKFLOW_LOCATION_COUNT_SUCCESS,
   FETCH_WORKFLOWS_BY_USER_SUCCESS, UPDATE_TAG_FROM_WORKFLOW_SUCCESS,
-  APPEND_WORKFLOWS_SUCCESS,
+  APPEND_WORKFLOWS_SUCCESS, RUN_WORKFLOW_SUCCESS,
 } from './ActionTypes';
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
 import getTokenAndData from './libs/GetTokenAndData';
+import { BEARER_HEADER } from '../config';
 
 // Set a batch size to send the payload parallely
 const BATCH_SIZE = 500;
@@ -36,6 +38,11 @@ const updateTagFromWorkflowSuccess = (workflowId, tagIds) => ({
   type: UPDATE_TAG_FROM_WORKFLOW_SUCCESS,
   workflowId,
   tagIds,
+});
+
+const runWorkflowSuccess = workflowId => ({
+  type: RUN_WORKFLOW_SUCCESS,
+  workflowId,
 });
 
 export const appandWorkflows = workflows => ({
@@ -99,4 +106,19 @@ export const updateTagFromWorkflow = (workflowId, tagIds) => async (dispatch) =>
   // In the future, we may consider to wait the backend result and handle the potential failures.
   axios.put(UPDATE_TAG_FROM_WORKFLOW_API, { tags: tagIds, id: workflowId }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
   dispatch(updateTagFromWorkflowSuccess(workflowId, tagIds));
+};
+
+export const runWorkflow = (workflowId, key) => async (dispatch) => {
+  const { idToken: { jwtToken } } = await Auth.currentSession();
+  // Somehow, the NWC server gives error to some workflow id.
+  // Keeping the NWC post call first can help to prevent updating our database when activating fails.
+  await axios.post(
+    `${NWC_LIST_WORKFLOWS_API}/${workflowId}/activate`,
+    {},
+    {
+      headers: { authorization: `${BEARER_HEADER} ${key}` },
+    },
+  );
+  axios.put(UPDATE_NWC_ACTIVE_API, { workflowId, isActive: 1 }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  dispatch(runWorkflowSuccess(workflowId));
 };
