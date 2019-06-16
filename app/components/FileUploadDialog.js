@@ -8,7 +8,7 @@ import green from '@material-ui/core/colors/green';
 import { withStyles } from '@material-ui/core/styles';
 import I18n from '@kevinwang0316/i18n';
 
-import UploadSnackbar from './UploadSnackbar';
+import CustomizedSnackbar from './CustomizedSnackbar';
 import ProgressDialog from './ProgressDialog';
 import { uploadWorkflows } from '../actions/WorkflowActions';
 import { uploadInstances } from '../actions/InstanceActions';
@@ -139,7 +139,12 @@ export const FileUploadDialog = ({ open, handleClose, classes }) => {
         </DialogActions>
       </Dialog>
       <ProgressDialog open={isOpenProgressDialog} />
-      <UploadSnackbar open={isOpenSnackbar} handleClose={handleSnakbarClose} />
+      <CustomizedSnackbar
+        open={isOpenSnackbar}
+        handleClose={handleSnakbarClose}
+        backgroundColor={green[600]}
+        content={I18n.get('snackbarMessage')}
+      />
     </Fragment>
   );
 };
