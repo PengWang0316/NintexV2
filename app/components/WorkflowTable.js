@@ -1,16 +1,21 @@
 import React, { useEffect, useState, Fragment } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
+import { red } from '@material-ui/core/colors';
 import I18n from '@kevinwang0316/i18n';
 import { ReactTabulator, reactFormatter } from 'react-tabulator';
+
 import Tags from './Tags';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 import {
   fetchWorkflowsByUser as fetchWorkflowsByUserAction,
   updateTagFromWorkflow as updateTagFromWorkflowAction,
+  runWorkflow as runWorkflowAction,
 } from '../actions/WorkflowActions';
 import AttachTagDialog from './AttachTagDialog';
 import WorkflowActions from './WorkflowActions';
+import CustomizedSnackbar from './CustomizedSnackbar';
+
 
 // import does not work well with the MiniCssExtractPlugin
 require('../styles/tabulator_bootstrap4.css');
@@ -77,8 +82,10 @@ const tableOptions = {
 let isFetching = false;
 
 export const WorkflowTable = ({
-  workflows, fetchWorkflowsByUser, tags, updateTagFromWorkflow,
+  workflows, fetchWorkflowsByUser, tags, updateTagFromWorkflow, nwcKeys, runWorkflow,
 }) => {
+  const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);
+
   useEffect(() => {
     if (!workflows.isFetched && !isFetching) {
       fetchWorkflowsByUser();
@@ -93,10 +100,40 @@ export const WorkflowTable = ({
     setWorkflowId(id);
     toggleTagDialog();
   };
+  const handleSnakbarClose = () => setIsOpenSnackbar(false);
+
+  const handleRunAction = (currentWorkflowId, tenant) => {
+    if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
+    else runWorkflow(currentWorkflowId, nwcKeys.data[tenant][1]);
+  };
+
+  const handleStopAction = (currentWorkflowId, tenant) => {
+    console.log(currentWorkflowId, tenant);
+  };
+
+  const handleExportAction = (currentWorkflowId, tenant) => {
+    console.log(currentWorkflowId, tenant);
+  };
+
+  const handleMoveAction = (currentWorkflowId, tenant) => {
+    console.log(currentWorkflowId, tenant);
+  };
+
+  const handleDeleteAction = (currentWorkflowId, tenant) => {
+    console.log(currentWorkflowId, tenant);
+  };
 
   columns[4].formatter = reactFormatter(
-    <WorkflowActions />,
+    <WorkflowActions
+      handleRun={handleRunAction}
+      handleStop={handleStopAction}
+      handleExport={handleExportAction}
+      handleMove={handleMoveAction}
+      handleDelete={handleDeleteAction}
+    />,
   );
+
+
   // After tags load from Redux, set formatters to some column
   if (tags) {
     columns[3].formatter = reactFormatter(
@@ -106,8 +143,8 @@ export const WorkflowTable = ({
 
   return (
     <Fragment>
-      {!tags && <LoadingAnimation />}
-      {tags && (
+      {(!tags || !nwcKeys.data || !workflows.data) && <LoadingAnimation />}
+      {tags && nwcKeys.data && workflows.data && (
       <ReactTabulator
         data={Object.values(workflows.data)}
         columns={columns}
@@ -117,20 +154,29 @@ export const WorkflowTable = ({
       />
       )}
       <AttachTagDialog isOpen={isOpen} handleClose={toggleTagDialog} workflowId={workflowId} />
+      <CustomizedSnackbar
+        open={isOpenSnackbar}
+        handleClose={handleSnakbarClose}
+        backgroundColor={red[600]}
+        content={I18n.get('snackbarNoKeyMessage')}
+      />
     </Fragment>
   );
 };
 WorkflowTable.propTypes = {
   workflows: PropTypes.objectOf(PropTypes.any).isRequired,
+  nwcKeys: PropTypes.objectOf(PropTypes.any).isRequired,
   fetchWorkflowsByUser: PropTypes.func.isRequired,
   tags: PropTypes.objectOf(PropTypes.array),
   updateTagFromWorkflow: PropTypes.func.isRequired,
+  runWorkflow: PropTypes.func.isRequired,
 };
 WorkflowTable.defaultProps = { tags: null };
-const mapStateToProps = ({ workflows, tags }) => ({ workflows, tags });
+const mapStateToProps = ({ workflows, tags, nwcKeys }) => ({ workflows, tags, nwcKeys });
 const mapDispatchToProps = dispatch => ({
   fetchWorkflowsByUser: () => dispatch(fetchWorkflowsByUserAction()),
   updateTagFromWorkflow:
     (workflowId, tagIds) => dispatch(updateTagFromWorkflowAction(workflowId, tagIds)),
+  runWorkflow: (workflowId, key) => dispatch(runWorkflowAction(workflowId, key)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(WorkflowTable);

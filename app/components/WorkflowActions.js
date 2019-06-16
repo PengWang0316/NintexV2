@@ -23,17 +23,26 @@ const useStyles = makeStyles({
   deleteIcon: { color: red[600] },
 });
 
-export const WorkflowActions = ({ cell }) => {
+export const WorkflowActions = ({
+  cell, handleRun, handleStop, handleExport, handleMove, handleDelete,
+}) => {
   const classes = useStyles();
+
+  const handleRunClick = () => handleRun(cell._cell.row.data.workflowId, cell._cell.row.data.tenant);
+  const handleStopClick = () => handleStop(cell._cell.row.data.workflowId, cell._cell.row.data.tenant);
+  const handleExportClick = () => handleExport(cell._cell.row.data.workflowId, cell._cell.row.data.tenant);
+  const handleMoveClick = () => handleMove(cell._cell.row.data.workflowId, cell._cell.row.data.tenant);
+  const handleDeleteClick = () => handleDelete(cell._cell.row.data.workflowId, cell._cell.row.data.tenant);
+
   return (
     <div className={classes.rootDiv}>
       {cell && cell._cell.value !== undefined && (
         <Fragment>
-          {cell._cell.value === 0 && <Tooltip title={I18n.get('actionRun')} placement="top-end"><IconButton size="small"><PlayCircleFilled className={classes.runIcon} fontSize="inherit" /></IconButton></Tooltip>}
-          {cell._cell.value === 1 && <Tooltip title={I18n.get('actionStop')} placement="top-end"><IconButton size="small"><PauseCircleFilled className={classes.stopIcon} fontSize="inherit" /></IconButton></Tooltip>}
-          <Tooltip title={I18n.get('actionExport')} placement="top-end"><IconButton size="small"><ScreenShare className={classes.shareIcon} fontSize="inherit" /></IconButton></Tooltip>
-          <Tooltip title={I18n.get('actionMove')} placement="top-end"><IconButton size="small"><Unarchive className={classes.moveIcon} fontSize="inherit" /></IconButton></Tooltip>
-          <Tooltip title={I18n.get('actionDelete')} placement="top-end"><IconButton size="small"><DeleteForever className={classes.deleteIcon} fontSize="inherit" /></IconButton></Tooltip>
+          {cell._cell.value === 0 && <Tooltip title={I18n.get('actionRun')} placement="top-end"><IconButton size="small" onClick={handleRunClick}><PlayCircleFilled className={classes.runIcon} fontSize="inherit" /></IconButton></Tooltip>}
+          {cell._cell.value === 1 && <Tooltip title={I18n.get('actionStop')} placement="top-end"><IconButton size="small" onClick={handleStopClick}><PauseCircleFilled className={classes.stopIcon} fontSize="inherit" /></IconButton></Tooltip>}
+          <Tooltip title={I18n.get('actionExport')} placement="top-end"><IconButton size="small" onClick={handleExportClick}><ScreenShare className={classes.shareIcon} fontSize="inherit" /></IconButton></Tooltip>
+          <Tooltip title={I18n.get('actionMove')} placement="top-end"><IconButton size="small" onClick={handleMoveClick}><Unarchive className={classes.moveIcon} fontSize="inherit" /></IconButton></Tooltip>
+          <Tooltip title={I18n.get('actionDelete')} placement="top-end"><IconButton size="small" onClick={handleDeleteClick}><DeleteForever className={classes.deleteIcon} fontSize="inherit" /></IconButton></Tooltip>
         </Fragment>
       )}
     </div>
@@ -41,6 +50,11 @@ export const WorkflowActions = ({ cell }) => {
 };
 WorkflowActions.propTypes = {
   cell: PropTypes.objectOf(PropTypes.any),
+  handleRun: PropTypes.func.isRequired,
+  handleStop: PropTypes.func.isRequired,
+  handleExport: PropTypes.func.isRequired,
+  handleMove: PropTypes.func.isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };
 WorkflowActions.defaultProps = { cell: null };
 export default WorkflowActions;
