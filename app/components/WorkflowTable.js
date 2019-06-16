@@ -10,7 +10,7 @@ import LoadingAnimation from './SharedComponents/LoadingAnimation';
 import {
   fetchWorkflowsByUser as fetchWorkflowsByUserAction,
   updateTagFromWorkflow as updateTagFromWorkflowAction,
-  runWorkflow as runWorkflowAction,
+  runWorkflow as runWorkflowAction, stopWorkflow as stopWorkflowAction,
 } from '../actions/WorkflowActions';
 import AttachTagDialog from './AttachTagDialog';
 import WorkflowActions from './WorkflowActions';
@@ -82,7 +82,8 @@ const tableOptions = {
 let isFetching = false;
 
 export const WorkflowTable = ({
-  workflows, fetchWorkflowsByUser, tags, updateTagFromWorkflow, nwcKeys, runWorkflow,
+  workflows, fetchWorkflowsByUser, tags,
+  updateTagFromWorkflow, nwcKeys, runWorkflow, stopWorkflow,
 }) => {
   const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);
 
@@ -108,19 +109,23 @@ export const WorkflowTable = ({
   };
 
   const handleStopAction = (currentWorkflowId, tenant) => {
-    console.log(currentWorkflowId, tenant);
+    if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
+    else stopWorkflow(currentWorkflowId, nwcKeys.data[tenant][1]);
   };
 
   const handleExportAction = (currentWorkflowId, tenant) => {
-    console.log(currentWorkflowId, tenant);
+    if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
+    // else stopWorkflow(currentWorkflowId, nwcKeys.data[tenant][1]);
   };
 
   const handleMoveAction = (currentWorkflowId, tenant) => {
-    console.log(currentWorkflowId, tenant);
+    if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
+    // else stopWorkflow(currentWorkflowId, nwcKeys.data[tenant][1]);
   };
 
   const handleDeleteAction = (currentWorkflowId, tenant) => {
-    console.log(currentWorkflowId, tenant);
+    if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
+    // else stopWorkflow(currentWorkflowId, nwcKeys.data[tenant][1]);
   };
 
   columns[4].formatter = reactFormatter(
@@ -170,6 +175,7 @@ WorkflowTable.propTypes = {
   tags: PropTypes.objectOf(PropTypes.array),
   updateTagFromWorkflow: PropTypes.func.isRequired,
   runWorkflow: PropTypes.func.isRequired,
+  stopWorkflow: PropTypes.func.isRequired,
 };
 WorkflowTable.defaultProps = { tags: null };
 const mapStateToProps = ({ workflows, tags, nwcKeys }) => ({ workflows, tags, nwcKeys });
@@ -178,5 +184,6 @@ const mapDispatchToProps = dispatch => ({
   updateTagFromWorkflow:
     (workflowId, tagIds) => dispatch(updateTagFromWorkflowAction(workflowId, tagIds)),
   runWorkflow: (workflowId, key) => dispatch(runWorkflowAction(workflowId, key)),
+  stopWorkflow: (workflowId, key) => dispatch(stopWorkflowAction(workflowId, key)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(WorkflowTable);

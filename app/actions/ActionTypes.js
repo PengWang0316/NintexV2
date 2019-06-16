@@ -22,4 +22,4 @@ export const ADD_OFFICEKEY_SUCCESS = 'addOfficekeySuccess';
 export const DELETE_OFFICEKEY_SUCCESS = 'deleteOfficekeySuccess';
 export const APPEND_WORKFLOWS_SUCCESS = 'appendWorkflowsSuccess';
 export const UPDATE_NWC_LAST_DATE_SUCCESS = 'updateNwcLastDateSuccess';
-export const RUN_WORKFLOW_SUCCESS = 'runWorkflowSuccess';
+export const UPDATE_WORKFLOW_ACTIVE_SUCCESS = 'updateWorkflowActiveSuccess';

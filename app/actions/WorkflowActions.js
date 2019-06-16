@@ -10,7 +10,7 @@ import {
 import {
   FETCH_WORKFLOW_COUNT_SUCCESS, FETCH_WORKFLOW_LOCATION_COUNT_SUCCESS,
   FETCH_WORKFLOWS_BY_USER_SUCCESS, UPDATE_TAG_FROM_WORKFLOW_SUCCESS,
-  APPEND_WORKFLOWS_SUCCESS, RUN_WORKFLOW_SUCCESS,
+  APPEND_WORKFLOWS_SUCCESS, UPDATE_WORKFLOW_ACTIVE_SUCCESS,
 } from './ActionTypes';
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
 import getTokenAndData from './libs/GetTokenAndData';
@@ -40,9 +40,10 @@ const updateTagFromWorkflowSuccess = (workflowId, tagIds) => ({
   tagIds,
 });
 
-const runWorkflowSuccess = workflowId => ({
-  type: RUN_WORKFLOW_SUCCESS,
+const changeWorkflowActiveSuccess = (workflowId, isActive) => ({
+  type: UPDATE_WORKFLOW_ACTIVE_SUCCESS,
   workflowId,
+  isActive,
 });
 
 export const appandWorkflows = workflows => ({
@@ -120,5 +121,20 @@ export const runWorkflow = (workflowId, key) => async (dispatch) => {
     },
   );
   axios.put(UPDATE_NWC_ACTIVE_API, { workflowId, isActive: 1 }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
-  dispatch(runWorkflowSuccess(workflowId));
+  dispatch(changeWorkflowActiveSuccess(workflowId, 1));
+};
+
+export const stopWorkflow = (workflowId, key) => async (dispatch) => {
+  const { idToken: { jwtToken } } = await Auth.currentSession();
+  // Somehow, the NWC server gives error to some workflow id.
+  // Keeping the NWC post call first can help to prevent updating our database when activating fails.
+  await axios.post(
+    `${NWC_LIST_WORKFLOWS_API}/${workflowId}/deactivate`,
+    {},
+    {
+      headers: { authorization: `${BEARER_HEADER} ${key}` },
+    },
+  );
+  axios.put(UPDATE_NWC_ACTIVE_API, { workflowId, isActive: 0 }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  dispatch(changeWorkflowActiveSuccess(workflowId, 0));
 };
