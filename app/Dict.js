@@ -50,6 +50,7 @@ const dict = {
     apiKey: 'API Key',
     endpoint: 'Office 365 Endpoint',
     cookie: 'Authorization Cookie',
+    snackbarNoKeyMessage: 'No API key is found for this tenant',
   },
 };
 
