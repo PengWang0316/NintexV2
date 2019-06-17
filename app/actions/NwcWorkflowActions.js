@@ -111,29 +111,35 @@ const fetchNwcWorkflows = async (key, limit = '1000') => {
   return workflows;
 };
 
-export const addNwcWorkflows = (tenant, key, existedWorkflows) => async (dispatch) => {
+export const addNwcWorkflows = (
+  tenant, key, existedWorkflows, isAutoFetching = false,
+) => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
-  const rawWorkflows = await fetchNwcWorkflows(key);
+  const rawWorkflows = await fetchNwcWorkflows(key, isAutoFetching ? 100 : 1000);
   // Dispatch the lastest update date for this tenant
   dispatch(updateLastDateSuccess(tenant, formatWorkflow(rawWorkflows[0]).created));
-  const { insertWorkflows, reduxState } = parseData(rawWorkflows, tenant, existedWorkflows);
+  const { insertWorkflows, reduxState } = parseData(rawWorkflows, tenant, existedWorkflows, { isAutoFetching });
   // If any workflow that has to be inserted, the Redux state also should be updated
   if (insertWorkflows.length !== 0) {
     dispatch(appandWorkflows(reduxState));
-    axios.post(ADD_NWC_WORKFLOWS_API, { workflows: insertWorkflows }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+    axios.post(
+      isAutoFetching ? ADD_NWC_WORKFLOWS_EXPORT_KEYS_API : ADD_NWC_WORKFLOWS_API,
+      { workflows: insertWorkflows },
+      { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } },
+    );
   }
 };
 
-export const autoFetchNwcWorkflow = (tenant, key, existedWorkflows) => async (dispatch) => {
-  const { idToken: { jwtToken } } = await Auth.currentSession();
-  const rawWorkflows = await fetchNwcWorkflows(key, 100);
+// export const autoFetchNwcWorkflow = (tenant, key, existedWorkflows) => async (dispatch) => {
+//   const { idToken: { jwtToken } } = await Auth.currentSession();
+//   const rawWorkflows = await fetchNwcWorkflows(key, 100);
 
-  dispatch(updateLastDateSuccess(tenant, formatWorkflow(rawWorkflows[0]).created));
-  const { insertWorkflows, reduxState } = parseData(rawWorkflows, tenant, existedWorkflows, { isAutoFetching: true });
-  if (insertWorkflows.length !== 0) {
-    dispatch(appandWorkflows(reduxState));
-    axios.post(ADD_NWC_WORKFLOWS_EXPORT_KEYS_API, { workflows: insertWorkflows, key }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
-  }
-};
+//   dispatch(updateLastDateSuccess(tenant, formatWorkflow(rawWorkflows[0]).created));
+//   const { insertWorkflows, reduxState } = parseData(rawWorkflows, tenant, existedWorkflows, { isAutoFetching: true });
+//   if (insertWorkflows.length !== 0) {
+//     dispatch(appandWorkflows(reduxState));
+//     axios.post(ADD_NWC_WORKFLOWS_EXPORT_KEYS_API, { workflows: insertWorkflows, key }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+//   }
+// };
 
 export default addNwcWorkflows;
