@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
 
-import { ADD_NWC_WORKFLOWS_API } from './Urls';
+import { ADD_NWC_WORKFLOWS_API, ADD_NWC_WORKFLOWS_EXPORT_KEYS_API } from './Urls';
 import { BEARER_HEADER, NWC_LIST_WORKFLOWS_API, NWC_PLATFORM } from '../config';
 import { appandWorkflows } from './WorkflowActions';
 import { UPDATE_NWC_LAST_DATE_SUCCESS } from './ActionTypes';
@@ -55,7 +55,7 @@ const formatWorkflow = (workflow, tenant) => {
 
 // In charge of turning the workflow object to one array and one object
 // One for insert and another one for updating the Redux state
-const parseData = (data, tenant, existedWorkflows) => {
+const parseData = (data, tenant, existedWorkflows, options = { isAutoFetching: false }) => {
   const insertWorkflows = [];
   const reduxState = {};
   data.forEach((workflow) => {
@@ -76,7 +76,7 @@ const parseData = (data, tenant, existedWorkflows) => {
         created,
         JSON.stringify(eventConfiguration),
         JSON.stringify(eventType),
-        active === '' ? 0 : 1,
+        active === '' || options.isAutoFetching ? 0 : 1,
         lastPublished,
         publishedType,
         publishedId,
@@ -90,7 +90,7 @@ const parseData = (data, tenant, existedWorkflows) => {
         publishDate: created,
         publisher: authorName,
         tag: null,
-        isActive: active === '' ? 0 : 1,
+        isActive: active === '' || options.isAutoFetching ? 0 : 1,
         tenant,
       };
     }
@@ -98,13 +98,13 @@ const parseData = (data, tenant, existedWorkflows) => {
   return { insertWorkflows, reduxState };
 };
 
-const fetchNwcWorkflows = async (key) => {
+const fetchNwcWorkflows = async (key, limit = '1000') => {
   const { data: { workflows } } = await axios.get(
     NWC_LIST_WORKFLOWS_API,
     {
       headers: { authorization: `${BEARER_HEADER} ${key}` },
       params: {
-        limit: '1000', sortBy: 'created', sortOrder: 'desc',
+        limit, sortBy: 'created', sortOrder: 'desc',
       },
     },
   );
@@ -121,6 +121,18 @@ export const addNwcWorkflows = (tenant, key, existedWorkflows) => async (dispatc
   if (insertWorkflows.length !== 0) {
     dispatch(appandWorkflows(reduxState));
     axios.post(ADD_NWC_WORKFLOWS_API, { workflows: insertWorkflows }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  }
+};
+
+export const autoFetchNwcWorkflow = (tenant, key, existedWorkflows) => async (dispatch) => {
+  const { idToken: { jwtToken } } = await Auth.currentSession();
+  const rawWorkflows = await fetchNwcWorkflows(key, 100);
+
+  dispatch(updateLastDateSuccess(tenant, formatWorkflow(rawWorkflows[0]).created));
+  const { insertWorkflows, reduxState } = parseData(rawWorkflows, tenant, existedWorkflows, { isAutoFetching: true });
+  if (insertWorkflows.length !== 0) {
+    dispatch(appandWorkflows(reduxState));
+    axios.post(ADD_NWC_WORKFLOWS_EXPORT_KEYS_API, { workflows: insertWorkflows, key }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
   }
 };
 

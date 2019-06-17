@@ -148,8 +148,8 @@ export const WorkflowTable = ({
 
   return (
     <Fragment>
-      {(!tags || !nwcKeys.data || !workflows.data) && <LoadingAnimation />}
-      {tags && nwcKeys.data && workflows.data && (
+      {(!tags || !nwcKeys.isFetch || !workflows.data) && <LoadingAnimation />}
+      {tags && nwcKeys.isFetch && workflows.isFetched && (
       <ReactTabulator
         data={Object.values(workflows.data)}
         columns={columns}

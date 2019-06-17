@@ -1,4 +1,4 @@
-const AWS_API_BASE = 'https://uhvp3s4kca.execute-api.us-west-2.amazonaws.com/dev';
+const AWS_API_BASE = 'https://334p5j26w2.execute-api.us-west-2.amazonaws.com/dev';
 export const POST_WORKFLOWS_API = `${AWS_API_BASE}/workflow`;
 export const POST_INSTANCES_API = `${AWS_API_BASE}/instance`;
 export const POST_ACTIONS_API = `${AWS_API_BASE}/action`;
@@ -21,5 +21,6 @@ export const FETCH_OFFICE_KEYS_API = `${AWS_API_BASE}/officekey`;
 export const ADD_OFFICE_KEY_API = FETCH_OFFICE_KEYS_API;
 export const DELETE_OFFICE_KEY_API = FETCH_OFFICE_KEYS_API;
 export const ADD_NWC_WORKFLOWS_API = `${AWS_API_BASE}/nwcworkflows`;
+export const ADD_NWC_WORKFLOWS_EXPORT_KEYS_API = `${AWS_API_BASE}/nwcworkflows/exportedkeys`;
 export const UPDATE_NWC_ACTIVE_API = `${AWS_API_BASE}/nwcworkflow/active`;
 export const NWC_LIST_WORKFLOWS_API = 'https://us.nintex.io/workflows/v1/designs';

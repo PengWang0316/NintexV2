@@ -18,6 +18,7 @@ import {
 } from '../config';
 import * as UserActions from '../actions/UserActions';
 import { fetchTags as fetchTagsAction } from '../actions/TagActions';
+import { autoFetchNwcWorkflow as autoFetchNwcWorkflowAction } from '../actions/NwcWorkflowActions';
 
 /* istanbul ignore next */
 const styles = theme => ({
@@ -62,9 +63,11 @@ export class Navbar extends Component {
   static propTypes = {
     classes: PropTypes.objectOf(PropTypes.string).isRequired,
     history: PropTypes.objectOf(PropTypes.any).isRequired,
+    workflows: PropTypes.objectOf(PropTypes.any).isRequired,
     user: PropTypes.objectOf(PropTypes.string),
     logout: PropTypes.func.isRequired,
     currentAuthenticatedUser: PropTypes.func.isRequired,
+    autoFetchNwcWorkflow: PropTypes.func.isRequired,
     fetchTags: PropTypes.func.isRequired,
     tags: PropTypes.objectOf(PropTypes.array),
     nwcKeys: PropTypes.objectOf(PropTypes.any),
@@ -103,14 +106,20 @@ export class Navbar extends Component {
   }
 
   handleAutoFetchingClick = () => {
-    if (this.isAutoFetching) {
-      console.log('stop');
+    if (this.state.isAutoFetching && this.autoFetchJob) {
+      clearInterval(this.autoFetchJob);
+      this.autoFetchJob = null;
     } else {
-      console.log('start');
+      this.autoFetchJob = setInterval(this.autoFetch, 2000);
     }
     this.setState(({ isAutoFetching }) => ({ isAutoFetching: !isAutoFetching }));
   };
 
+  autoFetch = () => {
+    Object.keys(this.props.nwcKeys.data).forEach((tenant) => {
+      this.props.autoFetchNwcWorkflow(tenant, this.props.nwcKeys.data[tenant][1], this.props.workflows.data);
+    });
+  };
 
   /**
    * The render method to render the jsx.
@@ -220,12 +229,17 @@ export class Navbar extends Component {
 }
 
 /* istanbul ignore next */
-const mapStateToProps = state => ({ user: state.user, tags: state.tags, nwcKeys: state.nwcKeys });
+const mapStateToProps = ({
+  user, tags, nwcKeys, workflows,
+}) => ({
+  user, tags, nwcKeys, workflows,
+});
 /* istanbul ignore next */
 const mapDispatchToProps = dispatch => ({
   currentAuthenticatedUser: () => dispatch(UserActions.currentAuthenticatedUser()),
   logout: () => dispatch(UserActions.logout()),
   fetchTags: () => dispatch(fetchTagsAction()),
+  autoFetchNwcWorkflow: (tenant, key, exsitedWorkflows) => dispatch(autoFetchNwcWorkflowAction(tenant, key, exsitedWorkflows)),
 });
 
 /* Putting the withRouter to the first position because when test code mocks Link
