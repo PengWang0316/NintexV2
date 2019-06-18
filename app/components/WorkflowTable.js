@@ -23,7 +23,7 @@ require('../styles/tabulator_bootstrap4.css');
 // TODO: Hide some columns to fit into different screen sizes
 const columns = [
   {
-    title: I18n.get('tbTitleName'), field: 'workflowName', align: 'left', sorter: 'string', widthGrow: 2,
+    title: I18n.get('tbTitleName'), field: 'workflowName', align: 'left', sorter: 'string', widthGrow: 2, headerFilter: 'input',
   },
   {
     title: I18n.get('tbTitlePublishDate'),
@@ -150,13 +150,13 @@ export const WorkflowTable = ({
     <Fragment>
       {(!tags || !nwcKeys.isFetch || !workflows.data) && <LoadingAnimation />}
       {tags && nwcKeys.isFetch && workflows.isFetched && (
-      <ReactTabulator
-        data={Object.values(workflows.data)}
-        columns={columns}
-        tooltips
-        layout="fitColumns"
-        options={tableOptions}
-      />
+        <ReactTabulator
+          data={Object.values(workflows.data)}
+          columns={columns}
+          tooltips
+          layout="fitColumns"
+          options={tableOptions}
+        />
       )}
       <AttachTagDialog isOpen={isOpen} handleClose={toggleTagDialog} workflowId={workflowId} />
       <CustomizedSnackbar
