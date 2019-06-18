@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { Auth } from 'aws-amplify';
 
-import { ADD_NWC_WORKFLOWS_API, ADD_NWC_WORKFLOWS_EXPORT_KEYS_API } from './Urls';
+import { ADD_NWC_WORKFLOWS_API } from './Urls';
 import { BEARER_HEADER, NWC_LIST_WORKFLOWS_API, NWC_PLATFORM } from '../config';
 import { appandWorkflows } from './WorkflowActions';
 import { UPDATE_NWC_LAST_DATE_SUCCESS } from './ActionTypes';
