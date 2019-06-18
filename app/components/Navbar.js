@@ -110,7 +110,7 @@ export class Navbar extends Component {
       clearInterval(this.autoFetchJob);
       this.autoFetchJob = null;
     } else {
-      this.autoFetchJob = setInterval(this.autoFetch, 2000);
+      this.autoFetchJob = setInterval(this.autoFetch, 60000);
     }
     this.setState(({ isAutoFetching }) => ({ isAutoFetching: !isAutoFetching }));
   };
