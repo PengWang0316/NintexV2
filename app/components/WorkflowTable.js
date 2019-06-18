@@ -41,7 +41,7 @@ const columns = [
     width: 150,
   },
   {
-    title: I18n.get('tbTitleName'), field: 'publisher', align: 'left', sorter: 'string', widthGrow: 1, headerFilter: 'input',
+    title: I18n.get('tbTitleAuthorName'), field: 'publisher', align: 'left', sorter: 'string', widthGrow: 1, headerFilter: 'input',
   },
   {
     title: I18n.get('tbTitleTag'),
