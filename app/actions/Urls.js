@@ -23,4 +23,5 @@ export const DELETE_OFFICE_KEY_API = FETCH_OFFICE_KEYS_API;
 export const ADD_NWC_WORKFLOWS_API = `${AWS_API_BASE}/nwcworkflows`;
 export const ADD_NWC_WORKFLOWS_EXPORT_KEYS_API = `${AWS_API_BASE}/nwcworkflows/exportedkeys`;
 export const UPDATE_NWC_ACTIVE_API = `${AWS_API_BASE}/nwcworkflow/active`;
+export const UPDATE_NWC_ISMONITORED_API = `${AWS_API_BASE}/nwcworkflow/monitor`;
 export const NWC_LIST_WORKFLOWS_API = 'https://us.nintex.io/workflows/v1/designs';

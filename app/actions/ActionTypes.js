@@ -23,3 +23,5 @@ export const DELETE_OFFICEKEY_SUCCESS = 'deleteOfficekeySuccess';
 export const APPEND_WORKFLOWS_SUCCESS = 'appendWorkflowsSuccess';
 export const UPDATE_NWC_LAST_DATE_SUCCESS = 'updateNwcLastDateSuccess';
 export const UPDATE_WORKFLOW_ACTIVE_SUCCESS = 'updateWorkflowActiveSuccess';
+export const FETCH_MONITOR_LIST_SUCCESS = 'fetchMonitorListSuccess';
+export const SWITCH_MONITOR_SUCCESS = 'switchMonitorSuccess';

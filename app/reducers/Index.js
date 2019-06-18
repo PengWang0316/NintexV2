@@ -16,6 +16,7 @@ import tags from './Tags';
 import nwcKeys from './NWCKeys';
 import officeKeys from './OfficeKeys';
 import lastNwc from './LastNwc';
+import monitorList from './MonitorList';
 
 export default combineReducers({
   actionNameCount,
@@ -23,6 +24,7 @@ export default combineReducers({
   instanceStatus,
   instanceStatusByTime,
   lastNwc,
+  monitorList,
   nwcKeys,
   officeKeys,
   publisherCount,

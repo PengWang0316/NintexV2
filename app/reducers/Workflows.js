@@ -1,11 +1,11 @@
 import {
   FETCH_WORKFLOWS_BY_USER_SUCCESS, UPDATE_TAG_FROM_WORKFLOW_SUCCESS,
-  APPEND_WORKFLOWS_SUCCESS, UPDATE_WORKFLOW_ACTIVE_SUCCESS,
+  APPEND_WORKFLOWS_SUCCESS, UPDATE_WORKFLOW_ACTIVE_SUCCESS, SWITCH_MONITOR_SUCCESS,
 } from '../actions/ActionTypes';
 
 const workflows = (
   state = { isFetched: false, data: {} }, {
-    type, workflows: workflowsByUser, workflowId, tagIds, isActive,
+    type, workflows: workflowsByUser, workflowId, tagIds, isActive, isMonitored,
   },
 ) => {
   switch (type) {
@@ -25,6 +25,8 @@ const workflows = (
       return { isFetched: true, data: { ...state.data, ...workflowsByUser } };
     case UPDATE_WORKFLOW_ACTIVE_SUCCESS:
       return { isFetched: true, data: { ...state.data, [workflowId]: { ...state.data[workflowId], isActive } } };
+    case SWITCH_MONITOR_SUCCESS:
+      return { isFetched: true, data: { ...state.data, [workflowId]: { ...state.data[workflowId], isMonitored } } };
     default:
       return state;
   }

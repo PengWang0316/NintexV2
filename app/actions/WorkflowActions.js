@@ -5,12 +5,12 @@ import { Auth } from 'aws-amplify';
 import {
   POST_WORKFLOWS_API, GET_WORKFLOWS_COUNT_API, UPDATE_TAG_FROM_WORKFLOW_API,
   GET_WORKFLOWS_LOCATION_COUNT_API, GET_WORKFLOWS_BY_USER_API, NWC_LIST_WORKFLOWS_API,
-  UPDATE_NWC_ACTIVE_API,
+  UPDATE_NWC_ACTIVE_API, UPDATE_NWC_ISMONITORED_API,
 } from './Urls';
 import {
   FETCH_WORKFLOW_COUNT_SUCCESS, FETCH_WORKFLOW_LOCATION_COUNT_SUCCESS,
-  FETCH_WORKFLOWS_BY_USER_SUCCESS, UPDATE_TAG_FROM_WORKFLOW_SUCCESS,
-  APPEND_WORKFLOWS_SUCCESS, UPDATE_WORKFLOW_ACTIVE_SUCCESS,
+  FETCH_WORKFLOWS_BY_USER_SUCCESS, UPDATE_TAG_FROM_WORKFLOW_SUCCESS, SWITCH_MONITOR_SUCCESS,
+  APPEND_WORKFLOWS_SUCCESS, UPDATE_WORKFLOW_ACTIVE_SUCCESS, FETCH_MONITOR_LIST_SUCCESS,
 } from './ActionTypes';
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
 import getTokenAndData from './libs/GetTokenAndData';
@@ -34,6 +34,11 @@ const fetchWorkflowsByUserSuccess = workflows => ({
   workflows,
 });
 
+const fetchMonitorListSuccess = workflows => ({
+  type: FETCH_MONITOR_LIST_SUCCESS,
+  workflows,
+});
+
 const updateTagFromWorkflowSuccess = (workflowId, tagIds) => ({
   type: UPDATE_TAG_FROM_WORKFLOW_SUCCESS,
   workflowId,
@@ -44,6 +49,13 @@ const changeWorkflowActiveSuccess = (workflowId, isActive) => ({
   type: UPDATE_WORKFLOW_ACTIVE_SUCCESS,
   workflowId,
   isActive,
+});
+
+const switchMonitorSuccess = (workflowId, tenant, isMonitored) => ({
+  type: SWITCH_MONITOR_SUCCESS,
+  workflowId,
+  tenant,
+  isMonitored,
 });
 
 export const appandWorkflows = workflows => ({
@@ -100,6 +112,7 @@ export const fetchWorkflowsByUser = () => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
   const { data } = await axios.get(GET_WORKFLOWS_BY_USER_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
   dispatch(fetchWorkflowsByUserSuccess(data));
+  dispatch(fetchMonitorListSuccess(data));
 };
 
 export const updateTagFromWorkflow = (workflowId, tagIds) => async (dispatch) => {
@@ -137,4 +150,10 @@ export const stopWorkflow = (workflowId, key) => async (dispatch) => {
   );
   axios.put(UPDATE_NWC_ACTIVE_API, { workflowId, isActive: 0 }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
   dispatch(changeWorkflowActiveSuccess(workflowId, 0));
+};
+
+export const switchMonitor = (workflowId, tenant, isMonitored) => async (dispatch) => {
+  const { idToken: { jwtToken } } = await Auth.currentSession();
+  dispatch(switchMonitorSuccess(workflowId, tenant, isMonitored));
+  axios.put(UPDATE_NWC_ISMONITORED_API, { workflowId, isMonitored }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
 };
