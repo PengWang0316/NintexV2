@@ -15,6 +15,7 @@ import {
 } from '../actions/WorkflowActions';
 import AttachTagDialog from './AttachTagDialog';
 import WorkflowActions from './WorkflowActions';
+import { fetchTags as fetchTagsAction } from '../actions/TagActions';
 import CustomizedSnackbar from './CustomizedSnackbar';
 
 
@@ -86,9 +87,10 @@ const tableOptions = {
 };
 // Use to make sure the fetching is just called onece
 let isFetching = false;
+let isFetchingTags = false;
 
 export const WorkflowTable = ({
-  workflows, fetchWorkflowsByUser, tags, switchMonitor,
+  workflows, fetchWorkflowsByUser, tags, switchMonitor, fetchTags,
   updateTagFromWorkflow, nwcKeys, runWorkflow, stopWorkflow,
 }) => {
   const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);
@@ -97,6 +99,10 @@ export const WorkflowTable = ({
     if (!workflows.isFetched && !isFetching) {
       fetchWorkflowsByUser();
       isFetching = true;
+    }
+    if (!tags && !isFetchingTags) {
+      fetchTags();
+      isFetchingTags = true;
     }
   });
   const [isOpen, setIsOpen] = useState(false);
@@ -189,6 +195,7 @@ WorkflowTable.propTypes = {
   runWorkflow: PropTypes.func.isRequired,
   stopWorkflow: PropTypes.func.isRequired,
   switchMonitor: PropTypes.func.isRequired,
+  fetchTags: PropTypes.func.isRequired,
 };
 WorkflowTable.defaultProps = { tags: null };
 const mapStateToProps = ({
@@ -198,6 +205,7 @@ const mapStateToProps = ({
 });
 const mapDispatchToProps = dispatch => ({
   fetchWorkflowsByUser: () => dispatch(fetchWorkflowsByUserAction()),
+  fetchTags: () => dispatch(fetchTagsAction()),
   updateTagFromWorkflow:
     (workflowId, tagIds) => dispatch(updateTagFromWorkflowAction(workflowId, tagIds)),
   runWorkflow: (workflowId, key) => dispatch(runWorkflowAction(workflowId, key)),
