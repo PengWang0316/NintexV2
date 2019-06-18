@@ -41,6 +41,7 @@ const dict = {
     actionExport: 'Export the workflow',
     actionMove: 'Move the workflow',
     actionDelete: 'Delete the workflow',
+    actionMonitor: 'Auto monitor',
     addTag: 'Add a new tag',
     keyManage: 'API keys',
     keyManageDialogTitle: 'Manage API keys',

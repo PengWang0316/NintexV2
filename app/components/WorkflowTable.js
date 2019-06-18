@@ -11,6 +11,7 @@ import {
   fetchWorkflowsByUser as fetchWorkflowsByUserAction,
   updateTagFromWorkflow as updateTagFromWorkflowAction,
   runWorkflow as runWorkflowAction, stopWorkflow as stopWorkflowAction,
+  switchMonitor as switchMonitorAction,
 } from '../actions/WorkflowActions';
 import AttachTagDialog from './AttachTagDialog';
 import WorkflowActions from './WorkflowActions';
@@ -57,7 +58,7 @@ const columns = [
     field: 'isActive',
     align: 'right',
     headerSort: false,
-    width: 120,
+    width: 148,
   },
   {
     titel: '',
@@ -67,6 +68,11 @@ const columns = [
   {
     titel: '',
     field: 'locationPath',
+    visible: false,
+  },
+  {
+    titel: '',
+    field: 'isMonitored',
     visible: false,
   },
 ];
@@ -82,7 +88,7 @@ const tableOptions = {
 let isFetching = false;
 
 export const WorkflowTable = ({
-  workflows, fetchWorkflowsByUser, tags,
+  workflows, fetchWorkflowsByUser, tags, switchMonitor,
   updateTagFromWorkflow, nwcKeys, runWorkflow, stopWorkflow,
 }) => {
   const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);
@@ -128,6 +134,11 @@ export const WorkflowTable = ({
     // else stopWorkflow(currentWorkflowId, nwcKeys.data[tenant][1]);
   };
 
+  const handleMonitorAction = (currentWorkflowId, tenant, isMonitored) => {
+    if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
+    else switchMonitor(currentWorkflowId, tenant, isMonitored);
+  };
+
   columns[4].formatter = reactFormatter(
     <WorkflowActions
       handleRun={handleRunAction}
@@ -135,6 +146,7 @@ export const WorkflowTable = ({
       handleExport={handleExportAction}
       handleMove={handleMoveAction}
       handleDelete={handleDeleteAction}
+      handleMonitor={handleMonitorAction}
     />,
   );
 
@@ -176,14 +188,20 @@ WorkflowTable.propTypes = {
   updateTagFromWorkflow: PropTypes.func.isRequired,
   runWorkflow: PropTypes.func.isRequired,
   stopWorkflow: PropTypes.func.isRequired,
+  switchMonitor: PropTypes.func.isRequired,
 };
 WorkflowTable.defaultProps = { tags: null };
-const mapStateToProps = ({ workflows, tags, nwcKeys }) => ({ workflows, tags, nwcKeys });
+const mapStateToProps = ({
+  workflows, tags, nwcKeys,
+}) => ({
+  workflows, tags, nwcKeys,
+});
 const mapDispatchToProps = dispatch => ({
   fetchWorkflowsByUser: () => dispatch(fetchWorkflowsByUserAction()),
   updateTagFromWorkflow:
     (workflowId, tagIds) => dispatch(updateTagFromWorkflowAction(workflowId, tagIds)),
   runWorkflow: (workflowId, key) => dispatch(runWorkflowAction(workflowId, key)),
   stopWorkflow: (workflowId, key) => dispatch(stopWorkflowAction(workflowId, key)),
+  switchMonitor: (workflowId, tenant, isMonitored) => dispatch(switchMonitorAction(workflowId, tenant, isMonitored)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(WorkflowTable);
