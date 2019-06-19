@@ -31,12 +31,16 @@ export const MonitorListItem = ({ wfId, workflows, monitorList }) => {
   const classes = useStyles();
   const [isOpen, setIsOpen] = useState(false);
 
+  const handleExpendClick = () => setIsOpen(state => !state);
+
   return (
     <List className={classes.list}>
-      <ListItem alignItems="center" button>
+      <ListItem alignItems="center" button onClick={handleExpendClick}>
         <ListItemIcon>
-          {monitorList.data[wfId].hasFailure && <WarningIcon fontSize="large" className={classes.warningIcon} />}
-          {!monitorList.data[wfId].hasFailure && <CheckIcon fontSize="large" className={classes.checkIcon} />}
+          <Fragment>
+            {monitorList.data[wfId].hasFailure && <WarningIcon fontSize="large" className={classes.warningIcon} />}
+            {!monitorList.data[wfId].hasFailure && <CheckIcon fontSize="large" className={classes.checkIcon} />}
+          </Fragment>
         </ListItemIcon>
         <ListItemText
           primary={workflows.data[wfId].workflowName}
@@ -60,8 +64,10 @@ export const MonitorListItem = ({ wfId, workflows, monitorList }) => {
           <List component="div" disablePadding key={instanceId}>
             <ListItem button className={classes.nested}>
               <ListItemIcon>
-                {!monitorList.data[wfId].instances[instanceId].status && <WarningIcon className={classes.warningIcon} />}
-                {monitorList.data[wfId].instances[instanceId].status && <CheckIcon className={classes.checkIcon} />}
+                <Fragment>
+                  {!monitorList.data[wfId].instances[instanceId].status && <WarningIcon className={classes.warningIcon} />}
+                  {monitorList.data[wfId].instances[instanceId].status && <CheckIcon className={classes.checkIcon} />}
+                </Fragment>
               </ListItemIcon>
               <ListItemText
                 primary={`${monitorList.data[wfId].instances[instanceId].status} - ${monitorList.data[wfId].instances[instanceId].startTime}`}
