@@ -34,3 +34,4 @@ export const amplifyAuthSignOption = {
 export const BEARER_HEADER = 'Bearer';
 export const NWC_LIST_WORKFLOWS_API = 'https://us.nintex.io/workflows/v1/designs';
 export const NWC_PLATFORM = 'nwc';
+export const MAXIMUM_CHECK_INSTANCE_AMOUNT = 3;

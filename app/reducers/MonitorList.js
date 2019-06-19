@@ -1,7 +1,6 @@
 /* eslint-disable no-plusplus */
 import { FETCH_MONITOR_LIST_SUCCESS, SWITCH_MONITOR_SUCCESS, UPDATE_INSTANCES_SUCCESS } from '../actions/ActionTypes';
-
-const MAX_INSTANCE_AMOUNT = 3;
+import { MAXIMUM_CHECK_INSTANCE_AMOUNT } from '../config';
 
 const MonitorList = (state = { isFetched: false, data: {} }, {
   type, workflows, workflowId, tenant, key, instances,
@@ -38,7 +37,7 @@ const MonitorList = (state = { isFetched: false, data: {} }, {
       const monitorList = { isFetched: true, data: { ...state.data, [workflowId]: { ...state.data[workflowId], instances: {} } } };
       let hasFailure = false;
       // Maximum keep 3 instances
-      for (let i = 0, { length } = instances; i < length && i < MAX_INSTANCE_AMOUNT; i++) {
+      for (let i = 0, { length } = instances; i < length && i < MAXIMUM_CHECK_INSTANCE_AMOUNT; i++) {
         const {
           instanceId, startDateTime, endDateTime, status,
         } = instances[i];
