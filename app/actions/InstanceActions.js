@@ -6,7 +6,11 @@ import {
   POST_INSTANCES_API, GET_INSTANCE_COUNT_API, GET_INSTANCE_STATUS_API,
   GET_INSTANCE_STATUS_BYTIME_API,
 } from './Urls';
-import { FETCH_INSTANCE_COUNT_SUCCESS, FETCH_INSTANCE_STATUS_SUCCESS, FETCH_INSTANCE_STATUS_BYTIME_SUCCESS } from './ActionTypes';
+import { NWC_LIST_WORKFLOWS_API, BEARER_HEADER } from '../config';
+import {
+  FETCH_INSTANCE_COUNT_SUCCESS, FETCH_INSTANCE_STATUS_SUCCESS,
+  FETCH_INSTANCE_STATUS_BYTIME_SUCCESS, UPDATE_INSTANCES_SUCCESS,
+} from './ActionTypes';
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
 import getTokenAndData from './libs/GetTokenAndData';
 
@@ -26,6 +30,12 @@ const fetchInstanceStatusSuccess = instanceStatus => ({
 const fetchInstanceStatusByTimeSuccess = instanceStatus => ({
   type: FETCH_INSTANCE_STATUS_BYTIME_SUCCESS,
   instanceStatus,
+});
+
+const updateInstancesSuccess = (workflowId, instances) => ({
+  type: UPDATE_INSTANCES_SUCCESS,
+  workflowId,
+  instances,
 });
 
 export const uploadInstances = async (text) => {
@@ -73,4 +83,15 @@ export const fetchInstanceStatusByTime = () => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
   const { data } = await axios.get(GET_INSTANCE_STATUS_BYTIME_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
   dispatch(fetchInstanceStatusByTimeSuccess(data));
+};
+
+export const checkInstanceStatus = monitoredWorkflows => async (dispatch) => {
+  const fetchInstanceArray = Object.keys(monitoredWorkflows)
+    .map(id => axios.get(
+      `${NWC_LIST_WORKFLOWS_API}/${id}/instances`,
+      { params: { workflowId: id }, headers: { authorization: `${BEARER_HEADER} ${monitoredWorkflows[id].key}` } },
+    ));
+  const result = await axios.all(fetchInstanceArray);
+  // console.log(result);
+  result.forEach(({ config: { params: { workflowId } }, data: { instances } }) => dispatch(updateInstancesSuccess(workflowId, instances)));
 };
