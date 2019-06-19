@@ -46,7 +46,7 @@ const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageCo
 const ManagementPage = importedComponent(() => import(/* webpackChunkName: "ManagementContainer" *//* webpackPrefetch: true */ './containers/ManagementContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
 const MonitorPage = importedComponent(() => import(/* webpackChunkName: "MonitorContainer" *//* webpackPrefetch: true */ './containers/MonitorContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
 
-const INTERVAL_TIME = 5 * 60 * 1000;
+const INTERVAL_TIME = 1 * 60 * 1000;
 let autoMonitorJob = null;
 
 /**
