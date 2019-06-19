@@ -4,6 +4,7 @@ const dict = {
     logout: 'logout',
     dashboard: 'Dashboard',
     workflowManager: 'Workflow Manager',
+    monitorCenter: 'Monitor Center',
     createTag: 'New tag',
     uploadFile: 'Upload Files',
     appName: 'Workflow Manager',

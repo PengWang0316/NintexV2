@@ -6,16 +6,18 @@ import {
   Drawer, List, Divider, ListItem, ListItemIcon, ListItemText, Tooltip,
 } from '@material-ui/core';
 import {
-  Dashboard as DashBoardIcon, CloudUpload as UploadFileIcon,
+  Dashboard as DashBoardIcon, CloudUpload as UploadFileIcon, Visibility as MonitorCenterIcon,
   List as WorkflowManagerIcon, Queue as AddTagIcon, VpnKey as KeyIcon,
 } from '@material-ui/icons';
 import I18n from '@kevinwang0316/i18n';
-import { indigo, blue, amber } from '@material-ui/core/colors';
+import {
+  indigo, blue, amber, teal,
+} from '@material-ui/core/colors';
 
 import FileUploadDialog from './FileUploadDialog';
 import AddTagDialog from './AddTagDialog';
 import KeyManageDialog from './KeyManageDialog';
-import { HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL } from '../config';
+import { HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL, MONITOR_CENTER_PAGE_URL } from '../config';
 
 const styles = theme => ({
   drawerClose: {
@@ -33,10 +35,13 @@ const styles = theme => ({
     paddingTop: 80,
   },
   dashboardIcon: {
-    color: indigo[500],
+    color: indigo[400],
   },
   workflowManagerIcon: {
     color: blue[500],
+  },
+  monitorCenterIcon: {
+    color: teal[400],
   },
   fileUploadIcon: {
     color: amber[300],
@@ -84,6 +89,16 @@ const MenuDrawer = ({ classes }) => {
                   <WorkflowManagerIcon className={classes.workflowManagerIcon} />
                 </ListItemIcon>
                 <ListItemText primary={I18n.get('workflowManager')} />
+              </ListItem>
+            </Tooltip>
+          </Link>
+          <Link to={MONITOR_CENTER_PAGE_URL}>
+            <Tooltip title={I18n.get('monitorCenter')} placement="right-end">
+              <ListItem button>
+                <ListItemIcon>
+                  <MonitorCenterIcon className={classes.monitorCenterIcon} />
+                </ListItemIcon>
+                <ListItemText primary={I18n.get('monitorCenter')} />
               </ListItem>
             </Tooltip>
           </Link>

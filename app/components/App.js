@@ -10,7 +10,8 @@ import { withAuthenticator } from 'aws-amplify-react';
 import Navbar from './Navbar';
 import MenuDrawer from './MenuDrawer';
 import {
-  HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL, SIGNIN_PAGE_URL, cognitoConfig, amplifyAuthSignOption,
+  HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL, SIGNIN_PAGE_URL,
+  cognitoConfig, amplifyAuthSignOption, MONITOR_CENTER_PAGE_URL,
 } from '../config';
 import LoadingAnimation from './SharedComponents/LoadingAnimation';
 
@@ -41,6 +42,7 @@ const theme = createMuiTheme({
 /* istanbul ignore next */
 const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageContainer" *//* webpackPrefetch: true */ './containers/HomePageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
 const ManagementPage = importedComponent(() => import(/* webpackChunkName: "ManagementContainer" *//* webpackPrefetch: true */ './containers/ManagementContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
+const MonitorPage = importedComponent(() => import(/* webpackChunkName: "MonitorContainer" *//* webpackPrefetch: true */ './containers/MonitorContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
 
 /**
  * The root component that contains the theme, routers, navbar, and login dialog
@@ -56,6 +58,7 @@ export default () => (
           <Switch>
             <Route exact path={HOME_PAGE_URL} component={HomePage} />
             <Route exact path={WORKFLOW_MANAGER_PAGE_URL} component={ManagementPage} />
+            <Route exact path={MONITOR_CENTER_PAGE_URL} component={MonitorPage} />
             <Route exact path={SIGNIN_PAGE_URL} component={withAuthenticator(HomePage, amplifyAuthSignOption)} />
             <Route render={() => <p>Not Fount!</p>} />
           </Switch>
