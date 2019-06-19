@@ -54,8 +54,6 @@ const dict = {
     cookie: 'Authorization Cookie',
     snackbarNoKeyMessage: 'No API key is found for this tenant',
     monitorListTitle: 'Monitored Workflows',
-    fail: 'Failed',
-    completed: 'Completed',
   },
 };
 
