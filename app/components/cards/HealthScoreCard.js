@@ -19,10 +19,14 @@ const styles = {
   flexDiv: { display: 'flex' },
   box: { marginRight: 10 },
 };
+let isFetching;
 
 export const HealthScoreCard = ({ classes, instanceStatus, fetchInstanceStatus }) => {
   useEffect(() => {
-    if (!instanceStatus) fetchInstanceStatus();
+    if (!instanceStatus && !isFetching) {
+      fetchInstanceStatus();
+      isFetching = true;
+    }
   });
 
   return (

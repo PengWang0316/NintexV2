@@ -15,10 +15,14 @@ const styles = {
     color: orange[500],
   },
 };
+let isFetching;
 
 export const InstanceCountCard = ({ classes, instanceCount, fetchInstanceCount }) => {
   useEffect(() => {
-    if (!instanceCount) fetchInstanceCount();
+    if (!instanceCount && !isFetching) {
+      fetchInstanceCount();
+      isFetching = true;
+    }
   });
 
   return <DashboardNumCard displayNum={instanceCount} title={I18n.get('cardTitleWorkflowInstances')} icon={<GroupWork className={classes.cardIcon} />} />;

@@ -14,9 +14,14 @@ const useStyles = makeStyles(() => ({
   },
 }));
 
+let isFetching;
+
 export const WorkflowActionUseWordCloud = ({ actionNameCount, fetchActionNameCount }) => {
   useEffect(() => {
-    if (!actionNameCount.isFetched) fetchActionNameCount();
+    if (!actionNameCount.isFetched && !isFetching) {
+      fetchActionNameCount();
+      isFetching = true;
+    }
   });
 
   const classes = useStyles();

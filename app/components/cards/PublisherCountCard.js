@@ -15,10 +15,14 @@ const styles = {
     color: lightGreen[500],
   },
 };
+let isFetching;
 
 export const PublisherCountCard = ({ classes, publisherCount, fetchPublisherCount }) => {
   useEffect(() => {
-    if (!publisherCount) fetchPublisherCount();
+    if (!publisherCount && !isFetching) {
+      fetchPublisherCount();
+      isFetching = true;
+    }
   });
 
   return <DashboardNumCard displayNum={publisherCount} title={I18n.get('cardTitleWorkflowPublisher')} icon={<SupervisedUserCircle className={classes.cardIcon} />} />;

@@ -10,9 +10,14 @@ import {
 
 import { fetchInstanceStatusByTime as fetchInstanceStatusByTimeAction } from '../actions/InstanceActions';
 
+let isFetching;
+
 export const WorkflowRunInstanceChart = ({ instanceStatusByTime, fetchInstanceStatusByTime }) => {
   useEffect(() => {
-    if (!instanceStatusByTime.isFetched) fetchInstanceStatusByTime();
+    if (!instanceStatusByTime.isFetched && !isFetching) {
+      fetchInstanceStatusByTime();
+      isFetching = true;
+    }
   });
 
   return (

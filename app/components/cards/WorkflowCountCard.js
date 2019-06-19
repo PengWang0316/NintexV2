@@ -15,10 +15,14 @@ const styles = {
     color: red[500],
   },
 };
+let isFetching;
 
 export const WorkflowCountCard = ({ classes, workflowCount, fetchWorkflowCount }) => {
   useEffect(() => {
-    if (!workflowCount) fetchWorkflowCount();
+    if (!workflowCount && !isFetching) {
+      fetchWorkflowCount();
+      isFetching = true;
+    }
   });
 
   return <DashboardNumCard displayNum={workflowCount} title={I18n.get('cardTitleTotalWorkflows')} icon={<Stars className={classes.cardIcon} />} />;

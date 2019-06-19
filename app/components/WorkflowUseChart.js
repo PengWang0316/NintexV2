@@ -32,9 +32,14 @@ renderCustomizedLabel.propTypes = {
   percent: PropTypes.number.isRequired,
 };
 
+let isFetching;
+
 export const WorkflowUseChart = ({ fetchWorkflowUseCount, workflowUseCount }) => {
   useEffect(() => {
-    if (!workflowUseCount.isFetched) fetchWorkflowUseCount();
+    if (!workflowUseCount.isFetched && !isFetching) {
+      fetchWorkflowUseCount();
+      isFetching = true;
+    }
   });
   return (
     <ResponsiveContainer width="100%" height={370}>

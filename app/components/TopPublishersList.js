@@ -25,9 +25,14 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
+let isFetching;
+
 export const TopPublisherList = ({ topPublishersCount, fetchTopPublishersCount }) => {
   useEffect(() => {
-    if (!topPublishersCount.isFetched) fetchTopPublishersCount();
+    if (!topPublishersCount.isFetched && !isFetching) {
+      fetchTopPublishersCount();
+      isFetching = true;
+    }
   });
   const classes = useStyles();
   return (

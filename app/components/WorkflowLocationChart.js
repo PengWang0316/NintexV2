@@ -7,9 +7,14 @@ import {
 
 import { fetchWorkflowLocationCount as fetchWorkflowLocationCountAction } from '../actions/WorkflowActions';
 
+let isFetching;
+
 const WorkflowLocationChart = ({ fetchWorkflowLocationCount, workflowLocationCount }) => {
   useEffect(() => {
-    if (!workflowLocationCount.isFetched) fetchWorkflowLocationCount();
+    if (!workflowLocationCount.isFetched && !isFetching) {
+      fetchWorkflowLocationCount();
+      isFetching = true;
+    }
   });
   return (
     <ResponsiveContainer width="100%" height={300}>
