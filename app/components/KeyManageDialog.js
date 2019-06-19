@@ -37,6 +37,8 @@ const useStyles = makeStyles({
   nwcTag: { backgroundColor: blue[500], color: 'white', marginRight: 10 },
   officeTag: { backgroundColor: pink[500], color: 'white', marginRight: 10 },
 });
+let isFetchingNwcKey;
+let isFetchingOfficeKey;
 
 export const KeyManageDialog = ({
   open, handleClose, nwcKeys, officeKeys, fetchNwcKey, addNwcKey, deleteNwcKey,
@@ -50,8 +52,14 @@ export const KeyManageDialog = ({
   const [officeCookie, setOfficeCookie] = useState('');
 
   useEffect(() => {
-    if (!nwcKeys.isFetch) fetchNwcKey();
-    if (!officeKeys.isFetch) fetchOfficeKey();
+    if (!nwcKeys.isFetch && !isFetchingNwcKey) {
+      fetchNwcKey();
+      isFetchingNwcKey = true;
+    }
+    if (!officeKeys.isFetch && !isFetchingOfficeKey) {
+      fetchOfficeKey();
+      isFetchingOfficeKey = true;
+    }
   });
 
   const handleNwcTenantChange = event => setNwcTenant(event.target.value);
