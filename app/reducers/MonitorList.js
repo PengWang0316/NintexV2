@@ -3,7 +3,7 @@ import { FETCH_MONITOR_LIST_SUCCESS, SWITCH_MONITOR_SUCCESS, UPDATE_INSTANCES_SU
 import { MAXIMUM_CHECK_INSTANCE_AMOUNT } from '../config';
 
 const MonitorList = (state = { isFetched: false, data: {} }, {
-  type, workflows, workflowId, tenant, key, instances,
+  type, workflows, workflowId, tenant, key, instances, isMonitored,
 }) => {
   switch (type) {
     case FETCH_MONITOR_LIST_SUCCESS: { // Since this stat is presisted, this case should just be called once at a user first login
@@ -22,8 +22,8 @@ const MonitorList = (state = { isFetched: false, data: {} }, {
     }
     case SWITCH_MONITOR_SUCCESS: {
       const monitorList = { isFetched: true, data: { ...state.data } };
-      if (monitorList.data[workflowId]) delete monitorList.data[workflowId];
-      else {
+      if (isMonitored === 0 && monitorList.data[workflowId]) delete monitorList.data[workflowId];
+      else if (isMonitored === 1) {
         monitorList.data[workflowId] = {
           tenant,
           key,
