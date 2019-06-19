@@ -65,8 +65,8 @@ export const MonitorListItem = ({ wfId, workflows, monitorList }) => {
             <ListItem button className={classes.nested}>
               <ListItemIcon>
                 <Fragment>
-                  {!monitorList.data[wfId].instances[instanceId].status && <WarningIcon className={classes.warningIcon} />}
-                  {monitorList.data[wfId].instances[instanceId].status && <CheckIcon className={classes.checkIcon} />}
+                  {monitorList.data[wfId].instances[instanceId].status === 'Failed' && <WarningIcon className={classes.warningIcon} />}
+                  {monitorList.data[wfId].instances[instanceId].status === 'Completed' && <CheckIcon className={classes.checkIcon} />}
                 </Fragment>
               </ListItemIcon>
               <ListItemText
