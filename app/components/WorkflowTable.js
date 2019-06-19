@@ -142,7 +142,7 @@ export const WorkflowTable = ({
 
   const handleMonitorAction = (currentWorkflowId, tenant, isMonitored) => {
     if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
-    else switchMonitor(currentWorkflowId, tenant, isMonitored, nwcKeys.data[tenant]);
+    else switchMonitor(currentWorkflowId, tenant, isMonitored, nwcKeys.data[tenant][1]);
   };
 
   columns[4].formatter = reactFormatter(
