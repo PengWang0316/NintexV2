@@ -113,7 +113,7 @@ export const fetchWorkflowsByUser = () => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
   const { data } = await axios.get(GET_WORKFLOWS_BY_USER_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
   dispatch(fetchWorkflowsByUserSuccess(data));
-  dispatch(fetchMonitorListSuccess(data));
+  // dispatch(fetchMonitorListSuccess(data));
 };
 
 export const updateTagFromWorkflow = (workflowId, tagIds) => async (dispatch) => {
