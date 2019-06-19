@@ -142,7 +142,7 @@ export const WorkflowTable = ({
 
   const handleMonitorAction = (currentWorkflowId, tenant, isMonitored) => {
     if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
-    else switchMonitor(currentWorkflowId, tenant, isMonitored);
+    else switchMonitor(currentWorkflowId, tenant, isMonitored, nwcKeys.data[tenant]);
   };
 
   columns[4].formatter = reactFormatter(
@@ -210,6 +210,6 @@ const mapDispatchToProps = dispatch => ({
     (workflowId, tagIds) => dispatch(updateTagFromWorkflowAction(workflowId, tagIds)),
   runWorkflow: (workflowId, key) => dispatch(runWorkflowAction(workflowId, key)),
   stopWorkflow: (workflowId, key) => dispatch(stopWorkflowAction(workflowId, key)),
-  switchMonitor: (workflowId, tenant, isMonitored) => dispatch(switchMonitorAction(workflowId, tenant, isMonitored)),
+  switchMonitor: (workflowId, tenant, isMonitored, key) => dispatch(switchMonitorAction(workflowId, tenant, isMonitored, key)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(WorkflowTable);

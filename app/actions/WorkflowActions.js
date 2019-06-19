@@ -51,11 +51,12 @@ const changeWorkflowActiveSuccess = (workflowId, isActive) => ({
   isActive,
 });
 
-const switchMonitorSuccess = (workflowId, tenant, isMonitored) => ({
+const switchMonitorSuccess = (workflowId, tenant, isMonitored, key) => ({
   type: SWITCH_MONITOR_SUCCESS,
   workflowId,
   tenant,
   isMonitored,
+  key,
 });
 
 export const appandWorkflows = workflows => ({
@@ -152,8 +153,8 @@ export const stopWorkflow = (workflowId, key) => async (dispatch) => {
   dispatch(changeWorkflowActiveSuccess(workflowId, 0));
 };
 
-export const switchMonitor = (workflowId, tenant, isMonitored) => async (dispatch) => {
+export const switchMonitor = (workflowId, tenant, isMonitored, key) => async (dispatch) => {
   const { idToken: { jwtToken } } = await Auth.currentSession();
-  dispatch(switchMonitorSuccess(workflowId, tenant, isMonitored));
+  dispatch(switchMonitorSuccess(workflowId, tenant, isMonitored, key));
   axios.put(UPDATE_NWC_ISMONITORED_API, { workflowId, isMonitored }, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
 };

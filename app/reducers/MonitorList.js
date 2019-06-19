@@ -1,10 +1,10 @@
 import { FETCH_MONITOR_LIST_SUCCESS, SWITCH_MONITOR_SUCCESS } from '../actions/ActionTypes';
 
 const MonitorList = (state = { isFetched: false, data: {} }, {
-  type, workflows, workflowId, tenant,
+  type, workflows, workflowId, tenant, key,
 }) => {
   switch (type) {
-    case FETCH_MONITOR_LIST_SUCCESS: {
+    case FETCH_MONITOR_LIST_SUCCESS: { // Since this stat is presisted, this case should just be called once at a user first login
       const monitorList = { isFetched: true, data: {} };
       // The
       workflows.forEach((workflow) => {
@@ -24,6 +24,7 @@ const MonitorList = (state = { isFetched: false, data: {} }, {
       else {
         monitorList.data[workflowId] = {
           tenant,
+          key,
           instances: {},
           hasFailure: false,
         };
