@@ -54,11 +54,12 @@ export const Tags = ({
 };
 Tags.propTypes = {
   cell: PropTypes.objectOf(PropTypes.any),
-  tags: PropTypes.objectOf(PropTypes.array).isRequired,
+  tags: PropTypes.objectOf(PropTypes.array),
   handleRemoveTag: PropTypes.func.isRequired,
   handleAddTag: PropTypes.func.isRequired,
 };
 Tags.defaultProps = {
   cell: null,
+  tags: null,
 };
 export default Tags;

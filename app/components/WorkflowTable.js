@@ -1,4 +1,6 @@
-import React, { useEffect, useState, Fragment } from 'react';
+import React, {
+  useEffect, useState, Fragment, useMemo, useCallback, memo,
+} from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import { red } from '@material-ui/core/colors';
@@ -17,7 +19,6 @@ import AttachTagDialog from './AttachTagDialog';
 import WorkflowActions from './WorkflowActions';
 import { fetchTags as fetchTagsAction } from '../actions/TagActions';
 import CustomizedSnackbar from './CustomizedSnackbar';
-
 
 // import does not work well with the MiniCssExtractPlugin
 require('../styles/tabulator_bootstrap4.css');
@@ -89,12 +90,12 @@ const tableOptions = {
 let isFetching = false;
 let isFetchingTags = false;
 
-export const WorkflowTable = ({
+export const WorkflowTable = memo(({
   workflows, fetchWorkflowsByUser, tags, switchMonitor, fetchTags,
   updateTagFromWorkflow, nwcKeys, runWorkflow, stopWorkflow,
 }) => {
   const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);
-
+  const workflowData = useMemo(() => Object.values(workflows.data), [workflows.data]);
   useEffect(() => {
     if (!workflows.isFetched && !isFetching) {
       fetchWorkflowsByUser();
@@ -109,43 +110,44 @@ export const WorkflowTable = ({
   const [workflowId, setWorkflowId] = useState(null);
 
   const toggleTagDialog = () => setIsOpen(state => !state);
-  const showTagDialog = (id) => {
+  const showTagDialog = useCallback((id) => {
     setWorkflowId(id);
     toggleTagDialog();
-  };
-  const handleSnakbarClose = () => setIsOpenSnackbar(false);
+  }, []);
+  const handleSnakbarClose = useCallback(() => setIsOpenSnackbar(false), []);
 
-  const handleRunAction = (currentWorkflowId, tenant) => {
+  const handleRunAction = useCallback((currentWorkflowId, tenant) => {
     if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
     else runWorkflow(currentWorkflowId, nwcKeys.data[tenant][1]);
-  };
+  }, [nwcKeys.data]);
 
-  const handleStopAction = (currentWorkflowId, tenant) => {
+  const handleStopAction = useCallback((currentWorkflowId, tenant) => {
     if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
     else stopWorkflow(currentWorkflowId, nwcKeys.data[tenant][1]);
-  };
+  }, [nwcKeys.data]);
 
-  const handleExportAction = (currentWorkflowId, tenant) => {
+  const handleExportAction = useCallback((currentWorkflowId, tenant) => {
+    if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
+    // console.log(currentWorkflowId, tenant, nwcKeys.data[tenant]);
+    // else stopWorkflow(currentWorkflowId, nwcKeys.data[tenant][1]);
+  }, [nwcKeys.data]);
+
+  const handleMoveAction = useCallback((currentWorkflowId, tenant) => {
     if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
     // else stopWorkflow(currentWorkflowId, nwcKeys.data[tenant][1]);
-  };
+  }, [nwcKeys.data]);
 
-  const handleMoveAction = (currentWorkflowId, tenant) => {
+  const handleDeleteAction = useCallback((currentWorkflowId, tenant) => {
     if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
     // else stopWorkflow(currentWorkflowId, nwcKeys.data[tenant][1]);
-  };
+  }, [nwcKeys.data]);
 
-  const handleDeleteAction = (currentWorkflowId, tenant) => {
-    if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
-    // else stopWorkflow(currentWorkflowId, nwcKeys.data[tenant][1]);
-  };
-
-  const handleMonitorAction = (currentWorkflowId, tenant, isMonitored) => {
+  const handleMonitorAction = useCallback((currentWorkflowId, tenant, isMonitored) => {
     if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
     else switchMonitor(currentWorkflowId, tenant, isMonitored, nwcKeys.data[tenant][1]);
-  };
+  }, [nwcKeys.data]);
 
-  columns[4].formatter = reactFormatter(
+  columns[4].formatter = useMemo(() => reactFormatter(
     <WorkflowActions
       handleRun={handleRunAction}
       handleStop={handleStopAction}
@@ -154,22 +156,18 @@ export const WorkflowTable = ({
       handleDelete={handleDeleteAction}
       handleMonitor={handleMonitorAction}
     />,
-  );
+  ), [nwcKeys.data]);
 
-
-  // After tags load from Redux, set formatters to some column
-  if (tags) {
-    columns[3].formatter = reactFormatter(
-      <Tags tags={tags} handleRemoveTag={updateTagFromWorkflow} handleAddTag={showTagDialog} />,
-    );
-  }
+  columns[3].formatter = useMemo(() => reactFormatter(
+    <Tags tags={tags} handleRemoveTag={updateTagFromWorkflow} handleAddTag={showTagDialog} />,
+  ), [tags]);
 
   return (
     <Fragment>
       {(!tags || !nwcKeys.isFetch || !workflows.data) && <LoadingAnimation />}
       {tags && nwcKeys.isFetch && workflows.isFetched && (
         <ReactTabulator
-          data={Object.values(workflows.data)}
+          data={workflowData}
           columns={columns}
           tooltips
           layout="fitColumns"
@@ -185,7 +183,7 @@ export const WorkflowTable = ({
       />
     </Fragment>
   );
-};
+});
 WorkflowTable.propTypes = {
   workflows: PropTypes.objectOf(PropTypes.any).isRequired,
   nwcKeys: PropTypes.objectOf(PropTypes.any).isRequired,
