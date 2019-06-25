@@ -22,9 +22,6 @@ Amplify.configure({
 });
 
 const theme = createMuiTheme({
-  typography: {
-    useNextVariants: true,
-  },
   palette: {
     primary: {
       light: '#4A6572',
@@ -45,6 +42,17 @@ const theme = createMuiTheme({
 const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageContainer" *//* webpackPrefetch: true */ './containers/HomePageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
 const ManagementPage = importedComponent(() => import(/* webpackChunkName: "ManagementContainer" *//* webpackPrefetch: true */ './containers/ManagementContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
 const MonitorPage = importedComponent(() => import(/* webpackChunkName: "MonitorContainer" *//* webpackPrefetch: true */ './containers/MonitorContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
+/* Manually call the lazy import */
+// let HomePage: any;
+// let ManagementPage: any;
+// let MonitorPage: any;
+
+// const getLazyComponents = async () => {
+//   HomePage = await import(/* webpackChunkName: "HomePageContainer" *//* webpackPrefetch: true */ './containers/HomePageContainer');
+//   ManagementPage = await import(/* webpackChunkName: "ManagementContainer" *//* webpackPrefetch: true */ './containers/ManagementContainer');
+//   MonitorPage = await import(/* webpackChunkName: "MonitorContainer" *//* webpackPrefetch: true */ './containers/MonitorContainer');
+// };
+// getLazyComponents();
 
 const INTERVAL_TIME = 1 * 60 * 1000;
 let autoMonitorJob = null;
