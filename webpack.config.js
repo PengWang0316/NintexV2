@@ -5,6 +5,8 @@ const webpack = require('webpack');
 // const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
+const CompressionPlugin = require('compression-webpack-plugin');
+// const BrotliPlugin = require('brotli-webpack-plugin');
 // const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const config = {
@@ -71,6 +73,15 @@ const config = {
     splitChunks: {
       name: false,
     },
+    // splitChunks: {
+    //   cacheGroups: {
+    //     commons: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       name: 'vendors',
+    //       chunks: 'all',
+    //     },
+    //   },
+    // },
   },
   resolve: {
     alias: {
@@ -106,9 +117,28 @@ const config = {
 };
 
 if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
+  config.mode = 'production';
   delete config.resolve.alias; // Remove the react hot loader dom
-  delete config.devtool; // Remove the source map
-
+  config.devtool = ''; // Remove the source map
+  config.plugins.push(
+    new CompressionPlugin({
+      filename: '[file]',
+      algorithm: 'gzip',
+      test: /\.ts|\.tsx|\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.7,
+      deleteOriginalAssets: false,
+    }),
+  );
+  // Due to Brotli compression is not supported by all browser, the gzip will be used at this moment.
+  // config.plugins.push(
+  //   new BrotliPlugin({
+  //     asset: '[path].br[query]',
+  //     test: /\.ts|\.tsx|\.js$|\.css$|\.html$/,
+  //     threshold: 10240,
+  //     minRatio: 0.7,
+  //   }),
+  // );
   // config.module.rules[1] = ({ // In production model, replace the css rules in order to use ExtractTextPlugin. My css rules is in the position 2.
   //   test: /\.css$/,
   //   use: [
@@ -146,7 +176,7 @@ if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
   //   exclude: /\.global\.css$/,
   // });
 
-  config.mode = 'production';
+
   // config.devtool = 'source-map';
   // config.plugins.push(
   //   // new webpack.DefinePlugin({
