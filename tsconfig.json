@@ -5,11 +5,13 @@
       "alwaysStrict": true,
       // "noImplicitAny": true,
       "removeComments": true,
-      "module": "commonjs",
+      "module": "esnext",
       "target": "es5",
       "jsx": "react",
       "allowSyntheticDefaultImports": true,
       "esModuleInterop": true,
+      "moduleResolution": "node",
+      "lib": ["es2017", "dom"],
   },
   "include": [
       "./app/**/*"
