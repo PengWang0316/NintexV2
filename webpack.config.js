@@ -106,7 +106,8 @@ const config = {
 };
 
 if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
-  delete config.resolve; // Remove the react hot loader dom
+  delete config.resolve.alias; // Remove the react hot loader dom
+  delete config.devtool; // Remove the source map
 
   // config.module.rules[1] = ({ // In production model, replace the css rules in order to use ExtractTextPlugin. My css rules is in the position 2.
   //   test: /\.css$/,
@@ -146,7 +147,7 @@ if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
   // });
 
   config.mode = 'production';
-
+  // config.devtool = 'source-map';
   // config.plugins.push(
   //   // new webpack.DefinePlugin({
   //   //   'process.env': {
