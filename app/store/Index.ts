@@ -3,12 +3,12 @@ import { combineReducers } from 'redux';
 
 import actionNameCount from './ActionNameCount/reducers';
 import instanceCount from './InstanceCount/reducers';
+import instanceStatus from './InstanceStatus/reducers';
+import instanceStatusByTime from './InstanceStatusByTime/reducers';
 
 import user from './User';
 import workflowCount from './WorkflowCount';
 import publisherCount from './PublisherCount';
-import instanceStatus from './InstanceStatus';
-import instanceStatusByTime from './InstanceStatusByTime';
 import workflowLocationCount from './WorkflowLocationCount';
 import topPublishersCount from './TopPublishersCount';
 import workflowUseCount from './WorkflowUseCount';
