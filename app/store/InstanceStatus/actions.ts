@@ -1,0 +1,22 @@
+import axios from 'axios';
+import { Auth } from 'aws-amplify';
+
+import { GET_INSTANCE_STATUS_API } from '../Urls';
+import {
+  FETCH_INSTANCE_STATUS_SUCCESS, RawInstanceStatus, FetchInstanceStatusType,
+} from './types';
+
+const fetchInstanceStatusSuccess = (
+  instanceStatus: RawInstanceStatus,
+): FetchInstanceStatusType => ({
+  type: FETCH_INSTANCE_STATUS_SUCCESS,
+  instanceStatus,
+});
+
+export const fetchInstanceStatus = () => async (dispatch) => {
+  const { idToken: { jwtToken } } = await Auth.currentSession() as any;
+  const { data } = await axios.get(GET_INSTANCE_STATUS_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  dispatch(fetchInstanceStatusSuccess(data));
+};
+
+export default fetchInstanceStatus;
