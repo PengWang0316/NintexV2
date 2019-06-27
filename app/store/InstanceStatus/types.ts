@@ -11,6 +11,7 @@ export interface InstanceStatus {
 }
 
 export interface RawInstanceStatus {
+  date?: string;
   completed: number;
   failed: number;
   started: number;
@@ -18,6 +19,7 @@ export interface RawInstanceStatus {
   running: number;
   terminatedInstance: number;
   cancelled: number;
+  [propName: string]: any;
 }
 
 export interface FetchInstanceStatusType {
