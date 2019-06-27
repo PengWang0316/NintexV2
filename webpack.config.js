@@ -2,10 +2,12 @@ const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const webpack = require('webpack');
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
+// const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 const { InjectManifest } = require('workbox-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
+const CompressionPlugin = require('compression-webpack-plugin');
+// const BrotliPlugin = require('brotli-webpack-plugin');
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer');
 
 const config = {
   // entry: {
@@ -17,7 +19,7 @@ const config = {
   // },
   entry: [
     // 'react-hot-loader/patch',
-    './app/index.js',
+    './app/index.tsx',
   ],
   output: {
     path: path.resolve(__dirname, 'dist'),
@@ -25,8 +27,13 @@ const config = {
     chunkFilename: '[name].bundle.js',
     publicPath: '/',
   },
+  // Enable sourcemaps for debugging webpack's output.
+  devtool: 'source-map',
   module: {
     rules: [
+      { test: /\.(ts|tsx)$/, loader: 'awesome-typescript-loader' },
+      // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
+      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
       { test: /\.(js)$/, exclude: /node_modules/, use: 'babel-loader' },
       // { test: /\.module\.css$/, use: ['style-loader', 'css-loader'] },
       // { test: /\.module\.css$/, use: ['style-loader', 'css-loader'] },
@@ -49,6 +56,14 @@ const config = {
       { test: /\.(png|jpg|gif)$/, use: [{ loader: 'url-loader', options: { limit: 8192 } }] },
     ],
   },
+  // When importing a module whose path matches one of the following, just
+  // assume a corresponding global variable exists and use that instead.
+  // This is important because it allows us to avoid bundling all of our
+  // dependencies, which allows browsers to cache those libraries between builds.
+  // externals: {
+  //   react: 'React',
+  //   'react-dom': 'ReactDOM',
+  // },
   devServer: {
     historyApiFallback: true,
     hot: true,
@@ -58,11 +73,22 @@ const config = {
     splitChunks: {
       name: false,
     },
+    // splitChunks: {
+    //   cacheGroups: {
+    //     commons: {
+    //       test: /[\\/]node_modules[\\/]/,
+    //       name: 'vendors',
+    //       chunks: 'all',
+    //     },
+    //   },
+    // },
   },
   resolve: {
     alias: {
       'react-dom': '@hot-loader/react-dom',
     },
+    // Add '.ts' and '.tsx' as resolvable extensions.
+    extensions: ['.ts', '.tsx', '.js', '.json'],
   },
   plugins: [
     new HtmlWebpackPlugin({ template: 'app/index.html' }),
@@ -91,8 +117,28 @@ const config = {
 };
 
 if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
-  delete config.resolve; // Remove the react hot loader dom
-
+  config.mode = 'production';
+  delete config.resolve.alias; // Remove the react hot loader dom
+  config.devtool = ''; // Remove the source map
+  config.plugins.push(
+    new CompressionPlugin({
+      filename: '[file]',
+      algorithm: 'gzip',
+      test: /\.ts|\.tsx|\.js$|\.css$|\.html$/,
+      threshold: 10240,
+      minRatio: 0.7,
+      deleteOriginalAssets: false,
+    }),
+  );
+  // Due to Brotli compression is not supported by all browser, the gzip will be used at this moment.
+  // config.plugins.push(
+  //   new BrotliPlugin({
+  //     asset: '[path].br[query]',
+  //     test: /\.ts|\.tsx|\.js$|\.css$|\.html$/,
+  //     threshold: 10240,
+  //     minRatio: 0.7,
+  //   }),
+  // );
   // config.module.rules[1] = ({ // In production model, replace the css rules in order to use ExtractTextPlugin. My css rules is in the position 2.
   //   test: /\.css$/,
   //   use: [
@@ -130,8 +176,8 @@ if (process.env.NODE_ENV && process.env.NODE_ENV.trim() === 'production') {
   //   exclude: /\.global\.css$/,
   // });
 
-  config.mode = 'production';
 
+  // config.devtool = 'source-map';
   // config.plugins.push(
   //   // new webpack.DefinePlugin({
   //   //   'process.env': {

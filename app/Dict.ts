@@ -1,4 +1,10 @@
-const dict = {
+interface Dictionary {
+  [index: string]: {
+    [index: string]: string,
+  }
+};
+
+const dict: Dictionary = {
   'en-US': {
     login: 'login',
     logout: 'logout',
