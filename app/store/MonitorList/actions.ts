@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import axios from 'axios';
 
 import { SWITCH_MONITOR_SUCCESS, UPDATE_INSTANCES_SUCCESS, MonitorListData } from './types';
@@ -44,7 +45,8 @@ const compareStatus = async (monitoredWorkflows: MonitorListData, result) => {
         if (instances[i].status === 'Failed') newFailure = true;
       }
 
-      if ((!monitoredWorkflows[workflowId] && newFailure === true) || (!monitoredWorkflows[workflowId].hasFailure && newFailure)) {
+      if ((!monitoredWorkflows[workflowId] && newFailure === true)
+          || (!monitoredWorkflows[workflowId].hasFailure && newFailure)) {
         // new failure occures
         apiCallArray.push(axios.post(`${NWC_LIST_WORKFLOWS_API}/${workflowId}/draft/export`, { workflowId }, { headers: { authorization: `${BEARER_HEADER} ${monitoredWorkflows[workflowId].key}` } }));
         importInstances[workflowId] = { name: `${workflowName} - EM${instanceId.substring(0, 8)}` };
@@ -75,5 +77,7 @@ export const checkInstanceStatus = (monitoredWorkflows: MonitorListData) => asyn
     ));
   const result = await axios.all(fetchInstanceArray);
   compareStatus(monitoredWorkflows, result);
-  result.forEach(({ config: { params: { workflowId } }, data: { instances } }) => dispatch(updateInstancesSuccess(workflowId, instances)));
+  result.forEach((
+    { config: { params: { workflowId } }, data: { instances } },
+  ) => dispatch(updateInstancesSuccess(workflowId, instances)));
 };
