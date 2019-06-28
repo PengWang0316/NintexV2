@@ -1,11 +1,11 @@
 import axios from 'axios';
-import { Auth } from 'aws-amplify';
 
 import {
   FETCH_OFFICEKEY_SUCCESS, ADD_OFFICEKEY_SUCCESS, DELETE_OFFICEKEY_SUCCESS,
   RawOfficeApiKey,
 } from './types';
 import { FETCH_OFFICE_KEYS_API, ADD_OFFICE_KEY_API, DELETE_OFFICE_KEY_API } from '../Urls';
+import getJwtToken from '../libs/GetJWTToken';
 
 const fetchOfficeKeySuccess = (keys: RawOfficeApiKey[]) => ({
   type: FETCH_OFFICEKEY_SUCCESS,
@@ -24,11 +24,6 @@ const deleteOfficeKeySuccess = (endpoint: string) => ({
   type: DELETE_OFFICEKEY_SUCCESS,
   endpoint,
 });
-
-const getJwtToken = async () => {
-  const { idToken: { jwtToken } } = await Auth.currentSession() as any;
-  return jwtToken;
-};
 
 export const fetchOfficeKey = () => async (dispatch) => {
   const { data } = await axios.get(FETCH_OFFICE_KEYS_API, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });

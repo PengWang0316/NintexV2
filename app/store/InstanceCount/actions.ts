@@ -1,10 +1,10 @@
 import axios from 'axios';
-import { Auth } from 'aws-amplify';
 
 import { GET_INSTANCE_COUNT_API } from '../Urls';
 import {
   FETCH_INSTANCE_COUNT_SUCCESS, FetchInstanceCountType,
 } from './types';
+import getJwtToken from '../libs/GetJWTToken';
 
 const fetchInstanceCountSuccess = (instanceCount: number): FetchInstanceCountType => ({
   type: FETCH_INSTANCE_COUNT_SUCCESS,
@@ -12,8 +12,7 @@ const fetchInstanceCountSuccess = (instanceCount: number): FetchInstanceCountTyp
 });
 
 export const fetchInstanceCount = () => async (dispatch) => {
-  const { idToken: { jwtToken } } = await Auth.currentSession() as any;
-  const { data: { count } } = await axios.get(GET_INSTANCE_COUNT_API, { headers: { Authorization: jwtToken, 'Content-Type': 'application/json' } });
+  const { data: { count } } = await axios.get(GET_INSTANCE_COUNT_API, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(fetchInstanceCountSuccess(count));
 };
 
