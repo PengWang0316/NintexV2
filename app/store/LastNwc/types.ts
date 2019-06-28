@@ -1,6 +1,6 @@
 export const UPDATE_NWC_LAST_DATE_SUCCESS = 'updateNwcLastDateSuccess';
 
-export interface LastNwc {
+export interface LastNwcType {
   [tenant: string]: string;
 }
 
