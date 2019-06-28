@@ -1,4 +1,4 @@
-interface Workflow {
+export interface Workflow {
   workflowId: string;
   workflowName: string;
   publishDate: string;
