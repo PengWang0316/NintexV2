@@ -6,11 +6,11 @@ interface BaseWorkflowDate {
   tag: string | null;
 }
 
-interface OfficeWorkflows extends BaseWorkflowDate {
+interface OfficeWorkflow extends BaseWorkflowDate {
   locationPath: string;
 }
 
-interface NwcWorkflows extends BaseWorkflowDate {
+interface NwcWorkflow extends BaseWorkflowDate {
   isActive: number;
   tenant: string;
   isMonitored: number;
@@ -19,6 +19,6 @@ interface NwcWorkflows extends BaseWorkflowDate {
 export interface Workflows {
   isFetched: boolean;
   data: {
-    [workflowId: string]: OfficeWorkflows | NwcWorkflows;
+    [workflowId: string]: OfficeWorkflow | NwcWorkflow;
   };
 }
