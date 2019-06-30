@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import I18n from '@kevinwang0316/i18n';
 import { CirclePicker } from 'react-color';
 
-import { addTag as addTagAction } from '../actions/TagActions';
+import { addTag as addTagAction } from '../store/Tags/actions';
 
 const useStyles = makeStyles({
   flexDiv: {
