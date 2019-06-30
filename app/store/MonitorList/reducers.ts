@@ -1,3 +1,4 @@
+/* eslint-disable no-plusplus */
 import {
   FETCH_MONITOR_LIST_SUCCESS, SWITCH_MONITOR_SUCCESS, UPDATE_INSTANCES_SUCCESS,
   MonitorListType, MonitorListActionDataType,
