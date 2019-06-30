@@ -2,6 +2,13 @@ import React, { ReactNode, memo } from 'react';
 import { Box, Card, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
+interface Props {
+  displayNum: string | number | null;
+  title: string;
+  icon: ReactNode;
+  extraContent?: ReactNode | null;
+}
+
 const useStyles = makeStyles({
   card: {
     width: 255,
@@ -19,13 +26,6 @@ const useStyles = makeStyles({
 });
 // The regular experssion to help format numbers to have a comma in every three digitals
 const NUM_FORMATE_REGEXP = /(\d)(?=(\d{3})+(?!\d))/g;
-
-interface Props {
-  displayNum: string | number | null;
-  title: string;
-  icon: ReactNode;
-  extraContent: ReactNode | null;
-}
 
 export const DashboardNumCard = ({
   displayNum = null, title, icon, extraContent = null,
