@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { FETCH_WORKFLOW_USE_COUNT_SUCCESS, WorkflowUseCountActionType, WorkflowUseCountDataType } from './types';
 import { GET_WORKFLOW_USE_COUNT_API } from '../Urls';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const fetchWorkflowUseCountSuccess = (
   workflowUseCount: WorkflowUseCountDataType[],

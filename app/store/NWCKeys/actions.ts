@@ -5,7 +5,7 @@ import {
   RawNWCApiKey,
 } from './types';
 import { FETCH_NWC_KEYS_API, ADD_NWC_KEY_API, DELETE_NWC_KEY_API } from '../Urls';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const fetchNwcKeySuccess = (keys: RawNWCApiKey[]) => ({
   type: FETCH_NWCKEY_SUCCESS,

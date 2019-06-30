@@ -4,7 +4,7 @@ import {
   FETCH_TOP_PUBLISHERS_COUNT_SUCCESS, TopPublisherCountActionType, PublisherCountType,
 } from './types';
 import { GET_TOP_PUBLISHERS_COUNT_API } from '../Urls';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const fetchTopPublishersCountSuccess = (
   topPublishersCount: PublisherCountType[],

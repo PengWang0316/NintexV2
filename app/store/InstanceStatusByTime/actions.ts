@@ -5,7 +5,7 @@ import {
   FETCH_INSTANCE_STATUS_BYTIME_SUCCESS, FetchInstanceStatusByTimeType,
 } from './types';
 import { RawInstanceStatus } from '../InstanceStatus/types';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const fetchInstanceStatusByTimeSuccess = (
   instanceStatus: RawInstanceStatus[],

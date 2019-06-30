@@ -4,7 +4,7 @@ import axios from 'axios';
 import { SWITCH_MONITOR_SUCCESS, UPDATE_INSTANCES_SUCCESS, MonitorListData } from './types';
 import { UPDATE_NWC_ISMONITORED_API, NWC_LIST_WORKFLOWS_API, IMPORT_MONITOR_WORKFLOWS_API } from '../Urls';
 import { BEARER_HEADER, MAXIMUM_CHECK_INSTANCE_AMOUNT } from '../../config';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const switchMonitorSuccess = (
   workflowId: string, tenant: string, isMonitored: number, key: string,

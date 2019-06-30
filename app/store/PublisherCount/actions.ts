@@ -2,7 +2,7 @@ import axios from 'axios';
 
 import { FETCH_PUBLISHER_COUNT_SUCCESS, OfficeKeyActionType } from './types';
 import { GET_PUBLISHER_COUNT_API } from '../Urls';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const fetchPublisherCountSuccess = (publisherCount: number): OfficeKeyActionType => ({
   type: FETCH_PUBLISHER_COUNT_SUCCESS,

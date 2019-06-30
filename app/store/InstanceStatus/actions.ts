@@ -4,7 +4,7 @@ import { GET_INSTANCE_STATUS_API } from '../Urls';
 import {
   FETCH_INSTANCE_STATUS_SUCCESS, RawInstanceStatus, FetchInstanceStatusType,
 } from './types';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const fetchInstanceStatusSuccess = (
   instanceStatus: RawInstanceStatus,

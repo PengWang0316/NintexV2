@@ -10,7 +10,7 @@ import {
   UPDATE_NWC_ACTIVE_API, UPDATE_NWC_ISMONITORED_API,
 } from '../Urls';
 import { BEARER_HEADER, NWC_LIST_WORKFLOWS_API, NWC_PLATFORM } from '../../config';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const fetchWorkflowsByUserSuccess = (workflows: Workflow[]): WorkflowsActionType => ({
   type: FETCH_WORKFLOWS_BY_USER_SUCCESS,

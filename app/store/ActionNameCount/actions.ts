@@ -4,7 +4,7 @@ import { GET_ACTION_NAME_COUNT_API } from '../Urls';
 import {
   FETCH_ACTION_NAME_COUNT_SUCCESS, FetchActionNameCountType, ActionNameCountDataType,
 } from './types';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const fetchActionNameCountSuccess = (
   actionNameCount: ActionNameCountDataType,

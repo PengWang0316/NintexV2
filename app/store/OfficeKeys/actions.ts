@@ -5,7 +5,7 @@ import {
   RawOfficeApiKey,
 } from './types';
 import { FETCH_OFFICE_KEYS_API, ADD_OFFICE_KEY_API, DELETE_OFFICE_KEY_API } from '../Urls';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const fetchOfficeKeySuccess = (keys: RawOfficeApiKey[]) => ({
   type: FETCH_OFFICEKEY_SUCCESS,

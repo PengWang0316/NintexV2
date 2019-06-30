@@ -5,7 +5,7 @@ import {
   RawTag, TagsActionType,
 } from './types';
 import { GET_TAGS_API } from '../Urls';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const fetchTagsSuccess = (tags: RawTag[]): TagsActionType => ({
   type: FETCH_TAGS_SUCCESS,
