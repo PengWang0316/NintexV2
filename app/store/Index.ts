@@ -37,5 +37,3 @@ export default combineReducers({
   workflowUseCount,
   workflows,
 });
-
-export type AppState = ReturnType<typeof combineReducers>;
