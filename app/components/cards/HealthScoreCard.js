@@ -9,7 +9,7 @@ import { Box } from '@material-ui/core';
 import I18n from '@kevinwang0316/i18n';
 
 import DashboardNumCard from './DashboardNumCard';
-import { fetchInstanceStatus as fetchInstanceStatusAction } from '../../actions/InstanceActions';
+import { fetchInstanceStatus as fetchInstanceStatusAction } from '../../store/InstanceStatus/actions';
 
 const styles = {
   cardIcon: {

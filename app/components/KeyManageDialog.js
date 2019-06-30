@@ -13,11 +13,13 @@ import {
   fetchNwcKey as fetchNwcKeyAction,
   addNwcKey as addNwcKeyAction,
   deleteNwcKey as deleteNwcKeyAction,
+} from '../store/NWCKeys/actions';
+import {
   fetchOfficeKey as fetchOfficeKeyAction,
   addOfficeKey as addOfficeKeyAction,
   deleteOfficeKey as deleteOfficeKeyAction,
-} from '../actions/ApiKeyActions';
-import { addNwcWorkflows as addNwcWorkflowsAction } from '../actions/NwcWorkflowActions';
+} from '../store/OfficeKeys/actions';
+import { addNwcWorkflows as addNwcWorkflowsAction } from '../store/Workflows/actions';
 import getChipAttribute from '../libs/GetChipAttribute';
 
 const useStyles = makeStyles({

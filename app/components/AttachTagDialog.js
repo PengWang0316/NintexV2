@@ -6,7 +6,7 @@ import {
 } from '@material-ui/core';
 import I18n from '@kevinwang0316/i18n';
 
-import { updateTagFromWorkflow as updateTagFromWorkflowAction } from '../actions/WorkflowActions';
+import { updateTagFromWorkflow as updateTagFromWorkflowAction } from '../store/Workflows/actions';
 
 const Transition = React.forwardRef((props, ref) => <Slide direction="down" ref={ref} {...props} />);
 

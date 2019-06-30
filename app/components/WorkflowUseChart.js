@@ -6,7 +6,7 @@ import {
 } from 'recharts';
 // import I18n from '@kevinwang0316/i18n';
 
-import { fetchWorkflowUseCount as fetchWorkflowUseCountAction } from '../actions/ActionActions';
+import { fetchWorkflowUseCount as fetchWorkflowUseCountAction } from '../store/WorkflowUseCount/actions';
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 const RADIAN = Math.PI / 180;

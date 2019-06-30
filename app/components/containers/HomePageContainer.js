@@ -15,7 +15,7 @@ import HealthScoreCard from '../cards/HealthScoreCard';
 import TopPublishersList from '../TopPublishersList';
 import WorkflowUseChart from '../WorkflowUseChart';
 import WorkflowActionUseWordCloud from '../WorkflowActionUseWordCloud';
-import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../actions/UserActions';
+import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../store/User/actions';
 
 const useStyles = makeStyles({
   cardContainer: {

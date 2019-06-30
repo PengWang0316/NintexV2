@@ -8,7 +8,7 @@ import {
   lightGreen, red, pink, blue, purple,
 } from '@material-ui/core/colors';
 
-import { fetchInstanceStatusByTime as fetchInstanceStatusByTimeAction } from '../actions/InstanceActions';
+import { fetchInstanceStatusByTime as fetchInstanceStatusByTimeAction } from '../store/InstanceStatusByTime/actions';
 
 let isFetching;
 

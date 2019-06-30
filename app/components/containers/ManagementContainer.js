@@ -5,7 +5,7 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { amplifyAuthSignOption } from '../../config';
-import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../actions/UserActions';
+import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../store/User/actions';
 import WorkflowTable from '../WorkflowTable';
 
 const useStyles = makeStyles({

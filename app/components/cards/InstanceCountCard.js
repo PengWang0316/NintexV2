@@ -7,7 +7,7 @@ import { GroupWork } from '@material-ui/icons';
 import I18n from '@kevinwang0316/i18n';
 
 import DashboardNumCard from './DashboardNumCard';
-import { fetchInstanceCount as fetchInstanceCountAction } from '../../actions/InstanceActions';
+import { fetchInstanceCount as fetchInstanceCountAction } from '../../store/InstanceCount/actions';
 
 const styles = {
   cardIcon: {

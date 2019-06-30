@@ -6,8 +6,8 @@ import { connect } from 'react-redux';
 
 import { amplifyAuthSignOption } from '../../config';
 import MonitorList from '../MonitorList';
-import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../actions/UserActions';
-import { fetchWorkflowsByUser as fetchWorkflowsByUserAction } from '../../actions/WorkflowActions';
+import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../store/User/actions';
+import { fetchWorkflowsByUser as fetchWorkflowsByUserAction } from '../../store/Workflows/actions';
 
 const useStyles = makeStyles({
   rootDiv: {

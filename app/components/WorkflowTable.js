@@ -14,10 +14,10 @@ import {
   updateTagFromWorkflow as updateTagFromWorkflowAction,
   runWorkflow as runWorkflowAction, stopWorkflow as stopWorkflowAction,
   switchMonitor as switchMonitorAction,
-} from '../actions/WorkflowActions';
+} from '../store/Workflows/actions';
 import AttachTagDialog from './AttachTagDialog';
 import WorkflowActions from './WorkflowActions';
-import { fetchTags as fetchTagsAction } from '../actions/TagActions';
+import { fetchTags as fetchTagsAction } from '../store/Tags/actions';
 import CustomizedSnackbar from './CustomizedSnackbar';
 
 // import does not work well with the MiniCssExtractPlugin

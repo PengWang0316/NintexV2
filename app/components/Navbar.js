@@ -16,9 +16,9 @@ import I18n from '@kevinwang0316/i18n';
 import {
   HOME_PAGE_URL, SIGNIN_PAGE_URL,
 } from '../config';
-import * as UserActions from '../actions/UserActions';
-import { fetchTags as fetchTagsAction } from '../actions/TagActions';
-import { addNwcWorkflows as addNwcWorkflowsAction } from '../actions/NwcWorkflowActions';
+import * as UserActions from '../store/User/actions';
+import { fetchTags as fetchTagsAction } from '../store/Tags/actions';
+import { addNwcWorkflows as addNwcWorkflowsAction } from '../store/Workflows/actions';
 
 /* istanbul ignore next */
 const styles = theme => ({

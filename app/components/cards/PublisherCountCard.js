@@ -7,7 +7,7 @@ import { SupervisedUserCircle } from '@material-ui/icons';
 import I18n from '@kevinwang0316/i18n';
 
 import DashboardNumCard from './DashboardNumCard';
-import { fetchPublisherCount as fetchPublisherCountAction } from '../../actions/ActionActions';
+import { fetchPublisherCount as fetchPublisherCountAction } from '../../store/PublisherCount/actions';
 
 const styles = {
   cardIcon: {

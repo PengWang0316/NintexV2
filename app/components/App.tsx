@@ -10,7 +10,7 @@ import { withAuthenticator } from 'aws-amplify-react';
 
 import Navbar from './Navbar';
 import MenuDrawer from './MenuDrawer';
-import { checkInstanceStatus as checkInstanceStatusAction } from '../actions/InstanceActions';
+import { checkInstanceStatus as checkInstanceStatusAction } from '../store/MonitorList/actions';
 import {
   HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL, SIGNIN_PAGE_URL,
   cognitoConfig, amplifyAuthSignOption, MONITOR_CENTER_PAGE_URL,

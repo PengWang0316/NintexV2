@@ -5,7 +5,7 @@ import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts';
 
-import { fetchWorkflowLocationCount as fetchWorkflowLocationCountAction } from '../actions/WorkflowActions';
+import { fetchWorkflowLocationCount as fetchWorkflowLocationCountAction } from '../store/WorkflowLocationCount/actions';
 
 let isFetching;
 
