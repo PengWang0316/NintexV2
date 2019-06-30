@@ -6,18 +6,18 @@ import instanceCount from './InstanceCount/reducers';
 import instanceStatus from './InstanceStatus/reducers';
 import instanceStatusByTime from './InstanceStatusByTime/reducers';
 
-import user from './User';
-import workflowCount from './WorkflowCount';
-import publisherCount from './PublisherCount';
-import workflowLocationCount from './WorkflowLocationCount';
-import topPublishersCount from './TopPublishersCount';
-import workflowUseCount from './WorkflowUseCount';
-import workflows from './Workflows';
-import tags from './Tags';
-import nwcKeys from './NWCKeys';
-import officeKeys from './OfficeKeys';
-import lastNwc from './LastNwc';
-import monitorList from './MonitorList';
+import user from './User/reducers';
+import workflowCount from './WorkflowCount/reducers';
+import publisherCount from './PublisherCount/reducers';
+import workflowLocationCount from './WorkflowLocationCount/reducers';
+import topPublishersCount from './TopPublishersCount/reducers';
+import workflowUseCount from './WorkflowUseCount/reducers';
+import workflows from './Workflows/reducers';
+import tags from './Tags/reducers';
+import nwcKeys from './NWCKeys/reducers';
+import officeKeys from './OfficeKeys/reducers';
+import lastNwc from './LastNwc/reducers';
+import monitorList from './MonitorList/reducers';
 
 export default combineReducers({
   actionNameCount,

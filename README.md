@@ -5,6 +5,7 @@ A web application helps managing, monitor Nintex workflows under different tenan
 ## Technical stack
 - React
 - Redux
+- TypeScript
 - Material UI
 - Tabulator
 
