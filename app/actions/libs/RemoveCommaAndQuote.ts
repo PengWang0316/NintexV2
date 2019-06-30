@@ -8,7 +8,7 @@ const REMOVE_COMMAN_QUOTE_REGEXP = /[,"]/g;
  * @param {string} text is the whole text file
  * @return {string} return a string after remove double quote, comma, and curly bracket.
  */
-const removeCommaAndQuote = (text) => {
+const removeCommaAndQuote = (text: string): string => {
   // Replace double quote to a single comma first for more processing
   let newText = text.replace(/""/g, ',');
   // Remove quote and comma
