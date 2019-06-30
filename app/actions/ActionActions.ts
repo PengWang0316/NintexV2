@@ -1,7 +1,7 @@
 /* eslint-disable no-plusplus */
 import axios from 'axios';
 
-import { POST_ACTIONS_API } from './Urls';
+import { POST_ACTIONS_API } from '../store/Urls';
 
 import removeCommaAndQuote from './libs/RemoveCommaAndQuote';
 import getTokenAndData from './libs/GetTokenAndData';
