@@ -1,4 +1,4 @@
-import React, { ReactNode, memo, useMemo } from 'react';
+import React, { ReactNode, memo } from 'react';
 import { Box, Card, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
