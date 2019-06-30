@@ -24,7 +24,7 @@ interface Props {
   displayNum: string | number | null;
   title: string;
   icon: ReactNode;
-  extraContent: string | null;
+  extraContent: ReactNode | null;
 }
 
 export const DashboardNumCard = ({
