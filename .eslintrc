@@ -13,9 +13,6 @@
     "es6": true,
     "mocha": true
   },
-  "parserOptions": {
-    "project": "./tsconfig.json"
-  },
   "rules": {
     "react/jsx-filename-extension": [1, { "extensions": [".js", ".jsx", ".ts", "tsx"] }],
     "import/no-named-as-default": 0,
