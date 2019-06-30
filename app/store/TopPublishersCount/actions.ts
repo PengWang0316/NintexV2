@@ -14,7 +14,7 @@ const fetchTopPublishersCountSuccess = (
 });
 
 export const fetchTopPublishersCount = () => async (dispatch) => {
-  const { data } = await axios.get(GET_TOP_PUBLISHERS_COUNT_API, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  const { data } = await axios.get(GET_TOP_PUBLISHERS_COUNT_API, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(fetchTopPublishersCountSuccess(data));
 };
 export default fetchTopPublishersCount;

@@ -12,7 +12,7 @@ const fetchWorkflowLocationCountSuccess = (
 });
 
 export const fetchWorkflowLocationCount = () => async (dispatch) => {
-  const { data } = await axios.get(GET_WORKFLOWS_LOCATION_COUNT_API, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  const { data } = await axios.get(GET_WORKFLOWS_LOCATION_COUNT_API, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(fetchWorkflowLocationCountSuccess(data));
 };
 export default fetchWorkflowLocationCount;

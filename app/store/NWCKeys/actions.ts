@@ -25,16 +25,16 @@ const deleteNwcKeySuccess = (tenant: string) => ({
 });
 
 export const fetchNwcKey = () => async (dispatch) => {
-  const { data } = await axios.get(FETCH_NWC_KEYS_API, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  const { data } = await axios.get(FETCH_NWC_KEYS_API, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(fetchNwcKeySuccess(data));
 };
 
 export const addNwcKey = (tenant: string, key: string) => async (dispatch) => {
-  const { data: id } = await axios.post(ADD_NWC_KEY_API, { tenant, key }, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  const { data: id } = await axios.post(ADD_NWC_KEY_API, { tenant, key }, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(addNwcKeySuccess(tenant, key, id));
 };
 
 export const deleteNwcKey = (tenant: string, id: number) => async (dispatch) => {
-  axios.delete(DELETE_NWC_KEY_API, { params: { id }, headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  axios.delete(DELETE_NWC_KEY_API, { params: { id }, headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(deleteNwcKeySuccess(tenant));
 };

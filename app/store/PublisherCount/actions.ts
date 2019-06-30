@@ -10,7 +10,7 @@ const fetchPublisherCountSuccess = (publisherCount: number): OfficeKeyActionType
 });
 
 export const fetchPublisherCount = () => async (dispatch) => {
-  const { data: { count } } = await axios.get(GET_PUBLISHER_COUNT_API, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  const { data: { count } } = await axios.get(GET_PUBLISHER_COUNT_API, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(fetchPublisherCountSuccess(count));
 };
 export default fetchPublisherCount;

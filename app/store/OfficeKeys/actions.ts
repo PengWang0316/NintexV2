@@ -26,16 +26,16 @@ const deleteOfficeKeySuccess = (endpoint: string) => ({
 });
 
 export const fetchOfficeKey = () => async (dispatch) => {
-  const { data } = await axios.get(FETCH_OFFICE_KEYS_API, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  const { data } = await axios.get(FETCH_OFFICE_KEYS_API, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(fetchOfficeKeySuccess(data));
 };
 
 export const addOfficeKey = (endpoint: string, key: string, cookie: string) => async (dispatch) => {
-  const { data: id } = await axios.post(ADD_OFFICE_KEY_API, { endpoint, key, cookie }, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  const { data: id } = await axios.post(ADD_OFFICE_KEY_API, { endpoint, key, cookie }, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(addOfficeKeySuccess(endpoint, key, cookie, id));
 };
 
 export const deleteOfficeKey = (endpoint: string, id: number) => async (dispatch) => {
-  axios.delete(DELETE_OFFICE_KEY_API, { params: { id }, headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  axios.delete(DELETE_OFFICE_KEY_API, { params: { id }, headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(deleteOfficeKeySuccess(endpoint));
 };

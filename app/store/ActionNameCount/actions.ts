@@ -14,7 +14,7 @@ const fetchActionNameCountSuccess = (
 });
 
 export const fetchActionNameCount = () => async (dispatch) => {
-  const { data } = await axios.get(GET_ACTION_NAME_COUNT_API, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  const { data } = await axios.get(GET_ACTION_NAME_COUNT_API, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(fetchActionNameCountSuccess(data as ActionNameCountDataType));
 };
 

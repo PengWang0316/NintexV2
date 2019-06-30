@@ -10,7 +10,7 @@ const fetchWorkflowCountSuccess = (workflowCount: number): WorkflowCountActionTy
 });
 
 export const fetchWorkflowCount = () => async (dispatch) => {
-  const { data: { count } } = await axios.get(GET_WORKFLOWS_COUNT_API, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  const { data: { count } } = await axios.get(GET_WORKFLOWS_COUNT_API, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(fetchWorkflowCountSuccess(count));
 };
 export default fetchWorkflowCount;
