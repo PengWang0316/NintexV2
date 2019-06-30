@@ -11,7 +11,7 @@ const fetchWorkflowUseCountSuccess = (
   workflowUseCount,
 });
 
-const fetchWorkflowUseCount = () => async (dispatch) => {
+export const fetchWorkflowUseCount = () => async (dispatch) => {
   const { data } = await axios.get(GET_WORKFLOW_USE_COUNT_API, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(fetchWorkflowUseCountSuccess(data));
 };
