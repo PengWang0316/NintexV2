@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { withAuthenticator } from 'aws-amplify-react';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
@@ -41,6 +41,6 @@ const mapStateToProps = (state: AppState) => ({ user: state.user });
 const mapDispatchToProps = { currentAuthenticatedUser: currentAuthenticatedUserAction };
 
 export default withAuthenticator(
-  connect(mapStateToProps, mapDispatchToProps)(ManagementContainer),
+  connect(mapStateToProps, mapDispatchToProps)(memo(ManagementContainer)),
   amplifyAuthSignOption,
 );

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
@@ -75,6 +75,6 @@ const mapStateToProps = (state: AppState) => ({ user: state.user });
 /* istanbul ignore next */
 const mapDispatchToProps = { currentAuthenticatedUser: currentAuthenticatedUserAction };
 export default withAuthenticator(
-  connect(mapStateToProps, mapDispatchToProps)(HomePage),
+  connect(mapStateToProps, mapDispatchToProps)(memo(HomePage)),
   amplifyAuthSignOption,
 );
