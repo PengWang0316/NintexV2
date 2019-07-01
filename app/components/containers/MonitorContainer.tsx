@@ -1,13 +1,22 @@
 import React, { useEffect } from 'react';
 import { withAuthenticator } from 'aws-amplify-react';
 import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import { amplifyAuthSignOption } from '../../config';
 import MonitorList from '../MonitorList';
 import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../store/User/actions';
 import { fetchWorkflowsByUser as fetchWorkflowsByUserAction } from '../../store/Workflows/actions';
+import { AppState } from '../../store/ConfigureStore';
+import { UserType } from '../../store/User/types';
+import { Workflows } from '../../store/Workflows/types';
+
+interface Props {
+  user: UserType | null;
+  workflows: Workflows;
+  currentAuthenticatedUser: Function;
+  fetchWorkflowsByUser: Function;
+}
 
 const useStyles = makeStyles({
   rootDiv: {
@@ -18,12 +27,12 @@ const useStyles = makeStyles({
   },
 });
 
-let isFetching;
+let isFetching = false;
 
 const MonitorContainer = ({
-  user, currentAuthenticatedUser, workflows, fetchWorkflowsByUser,
-}) => {
-  const classes = useStyles();
+  user = null, currentAuthenticatedUser, workflows, fetchWorkflowsByUser,
+}: Props) => {
+  const classes = useStyles({});
   useEffect(() => {
     if (!user) currentAuthenticatedUser();
     if (!isFetching && !workflows.isFetched) {
@@ -38,21 +47,13 @@ const MonitorContainer = ({
   );
 };
 
-MonitorContainer.propTypes = {
-  user: PropTypes.objectOf(PropTypes.string),
-  workflows: PropTypes.objectOf(PropTypes.any).isRequired,
-  currentAuthenticatedUser: PropTypes.func.isRequired,
-  fetchWorkflowsByUser: PropTypes.func.isRequired,
+/* istanbul ignore next */
+const mapStateToProps = (state: AppState) => ({ ...state });
+/* istanbul ignore next */
+const mapDispatchToProps = {
+  currentAuthenticatedUser: currentAuthenticatedUserAction,
+  fetchWorkflowsByUser: fetchWorkflowsByUserAction,
 };
-MonitorContainer.defaultProps = { user: null };
-
-/* istanbul ignore next */
-const mapStateToProps = state => ({ ...state });
-/* istanbul ignore next */
-const mapDispatchToProps = dispatch => ({
-  currentAuthenticatedUser: user => dispatch(currentAuthenticatedUserAction(user)),
-  fetchWorkflowsByUser: () => dispatch(fetchWorkflowsByUserAction()),
-});
 
 export default withAuthenticator(
   connect(mapStateToProps, mapDispatchToProps)(MonitorContainer),
