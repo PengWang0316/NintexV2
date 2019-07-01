@@ -1,10 +1,8 @@
 export const FETCH_INSTANCE_COUNT_SUCCESS = 'fetchInstanceSuccess';
 
-export interface InstanceCount {
-  instanceCount: number;
-}
+export type InstanceCount = number;
 
 export interface FetchInstanceCountType {
   type: typeof FETCH_INSTANCE_COUNT_SUCCESS;
-  instanceCount: number;
+  instanceCount: InstanceCount;
 }

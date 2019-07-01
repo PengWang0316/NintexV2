@@ -7,10 +7,11 @@ import I18n from '@kevinwang0316/i18n';
 
 import DashboardNumCard from './DashboardNumCard';
 import { fetchWorkflowCount as fetchWorkflowCountAction } from '../../store/WorkflowCount/actions';
+import { WorkflowCount as WorkflowCountType } from '../../store/WorkflowCount/types';
 import { AppState } from '../../store/ConfigureStore';
 
 interface Props {
-  workflowCount: number | null;
+  workflowCount: WorkflowCountType;
   fetchWorkflowCount: () => void;
 }
 

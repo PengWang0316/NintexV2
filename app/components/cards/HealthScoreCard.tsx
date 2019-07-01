@@ -10,6 +10,7 @@ import I18n from '@kevinwang0316/i18n';
 import DashboardNumCard from './DashboardNumCard';
 import { fetchInstanceStatus as fetchInstanceStatusAction } from '../../store/InstanceStatus/actions';
 import { AppState } from '../../store/ConfigureStore';
+import { InstanceStatus as InstanceStatusType } from '../../store/InstanceStatus/types';
 
 const useStyles = makeStyles({
   cardIcon: {
@@ -22,11 +23,7 @@ const useStyles = makeStyles({
 let isFetching = false;
 
 interface Props {
-  instanceStatus: {
-    completedPercentage: string | number | null;
-    failedPercentage: string | number;
-    startedPercentage: string | number;
-  };
+  instanceStatus: InstanceStatusType;
   fetchInstanceStatus: () => void;
 }
 

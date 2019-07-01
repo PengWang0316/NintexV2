@@ -1,6 +1,8 @@
 export const FETCH_PUBLISHER_COUNT_SUCCESS = 'fetchPublisherSuccess';
 
-export interface OfficeKeyActionType {
+export type PublisherCount = number;
+
+export interface PublisherCountActionType {
   type: string;
-  publisherCount: number;
+  publisherCount: PublisherCount;
 }

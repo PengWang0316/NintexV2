@@ -7,10 +7,11 @@ import I18n from '@kevinwang0316/i18n';
 
 import DashboardNumCard from './DashboardNumCard';
 import { fetchInstanceCount as fetchInstanceCountAction } from '../../store/InstanceCount/actions';
+import { InstanceCount as InstanceCountType } from '../../store/InstanceCount/types';
 import { AppState } from '../../store/ConfigureStore';
 
 interface Props {
-  instanceCount: number | null;
+  instanceCount: InstanceCountType;
   fetchInstanceCount: () => void;
 }
 

@@ -7,10 +7,11 @@ import I18n from '@kevinwang0316/i18n';
 
 import DashboardNumCard from './DashboardNumCard';
 import { fetchPublisherCount as fetchPublisherCountAction } from '../../store/PublisherCount/actions';
+import { PublisherCount as PublisherCountType } from '../../store/PublisherCount/types';
 import { AppState } from '../../store/ConfigureStore';
 
 interface Props {
-  publisherCount: number | null;
+  publisherCount: PublisherCountType;
   fetchPublisherCount: () => void;
 }
 
