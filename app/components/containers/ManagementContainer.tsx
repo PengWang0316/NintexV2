@@ -23,7 +23,7 @@ const useStyles = makeStyles({
   },
 });
 
-const ManagementContainer = ({ user, currentAuthenticatedUser }: Props) => {
+const ManagementContainer = ({ user = null, currentAuthenticatedUser }: Props) => {
   const classes = useStyles({});
   useEffect(() => {
     if (!user) currentAuthenticatedUser();
