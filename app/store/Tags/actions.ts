@@ -22,7 +22,7 @@ export const fetchTags = () => async (dispatch) => {
   dispatch(fetchTagsSuccess(data));
 };
 
-export const addTag = (content, color) => async (dispatch) => {
+export const addTag = (content: string, color: string) => async (dispatch) => {
   const { data } = await axios.post(GET_TAGS_API, { content, color }, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(addTagsSuccess({ id: data.insertId, content, color }));
 };
