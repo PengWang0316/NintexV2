@@ -10,7 +10,7 @@ interface Props {
   handleClose: (event: React.MouseEvent) => void;
   backgroundColor: string;
   content: string;
-  duration: number;
+  duration?: number;
 }
 
 const useStyles = makeStyles(theme => ({
