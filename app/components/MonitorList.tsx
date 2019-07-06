@@ -1,11 +1,18 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { memo } from 'react';
 import { connect } from 'react-redux';
 import { Typography, Paper } from '@material-ui/core';
 import I18n from '@kevinwang0316/i18n';
 import { makeStyles } from '@material-ui/core/styles';
 
 import MonitorListItem from './MonitorListItem';
+import { Workflows } from '../store/Workflows/types';
+import { MonitorListType } from '../store/MonitorList/types';
+import { AppState } from '../store/ConfigureStore';
+
+interface Props {
+  workflows: Workflows;
+  monitorList: MonitorListType;
+}
 
 const useStyles = makeStyles({
   rootPaper: {
@@ -14,8 +21,8 @@ const useStyles = makeStyles({
   },
 });
 
-export const MonitorList = ({ workflows, monitorList }) => {
-  const classes = useStyles();
+export const MonitorList = ({ workflows, monitorList }: Props) => {
+  const classes = useStyles({});
   return (
     <Paper className={classes.rootPaper}>
       <Typography variant="h5" component="h4">
@@ -32,9 +39,5 @@ export const MonitorList = ({ workflows, monitorList }) => {
     </Paper>
   );
 };
-MonitorList.propTypes = {
-  workflows: PropTypes.objectOf(PropTypes.any).isRequired,
-  monitorList: PropTypes.objectOf(PropTypes.any).isRequired,
-};
-const mapStateToProps = state => ({ ...state });
-export default connect(mapStateToProps, null)(MonitorList);
+const mapStateToProps = ({ workflows, monitorList }: AppState) => ({ workflows, monitorList });
+export default connect(mapStateToProps, null)(memo(MonitorList));
