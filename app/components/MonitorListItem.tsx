@@ -1,5 +1,6 @@
-import React, { Fragment, useState } from 'react';
-import PropTypes from 'prop-types';
+import React, {
+  Fragment, useState, memo, useCallback,
+} from 'react';
 import {
   List, ListItem, Divider, ListItemText, Typography, ListItemIcon, Collapse,
 } from '@material-ui/core';
@@ -8,6 +9,15 @@ import {
   CheckCircle as CheckIcon, Warning as WarningIcon, ExpandLess, ExpandMore,
 } from '@material-ui/icons';
 import { amber, lightGreen } from '@material-ui/core/colors';
+
+import { Workflows } from '../store/Workflows/types';
+import { MonitorListType } from '../store/MonitorList/types';
+
+interface Props {
+  wfId: string;
+  workflows: Workflows;
+  monitorList: MonitorListType;
+}
 
 const useStyles = makeStyles(theme => ({
   rootPaper: {
@@ -27,11 +37,11 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const MonitorListItem = ({ wfId, workflows, monitorList }) => {
-  const classes = useStyles();
+export const MonitorListItem = ({ wfId, workflows, monitorList }: Props) => {
+  const classes = useStyles({});
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleExpendClick = () => setIsOpen(state => !state);
+  const handleExpendClick = useCallback(() => setIsOpen(state => !state), []);
 
   return (
     <List className={classes.list}>
@@ -80,9 +90,4 @@ export const MonitorListItem = ({ wfId, workflows, monitorList }) => {
     </List>
   );
 };
-MonitorListItem.propTypes = {
-  workflows: PropTypes.objectOf(PropTypes.any).isRequired,
-  monitorList: PropTypes.objectOf(PropTypes.any).isRequired,
-  wfId: PropTypes.string.isRequired,
-};
-export default MonitorListItem;
+export default memo(MonitorListItem);
