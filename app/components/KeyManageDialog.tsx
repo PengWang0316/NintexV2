@@ -1,10 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, {
+  useState, useEffect, useCallback, memo,
+} from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import {
   Button, Dialog, DialogActions, DialogContent, CardContent,
   DialogTitle, Chip, TextField, Typography, Card,
 } from '@material-ui/core';
+import { ChipProps } from '@material-ui/core/Chip';
 import { blue, pink } from '@material-ui/core/colors';
 import { makeStyles } from '@material-ui/core/styles';
 import I18n from '@kevinwang0316/i18n';
@@ -21,6 +23,32 @@ import {
 } from '../store/OfficeKeys/actions';
 import { addNwcWorkflows as addNwcWorkflowsAction } from '../store/Workflows/actions';
 import getChipAttribute from '../libs/GetChipAttribute';
+import { NWCKeysType } from '../store/NWCKeys/types';
+import { OfficeKeysType } from '../store/OfficeKeys/types';
+import { Workflows } from '../store/Workflows/types';
+import { AppState } from '../store/ConfigureStore';
+
+interface Props {
+  open: boolean;
+  handleClose: (event: React.MouseEvent) => void;
+  nwcKeys: NWCKeysType;
+  officeKeys: OfficeKeysType;
+  fetchNwcKey: Function;
+  addNwcKey: (tenant: string, key: string) => void;
+  deleteNwcKey: (tenant: string, id: number) => void;
+  fetchOfficeKey: Function;
+  addOfficeKey: (endpoint: string, key: string, cookie: string) => void;
+  deleteOfficeKey: (endpoint: string, id: number) => void;
+  addNwcWorkflows: (tenant: string, key: string, existedWorkflows, isAutoFetching?: boolean) => void;
+  workflows: Workflows;
+}
+
+interface CustermizedChipType extends ChipProps {
+  name: number;
+  tenant?: string;
+  endpoint?: string;
+}
+const CustermizedChip = (props: CustermizedChipType) => <Chip {...props} />;
 
 const useStyles = makeStyles({
   flexDiv: {
@@ -39,14 +67,14 @@ const useStyles = makeStyles({
   nwcTag: { backgroundColor: blue[500], color: 'white', marginRight: 10 },
   officeTag: { backgroundColor: pink[500], color: 'white', marginRight: 10 },
 });
-let isFetchingNwcKey;
-let isFetchingOfficeKey;
+let isFetchingNwcKey = false;
+let isFetchingOfficeKey = false;
 
 export const KeyManageDialog = ({
   open, handleClose, nwcKeys, officeKeys, fetchNwcKey, addNwcKey, deleteNwcKey,
   fetchOfficeKey, addOfficeKey, deleteOfficeKey, addNwcWorkflows, workflows,
-}) => {
-  const classes = useStyles();
+}: Props) => {
+  const classes = useStyles({});
   const [nwcTenant, setNwcTenant] = useState('');
   const [nwcKey, setNwcKey] = useState('');
   const [officeEndpoint, setOfficeEndpoint] = useState('');
@@ -64,11 +92,11 @@ export const KeyManageDialog = ({
     }
   });
 
-  const handleNwcTenantChange = event => setNwcTenant(event.target.value);
-  const handleNwcKeyChange = event => setNwcKey(event.target.value);
-  const handleOfficeKeyChange = event => setOfficeKey(event.target.value);
-  const handleOfficeEndpointChange = event => setOfficeEndpoint(event.target.value);
-  const handleOfficeCookieChange = event => setOfficeCookie(event.target.value);
+  const handleNwcTenantChange = useCallback(event => setNwcTenant(event.target.value), []);
+  const handleNwcKeyChange = useCallback(event => setNwcKey(event.target.value), []);
+  const handleOfficeKeyChange = useCallback(event => setOfficeKey(event.target.value), []);
+  const handleOfficeEndpointChange = useCallback(event => setOfficeEndpoint(event.target.value), []);
+  const handleOfficeCookieChange = useCallback(event => setOfficeCookie(event.target.value), []);
 
   const handleNwcAdd = () => {
     if (nwcKey && nwcKey !== '' && nwcTenant && nwcTenant !== '') {
@@ -106,12 +134,12 @@ export const KeyManageDialog = ({
       <DialogContent>
         <Card className={classes.card}>
           <CardContent>
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
+            <Typography color="textSecondary" gutterBottom>
               {I18n.get('keyManageNWCContent')}
             </Typography>
             <div>
               {nwcKeys.data && Object.keys(nwcKeys.data).map(key => (
-                <Chip
+                <CustermizedChip
                   label={key}
                   key={key}
                   className={classes.nwcTag}
@@ -145,12 +173,12 @@ export const KeyManageDialog = ({
 
         <Card className={classes.card}>
           <CardContent>
-            <Typography className={classes.title} color="textSecondary" gutterBottom>
+            <Typography color="textSecondary" gutterBottom>
               {I18n.get('keyManageOfficeContent')}
             </Typography>
             <div>
               {officeKeys.data && Object.keys(officeKeys.data).map(key => (
-                <Chip
+                <CustermizedChip
                   label={key}
                   key={key}
                   className={classes.officeTag}
@@ -197,32 +225,18 @@ export const KeyManageDialog = ({
     </Dialog>
   );
 };
-KeyManageDialog.propTypes = {
-  open: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  fetchNwcKey: PropTypes.func.isRequired,
-  addNwcKey: PropTypes.func.isRequired,
-  deleteNwcKey: PropTypes.func.isRequired,
-  fetchOfficeKey: PropTypes.func.isRequired,
-  addOfficeKey: PropTypes.func.isRequired,
-  deleteOfficeKey: PropTypes.func.isRequired,
-  addNwcWorkflows: PropTypes.func.isRequired,
-  nwcKeys: PropTypes.objectOf(PropTypes.any).isRequired,
-  officeKeys: PropTypes.objectOf(PropTypes.any).isRequired,
-  workflows: PropTypes.objectOf(PropTypes.any).isRequired,
-};
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   nwcKeys: state.nwcKeys,
   officeKeys: state.officeKeys,
   workflows: state.workflows,
 });
 const mapDispatchToProps = dispatch => ({
   fetchNwcKey: () => dispatch(fetchNwcKeyAction()),
-  addNwcKey: (tenant, key) => dispatch(addNwcKeyAction(tenant, key)),
-  deleteNwcKey: (tenant, id) => dispatch(deleteNwcKeyAction(tenant, id)),
+  addNwcKey: (tenant: string, key: string) => dispatch(addNwcKeyAction(tenant, key)),
+  deleteNwcKey: (tenant: string, id: number) => dispatch(deleteNwcKeyAction(tenant, id)),
   fetchOfficeKey: () => dispatch(fetchOfficeKeyAction()),
-  addOfficeKey: (endpoint, key, cookie) => dispatch(addOfficeKeyAction(endpoint, key, cookie)),
-  deleteOfficeKey: (endpoint, id) => dispatch(deleteOfficeKeyAction(endpoint, id)),
-  addNwcWorkflows: (tenant, key, existedWorkflows) => dispatch(addNwcWorkflowsAction(tenant, key, existedWorkflows)),
+  addOfficeKey: (endpoint: string, key: string, cookie: string) => dispatch(addOfficeKeyAction(endpoint, key, cookie)),
+  deleteOfficeKey: (endpoint: string, id: number) => dispatch(deleteOfficeKeyAction(endpoint, id)),
+  addNwcWorkflows: (tenant: string, key: string, existedWorkflows: string) => dispatch(addNwcWorkflowsAction(tenant, key, existedWorkflows)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(KeyManageDialog);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(KeyManageDialog));
