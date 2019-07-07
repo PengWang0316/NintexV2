@@ -33,7 +33,7 @@ const config = {
     rules: [
       { test: /\.(ts|tsx)$/, loader: 'awesome-typescript-loader' },
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
-      { enforce: 'pre', test: /\.js$/, loader: 'source-map-loader' },
+      { enforce: 'pre', test: /\.(tsx | ts | js)$/, loader: 'source-map-loader' },
       { test: /\.(js)$/, exclude: /node_modules/, use: 'babel-loader' },
       // { test: /\.module\.css$/, use: ['style-loader', 'css-loader'] },
       // { test: /\.module\.css$/, use: ['style-loader', 'css-loader'] },
