@@ -1,13 +1,26 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect, memo } from 'react';
 import { Chip, IconButton, Tooltip } from '@material-ui/core';
+import { ChipProps } from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
 import { AddCircle } from '@material-ui/icons';
 import { blue } from '@material-ui/core/colors';
 import I18n from '@kevinwang0316/i18n';
 
 import getChipAttribute from '../libs/GetChipAttribute';
+import { TagsType } from '../store/Tags/types';
+
+interface CustomizedChipProps extends ChipProps {
+  name: string;
+}
+const CustomizedChip: React.ElementType = (props: CustomizedChipProps) => <Chip {...props} />;
+
+interface Props {
+  cell: any;
+  tags: TagsType;
+  handleRemoveTag: (workflowId: string, tagIds: string | null) => void;
+  handleAddTag: (workflowId: string) => void;
+}
 
 const useStyles = makeStyles({
   addBtn: {
@@ -18,9 +31,9 @@ const useStyles = makeStyles({
 // Since this component will be passed from the table formatter, it is not under the Redux's Provider.
 // So, it can not use connect to connect to Reudx store. All props has to be pass from the parent component.
 export const Tags = ({
-  cell, tags, handleRemoveTag, handleAddTag,
-}) => {
-  const classes = useStyles();
+  cell = null, tags = null, handleRemoveTag, handleAddTag,
+}: Props) => {
+  const classes = useStyles({});
   const tagIds = (cell && cell._cell.value) ? cell._cell.value.split(',') : null;
 
   const handleDelete = (event) => {
@@ -39,7 +52,7 @@ export const Tags = ({
   return (
     <div style={{ display: 'flex', flexWrap: 'wrap' }}>
       {(tagIds && tags) && tagIds.map(tag => (
-        <Chip
+        <CustomizedChip
           label={`${tags[tag][0]}`}
           key={`${tags[tag][0]}${tags[tag][1]}`}
           name={`${tag}`}
@@ -52,14 +65,5 @@ export const Tags = ({
     </div>
   );
 };
-Tags.propTypes = {
-  cell: PropTypes.objectOf(PropTypes.any),
-  tags: PropTypes.objectOf(PropTypes.array),
-  handleRemoveTag: PropTypes.func.isRequired,
-  handleAddTag: PropTypes.func.isRequired,
-};
-Tags.defaultProps = {
-  cell: null,
-  tags: null,
-};
-export default Tags;
+
+export default memo(Tags);
