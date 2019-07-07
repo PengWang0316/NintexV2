@@ -1,22 +1,27 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import ReactWordcloud from 'react-wordcloud';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { fetchActionNameCount as fetchActionNameCountAction } from '../store/ActionNameCount/actions';
+import { ActionnameCount } from '../store/ActionNameCount/types';
+import { AppState } from '../store/ConfigureStore';
+
+interface Props {
+  actionNameCount: ActionnameCount;
+  fetchActionNameCount: Function;
+}
 
 const useStyles = makeStyles(() => ({
   rootDiv: {
     width: '100%',
-    // maxWidth: 360,
     height: 400,
   },
 }));
 
-let isFetching;
+let isFetching = false;
 
-export const WorkflowActionUseWordCloud = ({ actionNameCount, fetchActionNameCount }) => {
+export const WorkflowActionUseWordCloud = ({ actionNameCount, fetchActionNameCount }: Props) => {
   useEffect(() => {
     if (!actionNameCount.isFetched && !isFetching) {
       fetchActionNameCount();
@@ -24,7 +29,7 @@ export const WorkflowActionUseWordCloud = ({ actionNameCount, fetchActionNameCou
     }
   });
 
-  const classes = useStyles();
+  const classes = useStyles({});
   return (
     <div className={classes.rootDiv}>
       <ReactWordcloud
@@ -44,14 +49,11 @@ export const WorkflowActionUseWordCloud = ({ actionNameCount, fetchActionNameCou
     </div>
   );
 };
-WorkflowActionUseWordCloud.propTypes = {
-  fetchActionNameCount: PropTypes.func.isRequired,
-  actionNameCount: PropTypes.objectOf(PropTypes.any).isRequired,
-};
-const mapStateToProps = state => ({
+
+const mapStateToProps = (state: AppState) => ({
   actionNameCount: state.actionNameCount,
 });
 const mapDispatchToProps = {
   fetchActionNameCount: fetchActionNameCountAction,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(WorkflowActionUseWordCloud);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(WorkflowActionUseWordCloud));
