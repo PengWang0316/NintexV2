@@ -25,4 +25,5 @@ export const ADD_NWC_WORKFLOWS_EXPORT_KEYS_API = `${AWS_API_BASE}/nwcworkflows/e
 export const UPDATE_NWC_ACTIVE_API = `${AWS_API_BASE}/nwcworkflow/active`;
 export const UPDATE_NWC_ISMONITORED_API = `${AWS_API_BASE}/nwcworkflow/monitor`;
 export const IMPORT_MONITOR_WORKFLOWS_API = `${AWS_API_BASE}/nwcworkflow/import`;
+export const NOTIFICATION_EMAIL_API = `${AWS_API_BASE}/emailNotification`;
 export const NWC_LIST_WORKFLOWS_API = 'https://us.nintex.io/workflows/v1/designs';

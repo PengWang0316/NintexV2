@@ -7,7 +7,7 @@ import {
 } from './types';
 import {
   GET_WORKFLOWS_BY_USER_API, UPDATE_TAG_FROM_WORKFLOW_API, ADD_NWC_WORKFLOWS_API,
-  UPDATE_NWC_ACTIVE_API, UPDATE_NWC_ISMONITORED_API,
+  UPDATE_NWC_ACTIVE_API, UPDATE_NWC_ISMONITORED_API, NOTIFICATION_EMAIL_API,
 } from '../Urls';
 import { BEARER_HEADER, NWC_LIST_WORKFLOWS_API, NWC_PLATFORM } from '../../config';
 import getJwtToken from '../../libs/GetJWTToken';
@@ -176,6 +176,8 @@ export const addNwcWorkflows = (
       { workflows: insertWorkflows, isAutoFetching, key },
       { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } },
     );
+    // Call the notification email API
+    axios.get(NOTIFICATION_EMAIL_API, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   }
 };
 

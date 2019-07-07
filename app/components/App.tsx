@@ -15,7 +15,6 @@ import {
   HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL, SIGNIN_PAGE_URL,
   cognitoConfig, amplifyAuthSignOption, MONITOR_CENTER_PAGE_URL,
 } from '../config';
-import LoadingAnimation from './SharedComponents/LoadingAnimation';
 
 Amplify.configure({
   Auth: cognitoConfig,
