@@ -5,7 +5,7 @@ import {
   RawTag, TagsActionType,
 } from './types';
 import { GET_TAGS_API } from '../Urls';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const fetchTagsSuccess = (tags: RawTag[]): TagsActionType => ({
   type: FETCH_TAGS_SUCCESS,
@@ -18,12 +18,12 @@ const addTagsSuccess = (tag: RawTag): TagsActionType => ({
 });
 
 export const fetchTags = () => async (dispatch) => {
-  const { data } = await axios.get(GET_TAGS_API, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  const { data } = await axios.get(GET_TAGS_API, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(fetchTagsSuccess(data));
 };
 
-export const addTag = (content, color) => async (dispatch) => {
-  const { data } = await axios.post(GET_TAGS_API, { content, color }, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+export const addTag = (content: string, color: string) => async (dispatch) => {
+  const { data } = await axios.post(GET_TAGS_API, { content, color }, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(addTagsSuccess({ id: data.insertId, content, color }));
 };
 

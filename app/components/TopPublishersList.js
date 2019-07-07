@@ -7,7 +7,7 @@ import {
 import { makeStyles } from '@material-ui/core/styles';
 import I18n from '@kevinwang0316/i18n';
 
-import { fetchTopPublishersCount as fetchTopPublishersCountAction } from '../actions/ActionActions';
+import { fetchTopPublishersCount as fetchTopPublishersCountAction } from '../store/TopPublishersCount/actions';
 
 const useStyles = makeStyles(theme => ({
   root: {

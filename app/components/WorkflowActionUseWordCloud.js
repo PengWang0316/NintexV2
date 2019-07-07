@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import ReactWordcloud from 'react-wordcloud';
 import { makeStyles } from '@material-ui/core/styles';
 
-import { fetchActionNameCount as fetchActionNameCountAction } from '../actions/ActionActions';
+import { fetchActionNameCount as fetchActionNameCountAction } from '../store/ActionNameCount/actions';
 
 const useStyles = makeStyles(() => ({
   rootDiv: {

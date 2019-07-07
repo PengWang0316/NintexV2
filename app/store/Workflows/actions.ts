@@ -10,7 +10,7 @@ import {
   UPDATE_NWC_ACTIVE_API, UPDATE_NWC_ISMONITORED_API,
 } from '../Urls';
 import { BEARER_HEADER, NWC_LIST_WORKFLOWS_API, NWC_PLATFORM } from '../../config';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const fetchWorkflowsByUserSuccess = (workflows: Workflow[]): WorkflowsActionType => ({
   type: FETCH_WORKFLOWS_BY_USER_SUCCESS,
@@ -51,14 +51,14 @@ export const appandWorkflows = formatedWorkflows => ({
 });
 
 export const fetchWorkflowsByUser = () => async (dispatch) => {
-  const { data } = await axios.get(GET_WORKFLOWS_BY_USER_API, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  const { data } = await axios.get(GET_WORKFLOWS_BY_USER_API, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(fetchWorkflowsByUserSuccess(data));
   // dispatch(fetchMonitorListSuccess(data));
 };
 
 export const updateTagFromWorkflow = (workflowId, tagIds) => async (dispatch) => {
   // In the future, we may consider to wait the backend result and handle the potential failures.
-  axios.put(UPDATE_TAG_FROM_WORKFLOW_API, { tags: tagIds, id: workflowId }, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  axios.put(UPDATE_TAG_FROM_WORKFLOW_API, { tags: tagIds, id: workflowId }, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(updateTagFromWorkflowSuccess(workflowId, tagIds));
 };
 
@@ -174,7 +174,7 @@ export const addNwcWorkflows = (
     axios.post(
       ADD_NWC_WORKFLOWS_API,
       { workflows: insertWorkflows, isAutoFetching, key },
-      { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } },
+      { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } },
     );
   }
 };
@@ -190,7 +190,7 @@ export const runWorkflow = (workflowId: string, key: string) => async (dispatch)
       headers: { authorization: `${BEARER_HEADER} ${key}` },
     },
   );
-  axios.put(UPDATE_NWC_ACTIVE_API, { workflowId, isActive: 1 }, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  axios.put(UPDATE_NWC_ACTIVE_API, { workflowId, isActive: 1 }, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(changeWorkflowActiveSuccess(workflowId, 1));
 };
 
@@ -198,5 +198,19 @@ export const switchMonitor = (
   workflowId: string, tenant: string, isMonitored: number, key: string,
 ) => async (dispatch) => {
   dispatch(switchMonitorSuccess(workflowId, tenant, isMonitored, key));
-  axios.put(UPDATE_NWC_ISMONITORED_API, { workflowId, isMonitored }, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  axios.put(UPDATE_NWC_ISMONITORED_API, { workflowId, isMonitored }, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
+};
+
+export const stopWorkflow = (workflowId: string, key: string) => async (dispatch) => {
+  // Somehow, the NWC server gives error to some workflow id.
+  // Keeping the NWC post call first can help to prevent updating our database when activating fails.
+  await axios.post(
+    `${NWC_LIST_WORKFLOWS_API}/${workflowId}/deactivate`,
+    {},
+    {
+      headers: { authorization: `${BEARER_HEADER} ${key}` },
+    },
+  );
+  axios.put(UPDATE_NWC_ACTIVE_API, { workflowId, isActive: 0 }, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
+  dispatch(changeWorkflowActiveSuccess(workflowId, 0));
 };

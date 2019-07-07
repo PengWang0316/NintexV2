@@ -1,6 +1,7 @@
-import React, { useState, Fragment } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import React, {
+  useState, Fragment, memo, useCallback,
+} from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
 import {
   Drawer, List, Divider, ListItem, ListItemIcon, ListItemText, Tooltip,
@@ -19,7 +20,7 @@ import AddTagDialog from './AddTagDialog';
 import KeyManageDialog from './KeyManageDialog';
 import { HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL, MONITOR_CENTER_PAGE_URL } from '../config';
 
-const styles = theme => ({
+const useStyles = makeStyles(theme => ({
   drawerClose: {
     transition: theme.transitions.create('width', {
       easing: theme.transitions.easing.sharp,
@@ -52,16 +53,17 @@ const styles = theme => ({
   keyIcon: {
     color: blue[900],
   },
-});
+}));
 
-const MenuDrawer = ({ classes }) => {
+const MenuDrawer = () => {
+  const classes = useStyles({});
   const [isOpenFileUpload, setIsOpenFileUpload] = useState(false);
   const [isOpenAddTag, setIsOpenAddTag] = useState(false);
   const [isOpenKeyManage, setIsOpenKeyManage] = useState(false);
 
-  const handleUploadFileBtn = () => setIsOpenFileUpload(state => !state);
-  const handleAddTagBtn = () => setIsOpenAddTag(state => !state);
-  const handleKeyBtn = () => setIsOpenKeyManage(state => !state);
+  const handleUploadFileBtn = useCallback(() => setIsOpenFileUpload(state => !state), []);
+  const handleAddTagBtn = useCallback(() => setIsOpenAddTag(state => !state), []);
+  const handleKeyBtn = useCallback(() => setIsOpenKeyManage(state => !state), []);
 
   return (
     <Fragment>
@@ -130,7 +132,4 @@ const MenuDrawer = ({ classes }) => {
   );
 };
 
-MenuDrawer.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
-};
-export default withStyles(styles)(MenuDrawer);
+export default memo(MenuDrawer);

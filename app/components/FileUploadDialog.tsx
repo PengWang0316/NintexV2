@@ -1,11 +1,12 @@
-import React, { useState, Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, {
+  useState, Fragment, memo, useCallback,
+} from 'react';
 import {
   Button, Input, Dialog, DialogActions, DialogContent, Typography,
   DialogTitle, DialogContentText,
 } from '@material-ui/core';
 import green from '@material-ui/core/colors/green';
-import { withStyles } from '@material-ui/core/styles';
+import { makeStyles } from '@material-ui/core/styles';
 import I18n from '@kevinwang0316/i18n';
 
 import CustomizedSnackbar from './CustomizedSnackbar';
@@ -14,25 +15,31 @@ import { uploadWorkflows } from '../actions/WorkflowActions';
 import { uploadInstances } from '../actions/InstanceActions';
 import { uploadActions } from '../actions/ActionActions';
 
-const styles = {
+interface Props {
+  open: boolean;
+  handleClose: (event: React.MouseEvent) => void;
+}
+
+const useStyles = makeStyles({
   uploadTitle: { marginTop: 15 },
   inputDiv: { display: 'flex' },
   uploadBtn: { marginLeft: 15 },
   successBg: { backgroundColor: green[600] },
-};
+});
 
-export const FileUploadDialog = ({ open, handleClose, classes }) => {
+export const FileUploadDialog = ({ open = false, handleClose }: Props) => {
+  const classes = useStyles({});
   const [isOpenProgressDialog, setIsOpenProgressDialog] = useState(false);
   const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);
   const [workflows, setWorkflows] = useState();
   const [instances, setInstances] = useState();
   const [actions, setActions] = useState();
 
-  const handleWorkflowsChange = ({ target }) => setWorkflows(target);
-  const handleInstancesChange = ({ target }) => setInstances(target);
-  const handleActionsChange = ({ target }) => setActions(target);
+  const handleWorkflowsChange = useCallback(({ target }) => setWorkflows(target), []);
+  const handleInstancesChange = useCallback(({ target }) => setInstances(target), []);
+  const handleActionsChange = useCallback(({ target }) => setActions(target), []);
 
-  const handleSnakbarClose = () => setIsOpenSnackbar(false);
+  const handleSnakbarClose = useCallback(() => setIsOpenSnackbar(false), []);
 
   const handleWorkflowsParse = (text) => {
     uploadWorkflows(text);
@@ -105,7 +112,7 @@ export const FileUploadDialog = ({ open, handleClose, classes }) => {
               type="file"
               fullWidth
               onChange={handleWorkflowsChange}
-              accept=".csv"
+              inputProps={{ accept: '.csv' }}
             />
             <Button size="small" className={classes.uploadBtn} color="primary" onClick={handleWorkflowsUpload}>Upload</Button>
           </div>
@@ -116,7 +123,7 @@ export const FileUploadDialog = ({ open, handleClose, classes }) => {
               type="file"
               fullWidth
               onChange={handleInstancesChange}
-              accept=".csv"
+              inputProps={{ accept: '.csv' }}
             />
             <Button size="small" className={classes.uploadBtn} color="primary" onClick={handleInstancesUpload}>Upload</Button>
           </div>
@@ -127,7 +134,7 @@ export const FileUploadDialog = ({ open, handleClose, classes }) => {
               type="file"
               fullWidth
               onChange={handleActionsChange}
-              accept=".csv"
+              inputProps={{ accept: '.csv' }}
             />
             <Button size="small" className={classes.uploadBtn} color="primary" onClick={handleActionsUpload}>Upload</Button>
           </div>
@@ -148,15 +155,7 @@ export const FileUploadDialog = ({ open, handleClose, classes }) => {
     </Fragment>
   );
 };
-FileUploadDialog.propTypes = {
-  open: PropTypes.bool,
-  handleClose: PropTypes.func.isRequired,
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  // addAccount: PropTypes.func.isRequired,
-};
-FileUploadDialog.defaultProps = { open: false };
-
 /* istanbul ignore next */
 // const mapDispatchToProps = { addAccount: addAccountAction };
 // export default connect(null, mapDispatchToProps)(AddAccountDialog);
-export default withStyles(styles)(FileUploadDialog);
+export default memo(FileUploadDialog);

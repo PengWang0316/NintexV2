@@ -4,7 +4,7 @@ import { GET_INSTANCE_STATUS_API } from '../Urls';
 import {
   FETCH_INSTANCE_STATUS_SUCCESS, RawInstanceStatus, FetchInstanceStatusType,
 } from './types';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const fetchInstanceStatusSuccess = (
   instanceStatus: RawInstanceStatus,
@@ -14,7 +14,7 @@ const fetchInstanceStatusSuccess = (
 });
 
 export const fetchInstanceStatus = () => async (dispatch) => {
-  const { data } = await axios.get(GET_INSTANCE_STATUS_API, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  const { data } = await axios.get(GET_INSTANCE_STATUS_API, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(fetchInstanceStatusSuccess(data));
 };
 

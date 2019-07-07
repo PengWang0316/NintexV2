@@ -1,7 +1,6 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { useEffect } from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
+import React, { useEffect, memo } from 'react';
+import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { lightBlue, red, lightGreen } from '@material-ui/core/colors';
 import { SwapVerticalCircle } from '@material-ui/icons';
@@ -9,19 +8,27 @@ import { Box } from '@material-ui/core';
 import I18n from '@kevinwang0316/i18n';
 
 import DashboardNumCard from './DashboardNumCard';
-import { fetchInstanceStatus as fetchInstanceStatusAction } from '../../actions/InstanceActions';
+import { fetchInstanceStatus as fetchInstanceStatusAction } from '../../store/InstanceStatus/actions';
+import { AppState } from '../../store/ConfigureStore';
+import { InstanceStatus as InstanceStatusType } from '../../store/InstanceStatus/types';
 
-const styles = {
+const useStyles = makeStyles({
   cardIcon: {
     fontSize: 36,
     color: lightBlue[500],
   },
   flexDiv: { display: 'flex' },
   box: { marginRight: 10 },
-};
-let isFetching;
+});
+let isFetching = false;
 
-export const HealthScoreCard = ({ classes, instanceStatus, fetchInstanceStatus }) => {
+interface Props {
+  instanceStatus: InstanceStatusType;
+  fetchInstanceStatus: () => void;
+}
+
+export const HealthScoreCard = ({ instanceStatus, fetchInstanceStatus }: Props) => {
+  const classes = useStyles({});
   useEffect(() => {
     if (!instanceStatus && !isFetching) {
       fetchInstanceStatus();
@@ -44,14 +51,6 @@ export const HealthScoreCard = ({ classes, instanceStatus, fetchInstanceStatus }
   );
 };
 
-HealthScoreCard.propTypes = {
-  classes: PropTypes.objectOf(PropTypes.string).isRequired,
-  instanceStatus: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.number, PropTypes.string])),
-  fetchInstanceStatus: PropTypes.func.isRequired,
-};
-HealthScoreCard.defaultProps = {
-  instanceStatus: null,
-};
-const mapStateToProps = state => ({ instanceStatus: state.instanceStatus });
+const mapStateToProps = (state: AppState) => ({ instanceStatus: state.instanceStatus });
 const mapDispatchToProps = { fetchInstanceStatus: fetchInstanceStatusAction };
-export default connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(HealthScoreCard));
+export default connect(mapStateToProps, mapDispatchToProps)(memo(HealthScoreCard));

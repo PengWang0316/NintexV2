@@ -10,7 +10,7 @@ import { withAuthenticator } from 'aws-amplify-react';
 
 import Navbar from './Navbar';
 import MenuDrawer from './MenuDrawer';
-import { checkInstanceStatus as checkInstanceStatusAction } from '../actions/InstanceActions';
+import { checkInstanceStatus as checkInstanceStatusAction } from '../store/MonitorList/actions';
 import {
   HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL, SIGNIN_PAGE_URL,
   cognitoConfig, amplifyAuthSignOption, MONITOR_CENTER_PAGE_URL,
@@ -39,9 +39,9 @@ const theme = createMuiTheme({
 });
 
 /* istanbul ignore next */
-const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageContainer" *//* webpackPrefetch: true */ './containers/HomePageContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
-const ManagementPage = importedComponent(() => import(/* webpackChunkName: "ManagementContainer" *//* webpackPrefetch: true */ './containers/ManagementContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
-const MonitorPage = importedComponent(() => import(/* webpackChunkName: "MonitorContainer" *//* webpackPrefetch: true */ './containers/MonitorContainer').catch(err => console.log(err)), { LoadingComponent: LoadingAnimation });
+const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageContainer" *//* webpackPrefetch: true */ './containers/HomePageContainer').catch(err => console.log(err)));
+const ManagementPage = importedComponent(() => import(/* webpackChunkName: "ManagementContainer" *//* webpackPrefetch: true */ './containers/ManagementContainer').catch(err => console.log(err)));
+const MonitorPage = importedComponent(() => import(/* webpackChunkName: "MonitorContainer" *//* webpackPrefetch: true */ './containers/MonitorContainer').catch(err => console.log(err)));
 /* Manually call the lazy import */
 // let HomePage: any;
 // let ManagementPage: any;

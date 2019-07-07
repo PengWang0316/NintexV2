@@ -3,7 +3,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web and AsyncStorage for react-native
 import thunk from 'redux-thunk';
 
-import rootReducer, { AppState } from './Index';
+import rootReducer from './Index';
 
 declare global {
   interface Window {
@@ -21,6 +21,8 @@ const persistConfig = {
   whitelist: ['monitorList'],
 };
 const persistedReducer = persistReducer(persistConfig, rootReducer);
+
+export type AppState = ReturnType<typeof persistedReducer>;
 
 /** Creating the store for Redux
   * @param {object} initailState is the object that contains the initail states.

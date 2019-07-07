@@ -4,7 +4,7 @@ import axios from 'axios';
 import { SWITCH_MONITOR_SUCCESS, UPDATE_INSTANCES_SUCCESS, MonitorListData } from './types';
 import { UPDATE_NWC_ISMONITORED_API, NWC_LIST_WORKFLOWS_API, IMPORT_MONITOR_WORKFLOWS_API } from '../Urls';
 import { BEARER_HEADER, MAXIMUM_CHECK_INSTANCE_AMOUNT } from '../../config';
-import getJwtToken from '../libs/GetJWTToken';
+import getJwtToken from '../../libs/GetJWTToken';
 
 const switchMonitorSuccess = (
   workflowId: string, tenant: string, isMonitored: number, key: string,
@@ -26,7 +26,7 @@ export const switchMonitor = (
   workflowId: string, tenant: string, isMonitored: number, key: string,
 ) => async (dispatch) => {
   dispatch(switchMonitorSuccess(workflowId, tenant, isMonitored, key));
-  axios.put(UPDATE_NWC_ISMONITORED_API, { workflowId, isMonitored }, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+  axios.put(UPDATE_NWC_ISMONITORED_API, { workflowId, isMonitored }, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
 };
 
 // This function is in charge of comparing whether new instances
@@ -65,7 +65,7 @@ const compareStatus = async (monitoredWorkflows: MonitorListData, result) => {
       const { workflowId: currentWorkflowId } = JSON.parse(post);
       importInstances[currentWorkflowId].key = key;
     });
-    axios.post(IMPORT_MONITOR_WORKFLOWS_API, { importInstances: Object.values(importInstances) }, { headers: { Authorization: getJwtToken(), 'Content-Type': 'application/json' } });
+    axios.post(IMPORT_MONITOR_WORKFLOWS_API, { importInstances: Object.values(importInstances) }, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   }
 };
 

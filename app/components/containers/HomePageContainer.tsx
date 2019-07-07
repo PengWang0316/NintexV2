@@ -1,8 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
-import PropTypes from 'prop-types';
 import { withAuthenticator } from 'aws-amplify-react';
 
 import { amplifyAuthSignOption } from '../../config';
@@ -15,7 +14,14 @@ import HealthScoreCard from '../cards/HealthScoreCard';
 import TopPublishersList from '../TopPublishersList';
 import WorkflowUseChart from '../WorkflowUseChart';
 import WorkflowActionUseWordCloud from '../WorkflowActionUseWordCloud';
-import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../actions/UserActions';
+import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../store/User/actions';
+import { AppState } from '../../store/ConfigureStore';
+import { UserType } from '../../store/User/types';
+
+interface Props {
+  user: UserType | null;
+  currentAuthenticatedUser: Function;
+}
 
 const useStyles = makeStyles({
   cardContainer: {
@@ -32,11 +38,11 @@ const useStyles = makeStyles({
   },
 });
 
-const HomePage = ({ user, currentAuthenticatedUser }) => {
+const HomePage = ({ user = null, currentAuthenticatedUser }: Props) => {
   useEffect(() => {
     if (!user) currentAuthenticatedUser();
   });
-  const classes = useStyles();
+  const classes = useStyles({});
 
   return (
     <div className={classes.rootDiv}>
@@ -64,19 +70,11 @@ const HomePage = ({ user, currentAuthenticatedUser }) => {
   );
 };
 
-HomePage.propTypes = {
-  user: PropTypes.objectOf(PropTypes.any),
-  currentAuthenticatedUser: PropTypes.func.isRequired,
-};
-HomePage.defaultProps = { user: null };
-
 /* istanbul ignore next */
-const mapStateToProps = state => ({ user: state.user });
+const mapStateToProps = (state: AppState) => ({ user: state.user });
 /* istanbul ignore next */
-const mapDispatchToProps = dispatch => ({
-  currentAuthenticatedUser: user => dispatch(currentAuthenticatedUserAction(user)),
-});
+const mapDispatchToProps = { currentAuthenticatedUser: currentAuthenticatedUserAction };
 export default withAuthenticator(
-  connect(mapStateToProps, mapDispatchToProps)(HomePage),
+  connect(mapStateToProps, mapDispatchToProps)(memo(HomePage)),
   amplifyAuthSignOption,
 );

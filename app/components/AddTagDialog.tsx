@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, memo } from 'react';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 import {
@@ -9,7 +9,16 @@ import { makeStyles } from '@material-ui/core/styles';
 import I18n from '@kevinwang0316/i18n';
 import { CirclePicker } from 'react-color';
 
-import { addTag as addTagAction } from '../actions/TagActions';
+import { addTag as addTagAction } from '../store/Tags/actions';
+import { TagsType } from '../store/Tags/types';
+import { AppState } from '../store/ConfigureStore';
+
+interface Props {
+  open: boolean;
+  tags: TagsType | null;
+  addTag: (content: string, color: string) => void;
+  handleClose: (event: React.MouseEvent) => void;
+}
 
 const useStyles = makeStyles({
   flexDiv: {
@@ -26,9 +35,9 @@ const DEFAULT_COLOT = '#f44336';
 const COLOR_REGEXP = /^#[\d\w]{6}$/;
 
 export const AddTagDialog = ({
-  open, handleClose, tags, addTag,
-}) => {
-  const classes = useStyles();
+  open, handleClose, tags = null, addTag,
+}: Props) => {
+  const classes = useStyles({});
   const [tagColor, setTagColor] = useState(DEFAULT_COLOT);
   const [tagText, setTagText] = useState('');
 
@@ -110,10 +119,10 @@ AddTagDialog.propTypes = {
   tags: PropTypes.objectOf(PropTypes.array),
 };
 AddTagDialog.defaultProps = { tags: null };
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   tags: state.tags,
 });
 const mapDispatchToProps = dispatch => ({
-  addTag: (content, color) => dispatch(addTagAction(content, color)),
+  addTag: (content: string, color: string) => dispatch(addTagAction(content, color)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(AddTagDialog);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(AddTagDialog));
