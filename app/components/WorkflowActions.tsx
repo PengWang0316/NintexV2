@@ -13,7 +13,7 @@ import I18n from '@kevinwang0316/i18n';
 type handleActionFunctionType = (workflowId: string, tenant: string) => void;
 
 interface Props {
-  cell: any;
+  cell?: any;
   handleRun: handleActionFunctionType;
   handleStop: handleActionFunctionType;
   handleExport: handleActionFunctionType;

@@ -16,7 +16,7 @@ interface CustomizedChipProps extends ChipProps {
 const CustomizedChip: React.ElementType = (props: CustomizedChipProps) => <Chip {...props} />;
 
 interface Props {
-  cell: any;
+  cell?: any;
   tags: TagsType;
   handleRemoveTag: (workflowId: string, tagIds: string | null) => void;
   handleAddTag: (workflowId: string) => void;

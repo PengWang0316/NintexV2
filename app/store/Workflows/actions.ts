@@ -3,7 +3,8 @@ import axios from 'axios';
 import {
   FETCH_WORKFLOWS_BY_USER_SUCCESS, UPDATE_TAG_FROM_WORKFLOW_SUCCESS, SWITCH_MONITOR_SUCCESS,
   APPEND_WORKFLOWS_SUCCESS, UPDATE_WORKFLOW_ACTIVE_SUCCESS, UPDATE_NWC_LAST_DATE_SUCCESS,
-  Workflow, WorkflowsActionType,
+  Workflow, WorkflowsActionType, SwitchMonitorActInterface, UpdateTagFromWorkflowInterface,
+  RunWorkflowInterface, StopWorkflowInterface,
 } from './types';
 import {
   GET_WORKFLOWS_BY_USER_API, UPDATE_TAG_FROM_WORKFLOW_API, ADD_NWC_WORKFLOWS_API,
@@ -56,7 +57,9 @@ export const fetchWorkflowsByUser = () => async (dispatch) => {
   // dispatch(fetchMonitorListSuccess(data));
 };
 
-export const updateTagFromWorkflow = (workflowId, tagIds) => async (dispatch) => {
+export const updateTagFromWorkflow: UpdateTagFromWorkflowInterface = (
+  workflowId, tagIds,
+) => async (dispatch) => {
   // In the future, we may consider to wait the backend result and handle the potential failures.
   axios.put(UPDATE_TAG_FROM_WORKFLOW_API, { tags: tagIds, id: workflowId }, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
   dispatch(updateTagFromWorkflowSuccess(workflowId, tagIds));
@@ -181,7 +184,7 @@ export const addNwcWorkflows = (
   }
 };
 
-export const runWorkflow = (workflowId: string, key: string) => async (dispatch) => {
+export const runWorkflow: RunWorkflowInterface = (workflowId, key) => async (dispatch) => {
   // Somehow, the NWC server gives error to some workflow id.
   // Keeping the NWC post call first can help to prevent
   // updating our database when activating fails.
@@ -196,14 +199,14 @@ export const runWorkflow = (workflowId: string, key: string) => async (dispatch)
   dispatch(changeWorkflowActiveSuccess(workflowId, 1));
 };
 
-export const switchMonitor = (
-  workflowId: string, tenant: string, isMonitored: number, key: string,
+export const switchMonitor: SwitchMonitorActInterface = (
+  workflowId, tenant, isMonitored, key,
 ) => async (dispatch) => {
   dispatch(switchMonitorSuccess(workflowId, tenant, isMonitored, key));
   axios.put(UPDATE_NWC_ISMONITORED_API, { workflowId, isMonitored }, { headers: { Authorization: await getJwtToken(), 'Content-Type': 'application/json' } });
 };
 
-export const stopWorkflow = (workflowId: string, key: string) => async (dispatch) => {
+export const stopWorkflow: StopWorkflowInterface = (workflowId, key) => async (dispatch) => {
   // Somehow, the NWC server gives error to some workflow id.
   // Keeping the NWC post call first can help to prevent updating our database when activating fails.
   await axios.post(

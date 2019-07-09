@@ -2,7 +2,6 @@ import React, {
   useEffect, useState, Fragment, useMemo, useCallback, memo,
 } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import { red } from '@material-ui/core/colors';
 import I18n from '@kevinwang0316/i18n';
 import { ReactTabulator, reactFormatter } from 'react-tabulator';
@@ -19,9 +18,28 @@ import AttachTagDialog from './AttachTagDialog';
 import WorkflowActions from './WorkflowActions';
 import { fetchTags as fetchTagsAction } from '../store/Tags/actions';
 import CustomizedSnackbar from './CustomizedSnackbar';
+import {
+  Workflows, SwitchMonitorActInterface, UpdateTagFromWorkflowInterface,
+  RunWorkflowInterface, StopWorkflowInterface,
+} from '../store/Workflows/types';
+import { TagsType } from '../store/Tags/types';
+import { NWCKeysType } from '../store/NWCKeys/types';
+import { AppState } from '../store/ConfigureStore';
 
 // import does not work well with the MiniCssExtractPlugin
 require('../styles/tabulator_bootstrap4.css');
+
+interface Props {
+  workflows: Workflows;
+  fetchWorkflowsByUser: Function;
+  tags: TagsType;
+  switchMonitor: SwitchMonitorActInterface;
+  fetchTags: Function;
+  updateTagFromWorkflow: UpdateTagFromWorkflowInterface;
+  nwcKeys: NWCKeysType;
+  runWorkflow: RunWorkflowInterface;
+  stopWorkflow: StopWorkflowInterface;
+}
 
 // TODO: Hide some columns to fit into different screen sizes
 const columns = [
@@ -91,9 +109,9 @@ let isFetching = false;
 let isFetchingTags = false;
 
 export const WorkflowTable = memo(({
-  workflows, fetchWorkflowsByUser, tags, switchMonitor, fetchTags,
+  workflows, fetchWorkflowsByUser, tags = null, switchMonitor, fetchTags,
   updateTagFromWorkflow, nwcKeys, runWorkflow, stopWorkflow,
-}) => {
+}: Props) => {
   const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);
   const workflowData = useMemo(() => Object.values(workflows.data), [workflows.data]);
   useEffect(() => {
@@ -184,21 +202,10 @@ export const WorkflowTable = memo(({
     </Fragment>
   );
 });
-WorkflowTable.propTypes = {
-  workflows: PropTypes.objectOf(PropTypes.any).isRequired,
-  nwcKeys: PropTypes.objectOf(PropTypes.any).isRequired,
-  fetchWorkflowsByUser: PropTypes.func.isRequired,
-  tags: PropTypes.objectOf(PropTypes.array),
-  updateTagFromWorkflow: PropTypes.func.isRequired,
-  runWorkflow: PropTypes.func.isRequired,
-  stopWorkflow: PropTypes.func.isRequired,
-  switchMonitor: PropTypes.func.isRequired,
-  fetchTags: PropTypes.func.isRequired,
-};
-WorkflowTable.defaultProps = { tags: null };
+
 const mapStateToProps = ({
   workflows, tags, nwcKeys,
-}) => ({
+}: AppState) => ({
   workflows, tags, nwcKeys,
 });
 const mapDispatchToProps = dispatch => ({
@@ -210,4 +217,4 @@ const mapDispatchToProps = dispatch => ({
   stopWorkflow: (workflowId, key) => dispatch(stopWorkflowAction(workflowId, key)),
   switchMonitor: (workflowId, tenant, isMonitored, key) => dispatch(switchMonitorAction(workflowId, tenant, isMonitored, key)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(WorkflowTable);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(WorkflowTable));
