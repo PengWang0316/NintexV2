@@ -1,18 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import {
   Pie, PieChart, Cell, Legend, Tooltip, ResponsiveContainer,
 } from 'recharts';
 // import I18n from '@kevinwang0316/i18n';
 
 import { fetchWorkflowUseCount as fetchWorkflowUseCountAction } from '../store/WorkflowUseCount/actions';
+import { WorkflowUseCountType } from '../store/WorkflowUseCount/types';
+import { AppState } from '../store/ConfigureStore';
+
+interface RenderCustomizedLabelProp {
+  cx: number;
+  cy: number;
+  midAngle: number;
+  innerRadius: number;
+  outerRadius: number;
+  percent: number;
+}
 
 const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 const RADIAN = Math.PI / 180;
-const renderCustomizedLabel = ({
+const renderCustomizedLabel = memo(({
   cx, cy, midAngle, innerRadius, outerRadius, percent,
-}) => {
+}: RenderCustomizedLabelProp) => {
   const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
   const x = cx + radius * Math.cos(-midAngle * RADIAN);
   const y = cy + radius * Math.sin(-midAngle * RADIAN);
@@ -22,19 +32,16 @@ const renderCustomizedLabel = ({
       {`${(percent * 100).toFixed(0)}%`}
     </text>
   );
-};
-renderCustomizedLabel.propTypes = {
-  cx: PropTypes.number.isRequired,
-  cy: PropTypes.number.isRequired,
-  midAngle: PropTypes.number.isRequired,
-  innerRadius: PropTypes.number.isRequired,
-  outerRadius: PropTypes.number.isRequired,
-  percent: PropTypes.number.isRequired,
-};
+});
 
-let isFetching;
+let isFetching = false;
 
-export const WorkflowUseChart = ({ fetchWorkflowUseCount, workflowUseCount }) => {
+interface WorkflowUseCount {
+  fetchWorkflowUseCount: Function;
+  workflowUseCount: WorkflowUseCountType;
+}
+
+export const WorkflowUseChart = ({ fetchWorkflowUseCount, workflowUseCount }: WorkflowUseCount) => {
   useEffect(() => {
     if (!workflowUseCount.isFetched && !isFetching) {
       fetchWorkflowUseCount();
@@ -62,14 +69,10 @@ export const WorkflowUseChart = ({ fetchWorkflowUseCount, workflowUseCount }) =>
     </ResponsiveContainer>
   );
 };
-WorkflowUseChart.propTypes = {
-  fetchWorkflowUseCount: PropTypes.func.isRequired,
-  workflowUseCount: PropTypes.objectOf(PropTypes.any).isRequired,
-};
-const mapStateToProps = state => ({
+const mapStateToProps = (state: AppState) => ({
   workflowUseCount: state.workflowUseCount,
 });
 const mapDispatchToProps = {
   fetchWorkflowUseCount: fetchWorkflowUseCountAction,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(WorkflowUseChart);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(WorkflowUseChart));
