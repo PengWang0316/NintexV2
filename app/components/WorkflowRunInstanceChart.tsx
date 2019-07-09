@@ -1,6 +1,5 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Brush, ResponsiveContainer,
 } from 'recharts';
@@ -9,8 +8,15 @@ import {
 } from '@material-ui/core/colors';
 
 import { fetchInstanceStatusByTime as fetchInstanceStatusByTimeAction } from '../store/InstanceStatusByTime/actions';
+import { InstanceStatusByTime } from '../store/InstanceStatusByTime/types';
+import { AppState } from '../store/ConfigureStore';
 
-let isFetching;
+interface Props {
+  instanceStatusByTime: InstanceStatusByTime;
+  fetchInstanceStatusByTime: Function;
+}
+
+let isFetching = false;
 
 export const WorkflowRunInstanceChart = ({ instanceStatusByTime, fetchInstanceStatusByTime }) => {
   useEffect(() => {
@@ -45,11 +51,7 @@ export const WorkflowRunInstanceChart = ({ instanceStatusByTime, fetchInstanceSt
     </ResponsiveContainer>
   );
 };
-WorkflowRunInstanceChart.propTypes = {
-  instanceStatusByTime: PropTypes.objectOf(PropTypes.any).isRequired,
-  fetchInstanceStatusByTime: PropTypes.func.isRequired,
-};
-// WorkflowRunInstanceChart.defaultProps = { instanceStatusByTime: null };
-const mapStateToProps = state => ({ instanceStatusByTime: state.instanceStatusByTime });
+
+const mapStateToProps = (state: AppState) => ({ instanceStatusByTime: state.instanceStatusByTime });
 const mapDispatchToProps = { fetchInstanceStatusByTime: fetchInstanceStatusByTimeAction };
-export default connect(mapStateToProps, mapDispatchToProps)(WorkflowRunInstanceChart);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(WorkflowRunInstanceChart));
