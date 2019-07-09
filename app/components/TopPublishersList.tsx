@@ -1,4 +1,4 @@
-import React, { useEffect, Fragement } from 'react';
+import React, { useEffect, memo } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -8,6 +8,12 @@ import { makeStyles } from '@material-ui/core/styles';
 import I18n from '@kevinwang0316/i18n';
 
 import { fetchTopPublishersCount as fetchTopPublishersCountAction } from '../store/TopPublishersCount/actions';
+import { TopPublishersCountType } from '../store/TopPublishersCount/types';
+
+interface Props {
+  topPublishersCount: TopPublishersCountType;
+  fetchTopPublishersCount: Function;
+}
 
 const useStyles = makeStyles(theme => ({
   root: {
@@ -25,16 +31,16 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-let isFetching;
+let isFetching = false;
 
-export const TopPublisherList = ({ topPublishersCount, fetchTopPublishersCount }) => {
+export const TopPublisherList = ({ topPublishersCount, fetchTopPublishersCount }: Props) => {
   useEffect(() => {
     if (!topPublishersCount.isFetched && !isFetching) {
       fetchTopPublishersCount();
       isFetching = true;
     }
   });
-  const classes = useStyles();
+  const classes = useStyles({});
   return (
     <List
       component="nav"
@@ -64,7 +70,7 @@ export const TopPublisherList = ({ topPublishersCount, fetchTopPublishersCount }
               )}
             />
           </ListItem>
-          {index !== topPublishersCount.length - 1 && <Divider variant="inset" component="li" />}
+          {index !== topPublishersCount.data.length - 1 && <Divider variant="inset" component="li" />}
         </div>
       ))}
     </List>
@@ -82,4 +88,4 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = {
   fetchTopPublishersCount: fetchTopPublishersCountAction,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(TopPublisherList);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(TopPublisherList));

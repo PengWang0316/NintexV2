@@ -1,15 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, memo } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
 } from 'recharts';
 
 import { fetchWorkflowLocationCount as fetchWorkflowLocationCountAction } from '../store/WorkflowLocationCount/actions';
+import { AppState } from '../store/ConfigureStore';
+import { WorkflowLocationCountType } from '../store/WorkflowLocationCount/types';
 
-let isFetching;
+interface Props {
+  fetchWorkflowLocationCount: Function;
+  workflowLocationCount: WorkflowLocationCountType;
+}
 
-const WorkflowLocationChart = ({ fetchWorkflowLocationCount, workflowLocationCount }) => {
+let isFetching = false;
+
+const WorkflowLocationChart = ({ fetchWorkflowLocationCount, workflowLocationCount }: Props) => {
   useEffect(() => {
     if (!workflowLocationCount.isFetched && !isFetching) {
       fetchWorkflowLocationCount();
@@ -36,14 +42,11 @@ const WorkflowLocationChart = ({ fetchWorkflowLocationCount, workflowLocationCou
     </ResponsiveContainer>
   );
 };
-WorkflowLocationChart.propTypes = {
-  fetchWorkflowLocationCount: PropTypes.func.isRequired,
-  workflowLocationCount: PropTypes.objectOf(PropTypes.any).isRequired,
-};
-const mapStateToProps = state => ({
+
+const mapStateToProps = (state: AppState) => ({
   workflowLocationCount: state.workflowLocationCount,
 });
 const mapDispatchToProps = {
   fetchWorkflowLocationCount: fetchWorkflowLocationCountAction,
 };
-export default connect(mapStateToProps, mapDispatchToProps)(WorkflowLocationChart);
+export default connect(mapStateToProps, mapDispatchToProps)(memo(WorkflowLocationChart));

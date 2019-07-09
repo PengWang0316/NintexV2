@@ -1,6 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { Fragment } from 'react';
-import PropTypes from 'prop-types';
+import React, { Fragment, memo } from 'react';
 import { IconButton, Tooltip } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import {
@@ -10,6 +9,18 @@ import {
   red, orange, lime, blue, brown, grey,
 } from '@material-ui/core/colors';
 import I18n from '@kevinwang0316/i18n';
+
+type handleActionFunctionType = (workflowId: string, tenant: string) => void;
+
+interface Props {
+  cell?: any;
+  handleRun: handleActionFunctionType;
+  handleStop: handleActionFunctionType;
+  handleExport: handleActionFunctionType;
+  handleMove: handleActionFunctionType;
+  handleDelete: handleActionFunctionType;
+  handleMonitor: (workflowId: string, tenant: string, isMmonitored: number) => void;
+}
 
 const useStyles = makeStyles({
   rootDiv: {
@@ -26,10 +37,10 @@ const useStyles = makeStyles({
 });
 
 export const WorkflowActions = ({
-  cell, handleRun, handleStop, handleExport, handleMove,
+  cell = null, handleRun, handleStop, handleExport, handleMove,
   handleDelete, handleMonitor,
-}) => {
-  const classes = useStyles();
+}: Props) => {
+  const classes = useStyles({});
 
   const handleRunClick = () => handleRun(cell._cell.row.data.workflowId, cell._cell.row.data.tenant);
   const handleStopClick = () => handleStop(cell._cell.row.data.workflowId, cell._cell.row.data.tenant);
@@ -57,14 +68,5 @@ export const WorkflowActions = ({
     </div>
   );
 };
-WorkflowActions.propTypes = {
-  cell: PropTypes.objectOf(PropTypes.any),
-  handleRun: PropTypes.func.isRequired,
-  handleStop: PropTypes.func.isRequired,
-  handleExport: PropTypes.func.isRequired,
-  handleMove: PropTypes.func.isRequired,
-  handleDelete: PropTypes.func.isRequired,
-  handleMonitor: PropTypes.func.isRequired,
-};
-WorkflowActions.defaultProps = { cell: null };
-export default WorkflowActions;
+
+export default memo(WorkflowActions);

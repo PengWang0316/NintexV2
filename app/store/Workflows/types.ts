@@ -35,3 +35,19 @@ export interface WorkflowsActionType {
     [workflowId: string]: Workflow;
   };
 }
+
+export interface SwitchMonitorActInterface {
+  (workflowId: string, tenant: string, isMonitored: number, key: string): void;
+}
+
+export interface UpdateTagFromWorkflowInterface {
+  (workflowId: string, tagIds: string): void;
+}
+
+export interface RunWorkflowInterface {
+  (workflowId: string, key: string): void;
+}
+
+export interface StopWorkflowInterface {
+  (workflowId: string, key: string): void;
+}
