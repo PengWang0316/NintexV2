@@ -25,23 +25,6 @@
   },
   "sideEffects": false,
   "jest": {
-    "testPathIgnorePatterns": [
-      "/node_modules/",
-      "e2e/*"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/app/tools/assetsTransformer.js",
-      "\\.(css|less)$": "identity-obj-proxy"
-    },
-    "setupFiles": [
-      "raf/polyfill",
-      "<rootDir>/app/tools/setupTests.js"
-    ],
-    "coveragePathIgnorePatterns": [
-      "app/resources/",
-      "app/tools",
-      "index.js"
-    ],
     "testEnvironment": "jest-environment-jsdom-global",
     "testURL": "http://localhost",
     "verbose": true
@@ -79,6 +62,10 @@
     "@babel/preset-env": "^7.4.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/runtime": "^7.4.5",
+    "@types/enzyme": "^3.10.2",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/jest": "^24.0.15",
+    "@types/react-test-renderer": "^16.8.2",
     "@types/webpack-env": "^1.13.9",
     "@typescript-eslint/eslint-plugin": "^1.11.0",
     "@typescript-eslint/parser": "^1.11.0",
@@ -98,6 +85,7 @@
     "css-loader": "^2.1.0",
     "enzyme": "^3.10.0",
     "enzyme-adapter-react-16": "^1.14.0",
+    "enzyme-to-json": "^3.3.5",
     "eslint": "^5.14.1",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-import-resolver-typescript": "^1.1.1",
@@ -118,6 +106,7 @@
     "sinon": "^7.2.6",
     "source-map-loader": "^0.2.4",
     "style-loader": "^0.23.1",
+    "ts-jest": "^24.0.2",
     "typescript": "^3.5.2",
     "uglify-es": "^3.3.9",
     "uglifyjs-webpack-plugin": "^2.1.3",
