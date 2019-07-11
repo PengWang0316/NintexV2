@@ -116,11 +116,11 @@ export const KeyManageDialog = ({
     }
   };
 
-  const handleNwcDelete = event => deleteNwcKey(getChipAttribute(event, 'tenant'), getChipAttribute(event, 'name'));
+  const handleNwcDelete = event => deleteNwcKey(getChipAttribute(event, 'tenant'), +getChipAttribute(event, 'name'));
 
   const handleOfficeDelete = event => deleteOfficeKey(
     getChipAttribute(event, 'endpoint'),
-    getChipAttribute(event, 'name'),
+    +getChipAttribute(event, 'name'),
   );
 
   return (
