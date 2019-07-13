@@ -1,12 +1,12 @@
-import React, { ReactNode, memo } from 'react';
+import React, { ReactElement, memo } from 'react';
 import { Box, Card, CardContent } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
 interface Props {
   displayNum: string | number | null;
   title: string;
-  icon: ReactNode;
-  extraContent?: ReactNode | null;
+  icon: ReactElement;
+  extraContent?: ReactElement | null;
 }
 
 const useStyles = makeStyles({
