@@ -19,4 +19,5 @@ module.exports = {
   },
   collectCoverage: true,
   collectCoverageFrom: ['app/components/**/*.{ts,tsx}'],
+  testPathIgnorePatterns: ['/node_modules/', '/__tests__/libs/'],
 };
