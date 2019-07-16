@@ -7,9 +7,18 @@ import JssProviderWrapper from '../../libs/JssProviderWrapper';
 
 describe('HealthScoreCard Component', () => {
   const defaultProps = {
-    instanceStatus: null,
+    instanceStatus: {
+      completedPercentage: '90',
+      failedPercentage: '10',
+      startedPercentage: '30',
+      faultingPercentage: '0',
+      runningPercentage: '0',
+      terminatedPercentage: '0',
+      cancelledPercentage: '0',
+    },
     fetchInstanceStatus: jest.fn(),
   };
 
-  test('HealthScoreCard snapshot without instanceStatus', () => expect(renderer.create(JssProviderWrapper(<HealthScoreCard {...{ ...defaultProps }} />)).toJSON()).toMatchSnapshot());
+  test('HealthScoreCard snapshot without instanceStatus', () => expect(renderer.create(JssProviderWrapper(<HealthScoreCard {...{ ...defaultProps, instanceStatus: null }} />)).toJSON()).toMatchSnapshot());
+  test('HealthScoreCard snapshot with instanceStatus', () => expect(renderer.create(JssProviderWrapper(<HealthScoreCard {...{ ...defaultProps }} />)).toJSON()).toMatchSnapshot());
 });
