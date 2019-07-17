@@ -17,12 +17,12 @@ exports[`HealthScoreCard Component HealthScoreCard snapshot with instanceStatus 
     >
       <div>
         <div
-          className="MuiBox-root MuiBox-root-44"
+          className="MuiBox-root MuiBox-root-87"
         >
           cardTitleWorkflowHealth
         </div>
         <div
-          className="MuiBox-root MuiBox-root-45"
+          className="MuiBox-root MuiBox-root-88"
         >
           90
         </div>
@@ -47,13 +47,13 @@ exports[`HealthScoreCard Component HealthScoreCard snapshot with instanceStatus 
       }
     >
       <div
-        className="MuiBox-root MuiBox-root-46 marginRight"
+        className="MuiBox-root MuiBox-root-89 marginRight"
       >
         Failed: 
         10
       </div>
       <div
-        className="MuiBox-root MuiBox-root-47"
+        className="MuiBox-root MuiBox-root-90"
       >
         Started: 
         30
@@ -80,12 +80,12 @@ exports[`HealthScoreCard Component HealthScoreCard snapshot without instanceStat
     >
       <div>
         <div
-          className="MuiBox-root MuiBox-root-31"
+          className="MuiBox-root MuiBox-root-74"
         >
           cardTitleWorkflowHealth
         </div>
         <div
-          className="MuiBox-root MuiBox-root-32"
+          className="MuiBox-root MuiBox-root-75"
         >
           --
         </div>
@@ -110,13 +110,13 @@ exports[`HealthScoreCard Component HealthScoreCard snapshot without instanceStat
       }
     >
       <div
-        className="MuiBox-root MuiBox-root-42 marginRight"
+        className="MuiBox-root MuiBox-root-85 marginRight"
       >
         Failed: 
         --
       </div>
       <div
-        className="MuiBox-root MuiBox-root-43"
+        className="MuiBox-root MuiBox-root-86"
       >
         Started: 
         --
