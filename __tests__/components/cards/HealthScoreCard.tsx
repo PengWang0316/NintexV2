@@ -19,6 +19,11 @@ describe('HealthScoreCard Component', () => {
     fetchInstanceStatus: jest.fn(),
   };
 
+  test('instanceStatus and isFetching equal false', () => {
+    render(<HealthScoreCard {...{ ...defaultProps, instanceStatus: null }} />);
+    expect(defaultProps.fetchInstanceStatus).toHaveBeenCalledTimes(1);
+  });
+
   test('HealthScoreCard snapshot without instanceStatus', () => expect(renderer.create(JssProviderWrapper(<HealthScoreCard {...{ ...defaultProps, instanceStatus: null }} />)).toJSON()).toMatchSnapshot());
   test('HealthScoreCard snapshot with instanceStatus', () => expect(renderer.create(JssProviderWrapper(<HealthScoreCard {...{ ...defaultProps }} />)).toJSON()).toMatchSnapshot());
 });
