@@ -1,8 +1,8 @@
 interface Dictionary {
   [index: string]: {
-    [index: string]: string,
-  }
-};
+    [index: string]: string;
+  };
+}
 
 const dict: Dictionary = {
   'en-US': {
