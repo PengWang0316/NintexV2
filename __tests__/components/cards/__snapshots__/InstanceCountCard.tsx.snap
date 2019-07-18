@@ -14,7 +14,7 @@ exports[`InstanceCountCard Component Snapshot with null instanceCount 1`] = `
         <div
           className="MuiBox-root MuiBox-root-35"
         >
-          cardTitleWorkflowInstances
+          Workflow Instances
         </div>
         <div
           className="MuiBox-root MuiBox-root-36"
@@ -52,7 +52,7 @@ exports[`InstanceCountCard Component Snapshot with the instanceCount 1`] = `
         <div
           className="MuiBox-root MuiBox-root-46"
         >
-          cardTitleWorkflowInstances
+          Workflow Instances
         </div>
         <div
           className="MuiBox-root MuiBox-root-47"
