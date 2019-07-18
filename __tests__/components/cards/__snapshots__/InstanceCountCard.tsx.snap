@@ -2,29 +2,29 @@
 
 exports[`InstanceCountCard Component Snapshot with null instanceCount 1`] = `
 <div
-  className="MuiPaper-root MuiPaper-elevation1 MuiCard-root makeStyles-card-2 MuiPaper-rounded"
+  className="MuiPaper-root MuiPaper-elevation1 MuiCard-root makeStyles-card-47 MuiPaper-rounded"
 >
   <div
     className="MuiCardContent-root"
   >
     <div
-      className="makeStyles-contentDiv-4"
+      className="makeStyles-contentDiv-49"
     >
       <div>
         <div
-          className="MuiBox-root MuiBox-root-35"
+          className="MuiBox-root MuiBox-root-80"
         >
           Workflow Instances
         </div>
         <div
-          className="MuiBox-root MuiBox-root-36"
+          className="MuiBox-root MuiBox-root-81"
         >
           --
         </div>
       </div>
       <svg
         aria-hidden="true"
-        className="MuiSvgIcon-root makeStyles-cardIcon-1"
+        className="MuiSvgIcon-root makeStyles-cardIcon-46"
         focusable="false"
         role="presentation"
         viewBox="0 0 24 24"
@@ -40,29 +40,29 @@ exports[`InstanceCountCard Component Snapshot with null instanceCount 1`] = `
 
 exports[`InstanceCountCard Component Snapshot with the instanceCount 1`] = `
 <div
-  className="MuiPaper-root MuiPaper-elevation1 MuiCard-root makeStyles-card-2 MuiPaper-rounded"
+  className="MuiPaper-root MuiPaper-elevation1 MuiCard-root makeStyles-card-47 MuiPaper-rounded"
 >
   <div
     className="MuiCardContent-root"
   >
     <div
-      className="makeStyles-contentDiv-4"
+      className="makeStyles-contentDiv-49"
     >
       <div>
         <div
-          className="MuiBox-root MuiBox-root-46"
+          className="MuiBox-root MuiBox-root-91"
         >
           Workflow Instances
         </div>
         <div
-          className="MuiBox-root MuiBox-root-47"
+          className="MuiBox-root MuiBox-root-92"
         >
           10
         </div>
       </div>
       <svg
         aria-hidden="true"
-        className="MuiSvgIcon-root makeStyles-cardIcon-1"
+        className="MuiSvgIcon-root makeStyles-cardIcon-46"
         focusable="false"
         role="presentation"
         viewBox="0 0 24 24"
