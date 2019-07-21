@@ -38,7 +38,7 @@ const useStyles = makeStyles({
   },
 });
 
-const HomePage = ({ user = null, currentAuthenticatedUser }: Props) => {
+export const HomePage = ({ user = null, currentAuthenticatedUser }: Props) => {
   useEffect(() => {
     if (!user) currentAuthenticatedUser();
   });
