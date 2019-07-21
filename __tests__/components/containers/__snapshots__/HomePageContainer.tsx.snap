@@ -1,0 +1,123 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`HomePageContainer componnet Snapshot with user 1`] = `
+<div
+  className="makeStyles-rootDiv-212"
+>
+  <div
+    className="makeStyles-cardContainer-211"
+  >
+    <div
+      className="makeStyles-cardContainer-211"
+    >
+      WorkflowRunInstanceChart
+      WorkflowRunInstanceChart
+    </div>
+    <div
+      className="makeStyles-cardContainer-211"
+    >
+      WorkflowRunInstanceChart
+      WorkflowRunInstanceChart
+    </div>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-container"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-6"
+    >
+      WorkflowRunInstanceChart
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-6"
+    >
+      WorkflowRunInstanceChart
+    </div>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-container MuiGrid-align-content-xs-center"
+    style={
+      Object {
+        "paddingLeft": 20,
+      }
+    }
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-md-5 MuiGrid-grid-lg-4"
+    >
+      WorkflowRunInstanceChart
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-md-7 MuiGrid-grid-lg-4"
+    >
+      WorkflowRunInstanceChart
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-12 MuiGrid-grid-lg-4"
+    >
+      WorkflowRunInstanceChart
+    </div>
+  </div>
+</div>
+`;
+
+exports[`HomePageContainer componnet Snapshot without user 1`] = `
+<div
+  className="makeStyles-rootDiv-212"
+>
+  <div
+    className="makeStyles-cardContainer-211"
+  >
+    <div
+      className="makeStyles-cardContainer-211"
+    >
+      WorkflowRunInstanceChart
+      WorkflowRunInstanceChart
+    </div>
+    <div
+      className="makeStyles-cardContainer-211"
+    >
+      WorkflowRunInstanceChart
+      WorkflowRunInstanceChart
+    </div>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-container"
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-6"
+    >
+      WorkflowRunInstanceChart
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-6"
+    >
+      WorkflowRunInstanceChart
+    </div>
+  </div>
+  <div
+    className="MuiGrid-root MuiGrid-container MuiGrid-align-content-xs-center"
+    style={
+      Object {
+        "paddingLeft": 20,
+      }
+    }
+  >
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-md-5 MuiGrid-grid-lg-4"
+    >
+      WorkflowRunInstanceChart
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-6 MuiGrid-grid-md-7 MuiGrid-grid-lg-4"
+    >
+      WorkflowRunInstanceChart
+    </div>
+    <div
+      className="MuiGrid-root MuiGrid-item MuiGrid-grid-xs-12 MuiGrid-grid-sm-12 MuiGrid-grid-md-12 MuiGrid-grid-lg-4"
+    >
+      WorkflowRunInstanceChart
+    </div>
+  </div>
+</div>
+`;
