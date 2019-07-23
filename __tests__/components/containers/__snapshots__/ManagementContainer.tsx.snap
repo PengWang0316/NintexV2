@@ -2,16 +2,16 @@
 
 exports[`ManagementContainer component Snapshot with user 1`] = `
 <div
-  className="makeStyles-rootDiv-1"
+  className="makeStyles-rootDiv-2"
 >
-  <WorkflowTable />
+  WorkflowTable
 </div>
 `;
 
 exports[`ManagementContainer component Snapshot without user 1`] = `
 <div
-  className="makeStyles-rootDiv-1"
+  className="makeStyles-rootDiv-2"
 >
-  <WorkflowTable />
+  WorkflowTable
 </div>
 `;
