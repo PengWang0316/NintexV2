@@ -1,0 +1,17 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ManagementContainer component Snapshot with user 1`] = `
+<div
+  className="makeStyles-rootDiv-1"
+>
+  <WorkflowTable />
+</div>
+`;
+
+exports[`ManagementContainer component Snapshot without user 1`] = `
+<div
+  className="makeStyles-rootDiv-1"
+>
+  <WorkflowTable />
+</div>
+`;
