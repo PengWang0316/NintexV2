@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`MonitorContainer component Snapshot 1`] = `
+<div
+  className="makeStyles-rootDiv-1"
+>
+  MonitorList
+</div>
+`;
