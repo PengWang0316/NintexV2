@@ -29,7 +29,7 @@ const useStyles = makeStyles({
 
 let isFetching = false;
 
-const MonitorContainer = ({
+export const MonitorContainer = ({
   user = null, currentAuthenticatedUser, workflows, fetchWorkflowsByUser,
 }: Props) => {
   const classes = useStyles({});
