@@ -27,7 +27,11 @@ describe('MonitorContainer component', () => {
   };
   beforeEach(() => jest.clearAllMocks());
 
-  // test('');
+  test('useEffect without user', () => {
+    render(<MonitorContainer {...{ ...defaultProps, workflows: { ...defaultProps.workflows, isFetched: true } }} />);
+    expect(defaultProps.currentAuthenticatedUser).toHaveBeenCalledTimes(1);
+    expect(defaultProps.fetchWorkflowsByUser).not.toHaveBeenCalled();
+  });
 
   test('Snapshot', () => expect(renderer.create(JssProviderWrapper(<MonitorContainer {...{ ...defaultProps }} />)).toJSON()).toMatchSnapshot());
 });
