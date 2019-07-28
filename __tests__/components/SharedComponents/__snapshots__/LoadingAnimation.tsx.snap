@@ -1,0 +1,27 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LoadingAnimation component Snapshot with isLoading false 1`] = `null`;
+
+exports[`LoadingAnimation component Snapshot with isLoading true 1`] = `
+<div
+  className="makeStyles-root-1"
+>
+  <div
+    className="makeStyles-div-2"
+  >
+    <div
+      className="MuiLinearProgress-root MuiLinearProgress-colorPrimary MuiLinearProgress-indeterminate"
+      role="progressbar"
+    >
+      <div
+        className="MuiLinearProgress-bar MuiLinearProgress-bar1Indeterminate MuiLinearProgress-barColorPrimary"
+        style={Object {}}
+      />
+      <div
+        className="MuiLinearProgress-bar MuiLinearProgress-bar2Indeterminate MuiLinearProgress-barColorPrimary"
+        style={Object {}}
+      />
+    </div>
+  </div>
+</div>
+`;
