@@ -2,7 +2,7 @@
 
 exports[`MonitorContainer component Snapshot 1`] = `
 <div
-  className="makeStyles-rootDiv-2"
+  className="makeStyles-rootDiv-3"
 >
   MonitorList
 </div>

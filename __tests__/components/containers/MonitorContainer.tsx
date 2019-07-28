@@ -33,5 +33,11 @@ describe('MonitorContainer component', () => {
     expect(defaultProps.fetchWorkflowsByUser).not.toHaveBeenCalled();
   });
 
+  test('useEffect without isFetched', () => {
+    render(<MonitorContainer {...{ ...defaultProps, user: { nickname: 'name' } }} />);
+    expect(defaultProps.fetchWorkflowsByUser).toHaveBeenCalledTimes(1);
+    expect(defaultProps.currentAuthenticatedUser).not.toHaveBeenCalled();
+  });
+
   test('Snapshot', () => expect(renderer.create(JssProviderWrapper(<MonitorContainer {...{ ...defaultProps }} />)).toJSON()).toMatchSnapshot());
 });
