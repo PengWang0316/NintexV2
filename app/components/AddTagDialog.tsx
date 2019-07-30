@@ -1,6 +1,5 @@
 import React, { useState, memo } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
 import {
   Button, Dialog, DialogActions, DialogContent,
   DialogContentText, DialogTitle, Chip, TextField,
@@ -112,13 +111,7 @@ export const AddTagDialog = ({
     </Dialog>
   );
 };
-AddTagDialog.propTypes = {
-  open: PropTypes.bool.isRequired,
-  handleClose: PropTypes.func.isRequired,
-  addTag: PropTypes.func.isRequired,
-  tags: PropTypes.objectOf(PropTypes.array),
-};
-AddTagDialog.defaultProps = { tags: null };
+
 const mapStateToProps = (state: AppState) => ({
   tags: state.tags,
 });
