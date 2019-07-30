@@ -25,4 +25,5 @@ describe('AddTagDialog Component', () => {
   defaultProps.tags[1] = ['IT', 'color1'];
   defaultProps.tags[2] = ['HR', 'color2'];
   test('Snapshot with tags', () => expect(renderer.create(JssProviderWrapper(<AddTagDialog {...{ ...defaultProps }} />)).toJSON()).toMatchSnapshot());
+  test('Snapshot without tags', () => expect(renderer.create(JssProviderWrapper(<AddTagDialog {...{ ...defaultProps, tags: null }} />)).toJSON()).toMatchSnapshot());
 });
