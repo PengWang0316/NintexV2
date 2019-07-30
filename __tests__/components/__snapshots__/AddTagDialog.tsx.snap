@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AddTagDialog Component Snapshot with tags 1`] = `
+<Dialog
+  aria-describedby="alert-dialog-slide-description"
+  aria-labelledby="alert-dialog-slide-title"
+  keepMounted={true}
+  maxWidth="md"
+  onClose={[MockFunction]}
+  open={true}
+>
+  <DialogTitle
+    id="alert-dialog-slide-title"
+  >
+    Add A Tag
+  </DialogTitle>
+  <div
+    className="MuiDialogContent-root"
+  >
+    <DialogContentText
+      id="alert-dialog-slide-description"
+    >
+      Existed Tags list:
+    </DialogContentText>
+    <div>
+      <Chip
+        clickable={true}
+        label="IT"
+        style={
+          Object {
+            "backgroundColor": "color1",
+            "color": "white",
+            "margin": "0 10px 5px 0",
+          }
+        }
+      />
+      <Chip
+        clickable={true}
+        label="HR"
+        style={
+          Object {
+            "backgroundColor": "color2",
+            "color": "white",
+            "margin": "0 10px 5px 0",
+          }
+        }
+      />
+    </div>
+    <DialogContentText
+      className="makeStyles-secondContentText-2"
+    >
+      Create a new tag by type the content and select a background color
+    </DialogContentText>
+    <div
+      className="makeStyles-flexDiv-1"
+    >
+      <div>
+        <div>
+          <TextField
+            label="Tag Text"
+            margin="normal"
+            onChange={[Function]}
+            value=""
+          />
+        </div>
+        <div
+          className="makeStyles-btnDiv-3"
+        >
+          <Button
+            color="secondary"
+            onClick={[Function]}
+            size="small"
+            variant="outlined"
+          >
+            Add
+          </Button>
+        </div>
+      </div>
+      <div>
+        <CirclePicker
+          color="#f44336"
+          onChangeComplete={[Function]}
+        />
+      </div>
+    </div>
+  </div>
+  <DialogActions>
+    <Button
+      color="primary"
+      onClick={[MockFunction]}
+    >
+      Close
+    </Button>
+  </DialogActions>
+</Dialog>
+`;
