@@ -14,9 +14,7 @@ exports[`AddTagDialog Component Snapshot with tags 1`] = `
   >
     Add A Tag
   </DialogTitle>
-  <div
-    className="MuiDialogContent-root"
-  >
+  <DialogContent>
     <DialogContentText
       id="alert-dialog-slide-description"
     >
@@ -83,7 +81,76 @@ exports[`AddTagDialog Component Snapshot with tags 1`] = `
         />
       </div>
     </div>
-  </div>
+  </DialogContent>
+  <DialogActions>
+    <Button
+      color="primary"
+      onClick={[MockFunction]}
+    >
+      Close
+    </Button>
+  </DialogActions>
+</Dialog>
+`;
+
+exports[`AddTagDialog Component Snapshot without tags 1`] = `
+<Dialog
+  aria-describedby="alert-dialog-slide-description"
+  aria-labelledby="alert-dialog-slide-title"
+  keepMounted={true}
+  maxWidth="md"
+  onClose={[MockFunction]}
+  open={true}
+>
+  <DialogTitle
+    id="alert-dialog-slide-title"
+  >
+    Add A Tag
+  </DialogTitle>
+  <DialogContent>
+    <DialogContentText
+      id="alert-dialog-slide-description"
+    >
+      Existed Tags list:
+    </DialogContentText>
+    <DialogContentText
+      className="makeStyles-secondContentText-2"
+    >
+      Create a new tag by type the content and select a background color
+    </DialogContentText>
+    <div
+      className="makeStyles-flexDiv-1"
+    >
+      <div>
+        <div>
+          <TextField
+            label="Tag Text"
+            margin="normal"
+            onChange={[Function]}
+            value=""
+          />
+        </div>
+        <div
+          className="makeStyles-btnDiv-3"
+        >
+          <Button
+            color="secondary"
+            onClick={[Function]}
+            size="small"
+            variant="outlined"
+          >
+            Add
+          </Button>
+        </div>
+      </div>
+      <div>
+        <CirclePicker
+          color="#f44336"
+          onChangeComplete={[Function]}
+        />
+      </div>
+    </div>
+  </DialogContent>
   <DialogActions>
     <Button
       color="primary"
