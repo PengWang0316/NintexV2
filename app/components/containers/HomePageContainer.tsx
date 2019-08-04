@@ -43,7 +43,7 @@ export const HomePage = ({ user = null, currentAuthenticatedUser }: Props) => {
     if (!user) currentAuthenticatedUser();
   });
   const classes = useStyles({});
-
+  
   return (
     <div className={classes.rootDiv}>
       <div className={classes.cardContainer}>
