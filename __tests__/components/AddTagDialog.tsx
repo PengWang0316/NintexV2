@@ -28,16 +28,14 @@ describe('AddTagDialog Component', () => {
   defaultProps.tags[2] = ['HR', 'color2'];
 
   test('handleChangeComplete', () => {
-    // const component = renderer.create(<AddTagDialog {...{ ...defaultProps }} />);
     const component = shallow(<AddTagDialog {...{ ...defaultProps }} />);
-    // console.log(component.root.find(renderer.create(CirclePicker).root));
-    // expect(component.root.find(renderer.create(CirclePicker).root)).toBe(true);
-    expect(component.find('CirclePicker').length).toBe(1);
-    expect(component.find('CirclePicker').props().color).toBe('#f44336');
+    let circlePicker = component.find('CirclePicker');
+    expect(circlePicker.length).toBe(1);
+    expect(circlePicker.props().color).toBe('#f44336');
 
-    // component.find('CirclePicker').props().onChangeComplete('new color');
-    component.find('CirclePicker').simulate('changeComplete', { hex: 'new color' });
-    expect(component.find('CirclePicker').props().color).toBe('new color');
+    circlePicker.simulate('changeComplete', { hex: 'new color' });
+    circlePicker = component.find('CirclePicker');
+    expect(circlePicker.props().color).toBe('new color');
   });
 
   test('handleInputChange', () => {
@@ -49,6 +47,11 @@ describe('AddTagDialog Component', () => {
     textField = component.find('TextField');
     expect(textField.props().value).toBe('newValue');
   });
+
+  // test('handleAddBtnClick', () => {
+  //   const component = shallow(<AddTagDialog {...{ ...defaultProps }} />);
+    
+  // });
 
   test('Snapshot with tags', () => expect(renderer.create(JssProviderWrapper(<AddTagDialog {...{ ...defaultProps }} />)).toJSON()).toMatchSnapshot());
   test('Snapshot without tags', () => expect(renderer.create(JssProviderWrapper(<AddTagDialog {...{ ...defaultProps, tags: null }} />)).toJSON()).toMatchSnapshot());
