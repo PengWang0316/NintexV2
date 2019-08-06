@@ -40,6 +40,16 @@ describe('AddTagDialog Component', () => {
     expect(component.find('CirclePicker').props().color).toBe('new color');
   });
 
+  test('handleInputChange', () => {
+    const component = shallow(<AddTagDialog {...{ ...defaultProps }} />);
+    let textField = component.find('TextField');
+    expect(textField.props().value).toBe('');
+    textField.simulate('change', { target: { value: 'newValue' } });
+
+    textField = component.find('TextField');
+    expect(textField.props().value).toBe('newValue');
+  });
+
   test('Snapshot with tags', () => expect(renderer.create(JssProviderWrapper(<AddTagDialog {...{ ...defaultProps }} />)).toJSON()).toMatchSnapshot());
   test('Snapshot without tags', () => expect(renderer.create(JssProviderWrapper(<AddTagDialog {...{ ...defaultProps, tags: null }} />)).toJSON()).toMatchSnapshot());
 });
