@@ -48,10 +48,15 @@ describe('AddTagDialog Component', () => {
     expect(textField.props().value).toBe('newValue');
   });
 
-  // test('handleAddBtnClick', () => {
-  //   const component = shallow(<AddTagDialog {...{ ...defaultProps }} />);
-    
-  // });
+  test('handleAddBtnClick', () => {
+    const component = shallow(<AddTagDialog {...{ ...defaultProps }} />);
+    component.find('CirclePicker').simulate('changeComplete', { hex: '#111111' });
+    component.find('TextField').simulate('change', { target: { value: 'tagText' } });
+    component.find('Button').at(0).simulate('click');
+
+    expect(defaultProps.addTag).toHaveBeenCalledTimes(1);
+    expect(defaultProps.addTag).toHaveBeenLastCalledWith('tagText', '#111111');
+  });
 
   test('Snapshot with tags', () => expect(renderer.create(JssProviderWrapper(<AddTagDialog {...{ ...defaultProps }} />)).toJSON()).toMatchSnapshot());
   test('Snapshot without tags', () => expect(renderer.create(JssProviderWrapper(<AddTagDialog {...{ ...defaultProps, tags: null }} />)).toJSON()).toMatchSnapshot());
