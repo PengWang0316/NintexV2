@@ -56,6 +56,8 @@ describe('AddTagDialog Component', () => {
 
     expect(defaultProps.addTag).toHaveBeenCalledTimes(1);
     expect(defaultProps.addTag).toHaveBeenLastCalledWith('tagText', '#111111');
+    expect(component.find('CirclePicker').props().color).toBe('#f44336');
+    expect(component.find('TextField').props().value).toBe('');
   });
 
   test('Snapshot with tags', () => expect(renderer.create(JssProviderWrapper(<AddTagDialog {...{ ...defaultProps }} />)).toJSON()).toMatchSnapshot());
