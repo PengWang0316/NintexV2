@@ -29,7 +29,7 @@ export type AppState = ReturnType<typeof persistedReducer>;
   * @returns {object} Return the store object for Redux.
 */
 export default function configureStore() {
-  const store: AppState = createStore(
+  const store = createStore(
     persistedReducer, composeEnhancers(applyMiddleware(thunk)),
   );
   const persistor = persistStore(store);
