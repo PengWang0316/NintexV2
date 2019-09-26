@@ -3,7 +3,6 @@ import { connect } from 'react-redux';
 import {
   Pie, PieChart, Cell, Legend, Tooltip, ResponsiveContainer,
 } from 'recharts';
-// import I18n from '@kevinwang0316/i18n';
 
 import { fetchWorkflowUseCount as fetchWorkflowUseCountAction } from '../store/WorkflowUseCount/actions';
 import { WorkflowUseCountType } from '../store/WorkflowUseCount/types';
