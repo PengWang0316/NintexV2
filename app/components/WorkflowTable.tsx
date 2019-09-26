@@ -146,7 +146,6 @@ export const WorkflowTable = memo(({
 
   const handleExportAction = useCallback((currentWorkflowId, tenant) => {
     if (!nwcKeys.data[tenant]) setIsOpenSnackbar(true);
-    // console.log(currentWorkflowId, tenant, nwcKeys.data[tenant]);
     // else stopWorkflow(currentWorkflowId, nwcKeys.data[tenant][1]);
   }, [nwcKeys.data]);
 
@@ -208,13 +207,16 @@ const mapStateToProps = ({
 }: AppState) => ({
   workflows, tags, nwcKeys,
 });
-const mapDispatchToProps = dispatch => ({
+const mapDispatchToProps = (dispatch: Function) => ({
   fetchWorkflowsByUser: () => dispatch(fetchWorkflowsByUserAction()),
   fetchTags: () => dispatch(fetchTagsAction()),
-  updateTagFromWorkflow:
-    (workflowId, tagIds) => dispatch(updateTagFromWorkflowAction(workflowId, tagIds)),
-  runWorkflow: (workflowId, key) => dispatch(runWorkflowAction(workflowId, key)),
-  stopWorkflow: (workflowId, key) => dispatch(stopWorkflowAction(workflowId, key)),
-  switchMonitor: (workflowId, tenant, isMonitored, key) => dispatch(switchMonitorAction(workflowId, tenant, isMonitored, key)),
+  updateTagFromWorkflow: (
+    workflowId: string, tagIds: null | string,
+  ) => dispatch(updateTagFromWorkflowAction(workflowId, tagIds)),
+  runWorkflow: (workflowId: string, key: string) => dispatch(runWorkflowAction(workflowId, key)),
+  stopWorkflow: (workflowId: string, key: string) => dispatch(stopWorkflowAction(workflowId, key)),
+  switchMonitor: (
+    workflowId: string, tenant: string, isMonitored: number, key: string,
+  ) => dispatch(switchMonitorAction(workflowId, tenant, isMonitored, key)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(memo(WorkflowTable));
