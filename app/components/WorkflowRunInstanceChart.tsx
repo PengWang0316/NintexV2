@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import {
   LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Brush, ResponsiveContainer,
@@ -11,14 +11,16 @@ import { fetchInstanceStatusByTime as fetchInstanceStatusByTimeAction } from '..
 import { InstanceStatusByTime } from '../store/InstanceStatusByTime/types';
 import { AppState } from '../store/ConfigureStore';
 
-interface Props {
+interface PropsType {
   instanceStatusByTime: InstanceStatusByTime;
   fetchInstanceStatusByTime: Function;
 }
 
 let isFetching = false;
 
-export const WorkflowRunInstanceChart = ({ instanceStatusByTime, fetchInstanceStatusByTime }) => {
+export const WorkflowRunInstanceChart = (
+  { instanceStatusByTime, fetchInstanceStatusByTime }: PropsType,
+): ReactElement => {
   useEffect(() => {
     if (!instanceStatusByTime.isFetched && !isFetching) {
       fetchInstanceStatusByTime();
