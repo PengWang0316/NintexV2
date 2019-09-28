@@ -1,5 +1,5 @@
 /* eslint-disable no-underscore-dangle */
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, ReactElement } from 'react';
 import { Chip, IconButton, Tooltip } from '@material-ui/core';
 import { ChipProps } from '@material-ui/core/Chip';
 import { makeStyles } from '@material-ui/core/styles';
@@ -32,7 +32,7 @@ const useStyles = makeStyles({
 // So, it can not use connect to connect to Reudx store. All props has to be pass from the parent component.
 export const Tags = ({
   cell = null, tags = null, handleRemoveTag, handleAddTag,
-}: Props) => {
+}: Props): ReactElement => {
   const classes = useStyles({});
   const tagIds = (cell && cell._cell.value) ? cell._cell.value.split(',') : null;
 
