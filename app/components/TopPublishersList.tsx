@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, ReactElement } from 'react';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import {
@@ -33,7 +33,9 @@ const useStyles = makeStyles(theme => ({
 
 let isFetching = false;
 
-export const TopPublisherList = ({ topPublishersCount, fetchTopPublishersCount }: Props) => {
+export const TopPublisherList = (
+  { topPublishersCount, fetchTopPublishersCount }: Props,
+): ReactElement => {
   useEffect(() => {
     if (!topPublishersCount.isFetched && !isFetching) {
       fetchTopPublishersCount();
