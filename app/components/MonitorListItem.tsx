@@ -1,5 +1,5 @@
 import React, {
-  Fragment, useState, memo, useCallback,
+  Fragment, useState, memo, useCallback, ReactElement,
 } from 'react';
 import {
   List, ListItem, Divider, ListItemText, Typography, ListItemIcon, Collapse,
@@ -37,7 +37,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-export const MonitorListItem = ({ wfId, workflows, monitorList }: Props) => {
+export const MonitorListItem = ({ wfId, workflows, monitorList }: Props): ReactElement => {
   const classes = useStyles({});
   const [isOpen, setIsOpen] = useState(false);
 
