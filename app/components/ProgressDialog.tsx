@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, ReactElement } from 'react';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from '@material-ui/core/Dialog';
 import { makeStyles } from '@material-ui/core/styles';
@@ -15,7 +15,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const ProgressDialog = ({ open }: Props) => {
+export const ProgressDialog = ({ open }: Props): ReactElement => {
   const classes = useStyles({});
   return (
     <Dialog open={open}>
