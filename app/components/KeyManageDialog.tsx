@@ -1,5 +1,5 @@
 import React, {
-  useState, useEffect, useCallback, memo,
+  useState, useEffect, useCallback, memo, ReactElement,
 } from 'react';
 import { connect } from 'react-redux';
 import {
@@ -73,7 +73,7 @@ let isFetchingOfficeKey = false;
 export const KeyManageDialog = ({
   open, handleClose, nwcKeys, officeKeys, fetchNwcKey, addNwcKey, deleteNwcKey,
   fetchOfficeKey, addOfficeKey, deleteOfficeKey, addNwcWorkflows, workflows,
-}: Props) => {
+}: Props): ReactElement => {
   const classes = useStyles({});
   const [nwcTenant, setNwcTenant] = useState('');
   const [nwcKey, setNwcKey] = useState('');
