@@ -1,5 +1,5 @@
 import React, {
-  useState, Fragment, memo, useCallback,
+  useState, Fragment, memo, useCallback, ReactElement,
 } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { Link } from 'react-router-dom';
@@ -55,7 +55,7 @@ const useStyles = makeStyles(theme => ({
   },
 }));
 
-const MenuDrawer = () => {
+const MenuDrawer = (): ReactElement => {
   const classes = useStyles({});
   const [isOpenFileUpload, setIsOpenFileUpload] = useState(false);
   const [isOpenAddTag, setIsOpenAddTag] = useState(false);
