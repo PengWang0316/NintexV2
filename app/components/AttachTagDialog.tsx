@@ -1,4 +1,6 @@
-import React, { memo, useMemo, useCallback, ReactElement } from 'react';
+import React, {
+  memo, useMemo, useCallback, ReactElement,
+} from 'react';
 import { connect } from 'react-redux';
 import {
   Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Chip,
