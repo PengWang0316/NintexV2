@@ -1,4 +1,4 @@
-import React, { memo, useMemo, useCallback } from 'react';
+import React, { memo, useMemo, useCallback, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import {
   Button, Dialog, DialogActions, DialogContent, DialogContentText, DialogTitle, Slide, Chip,
@@ -33,7 +33,7 @@ const Transition = React.forwardRef((props, ref) => <Slide direction="down" ref=
 
 export const AttachTagDialog = ({
   isOpen, handleClose, tags = null, workflowId = null, workflows = null, updateTagFromWorkflow,
-}: Props) => {
+}: Props): ReactElement => {
   const existedTagIds = useMemo(() => (Object.keys(workflows.data).length !== 0 && workflowId && workflows.data[workflowId].tags ? workflows.data[workflowId].tags.split(',') : []), [workflows.data]);
   const handleTagClick = useCallback((event: React.MouseEvent) => {
     const target: HTMLElement = event.target as HTMLElement;
