@@ -1,4 +1,4 @@
-import React, { Fragment, memo } from 'react';
+import React, { Fragment, memo, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { LinearProgress } from '@material-ui/core';
@@ -22,7 +22,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const LoadingAnimation = ({ isLoading = true }: Props) => {
+export const LoadingAnimation = ({ isLoading = true }: Props): ReactElement => {
   const classes = useStyles({});
   return (
     <Fragment>
