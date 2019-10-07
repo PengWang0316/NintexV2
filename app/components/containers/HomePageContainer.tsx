@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
@@ -38,12 +38,12 @@ const useStyles = makeStyles({
   },
 });
 
-export const HomePage = ({ user = null, currentAuthenticatedUser }: Props) => {
+export const HomePage = ({ user = null, currentAuthenticatedUser }: Props): ReactElement => {
   useEffect(() => {
     if (!user) currentAuthenticatedUser();
   });
   const classes = useStyles({});
-  
+
   return (
     <div className={classes.rootDiv}>
       <div className={classes.cardContainer}>
