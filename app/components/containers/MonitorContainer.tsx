@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, ReactElement } from 'react';
 import { withAuthenticator } from 'aws-amplify-react';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
@@ -31,7 +31,7 @@ let isFetching = false;
 
 export const MonitorContainer = ({
   user = null, currentAuthenticatedUser, workflows, fetchWorkflowsByUser,
-}: Props) => {
+}: Props): ReactElement => {
   const classes = useStyles({});
   useEffect(() => {
     if (!user) currentAuthenticatedUser();
