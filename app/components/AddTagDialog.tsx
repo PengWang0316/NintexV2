@@ -1,4 +1,4 @@
-import React, { useState, memo } from 'react';
+import React, { useState, memo, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import {
   Button, Dialog, DialogActions, DialogContent,
@@ -35,7 +35,7 @@ const COLOR_REGEXP = /^#[\d\w]{6}$/;
 
 export const AddTagDialog = ({
   open, handleClose, tags = null, addTag,
-}: Props) => {
+}: Props): ReactElement => {
   const classes = useStyles({});
   const [tagColor, setTagColor] = useState(DEFAULT_COLOT);
   const [tagText, setTagText] = useState('');
