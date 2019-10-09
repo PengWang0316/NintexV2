@@ -43,7 +43,7 @@ export const AttachTagDialog = ({
       workflowId,
       `${workflows.data[workflowId].tags ? `${workflows.data[workflowId].tags},` : ''}${target.tagName === 'span' ? (target.parentNode.parentNode as HTMLElement).getAttribute('name') : (target.parentNode as HTMLElement).getAttribute('name')}`,
     );
-  }, [workflows.data]);
+  }, [workflows.data, workflowId]);
 
   return (
     <Dialog
@@ -65,7 +65,7 @@ export const AttachTagDialog = ({
             {Object.keys(tags).filter(tagId => !existedTagIds.includes(tagId)).map(tag => (
               <CustomizedChip
                 label={`${tags[tag][0]}`}
-                key={`${tags[tag][0]}${tags[tag][1]}`}
+                key={`${tags[tag][0]}${tags[tag][1]}${Math.random() * 10}`}
                 name={`${tag}`}
                 clickable
                 onClick={handleTagClick}

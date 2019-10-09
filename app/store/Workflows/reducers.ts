@@ -19,9 +19,12 @@ const workflows = (
       return { isFetched: true, data: workflowsObj };
     }
     case UPDATE_TAG_FROM_WORKFLOW_SUCCESS: {
-      const workflowsObj = { ...state };
-      workflowsObj.data[workflowId].tags = tagIds;
-      return workflowsObj;
+      const newWorkflows = { isFetched: state.isFetched, data: {} };
+      Object.keys(state.data).forEach((key: string) => {
+        if (key === workflowId) newWorkflows.data[key] = { ...state.data[key], tags: tagIds };
+        else newWorkflows.data[key] = { ...state.data[key] };
+      });
+      return newWorkflows;
     }
     case APPEND_WORKFLOWS_SUCCESS:
       return { isFetched: true, data: { ...state.data, ...formatedWorkflows } };
