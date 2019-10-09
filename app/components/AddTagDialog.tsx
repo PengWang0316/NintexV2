@@ -1,4 +1,6 @@
-import React, { useState, memo, ReactElement } from 'react';
+import React, {
+  useState, memo, ReactElement, ChangeEvent,
+} from 'react';
 import { connect } from 'react-redux';
 import {
   Button, Dialog, DialogActions, DialogContent,
@@ -42,7 +44,7 @@ export const AddTagDialog = ({
 
   const handleChangeComplete = color => setTagColor(color.hex);
 
-  const handleInputChange = event => setTagText(event.target.value);
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>) => setTagText(event.target.value);
 
   const handleAddBtnClick = () => {
     // Do a validation here and also do it in the backend again
