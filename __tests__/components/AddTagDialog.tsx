@@ -1,6 +1,5 @@
 import React from 'react';
 import renderer from 'react-test-renderer';
-import { render } from '@testing-library/react';
 import { shallow } from 'enzyme';
 
 import { AddTagDialog } from '../../app/components/AddTagDialog';
