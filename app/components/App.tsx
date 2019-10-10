@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import PropTypes from 'prop-types';
+// import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
 import importedComponent from 'react-imported-component';
@@ -15,6 +15,7 @@ import {
   HOME_PAGE_URL, WORKFLOW_MANAGER_PAGE_URL, SIGNIN_PAGE_URL,
   cognitoConfig, amplifyAuthSignOption, MONITOR_CENTER_PAGE_URL,
 } from '../config';
+import { MonitorListType, MonitorListData } from '../store/MonitorList/types';
 
 Amplify.configure({
   Auth: cognitoConfig,
@@ -41,25 +42,17 @@ const theme = createMuiTheme({
 const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageContainer" *//* webpackPrefetch: true */ './containers/HomePageContainer').catch(err => console.log(err)));
 const ManagementPage = importedComponent(() => import(/* webpackChunkName: "ManagementContainer" *//* webpackPrefetch: true */ './containers/ManagementContainer').catch(err => console.log(err)));
 const MonitorPage = importedComponent(() => import(/* webpackChunkName: "MonitorContainer" *//* webpackPrefetch: true */ './containers/MonitorContainer').catch(err => console.log(err)));
-/* Manually call the lazy import */
-// let HomePage: any;
-// let ManagementPage: any;
-// let MonitorPage: any;
-
-// const getLazyComponents = async () => {
-//   HomePage = await import(/* webpackChunkName: "HomePageContainer" *//* webpackPrefetch: true */ './containers/HomePageContainer');
-//   ManagementPage = await import(/* webpackChunkName: "ManagementContainer" *//* webpackPrefetch: true */ './containers/ManagementContainer');
-//   MonitorPage = await import(/* webpackChunkName: "MonitorContainer" *//* webpackPrefetch: true */ './containers/MonitorContainer');
-// };
-// getLazyComponents();
 
 const INTERVAL_TIME = 1 * 60 * 1000;
 let autoMonitorJob = null;
-
+interface PropType {
+  monitorList: MonitorListType;
+  checkInstanceStatus: (monitoredWorkflows: MonitorListData) => void;
+}
 /**
  * The root component that contains the theme, routers, navbar, and login dialog
  */
-export const App = ({ monitorList, checkInstanceStatus }) => {
+export const App = ({ monitorList, checkInstanceStatus }: PropType) => {
   useEffect(() => {
     if (Object.keys(monitorList.data).length !== 0) {
       if (autoMonitorJob) clearInterval(autoMonitorJob);
@@ -92,11 +85,7 @@ export const App = ({ monitorList, checkInstanceStatus }) => {
     </MuiThemeProvider>
   );
 };
-App.propTypes = {
-  monitorList: PropTypes.objectOf(PropTypes.any).isRequired,
-  checkInstanceStatus: PropTypes.func.isRequired,
-};
-const mapStateToProps = state => ({ ...state });
+const mapStateToProps = ({ monitorList }: { monitorList: MonitorListType }) => ({ monitorList });
 const mapDispatchToProps = {
   checkInstanceStatus: checkInstanceStatusAction,
 };
