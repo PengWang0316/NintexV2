@@ -19,6 +19,28 @@ import officeKeys from './OfficeKeys/reducers';
 import lastNwc from './LastNwc/reducers';
 import monitorList from './MonitorList/reducers';
 
+import { ActionnameCount } from './ActionNameCount/types';
+import { InstanceCount } from './InstanceCount/types';
+import { InstanceStatus } from './InstanceStatus/types';
+import { InstanceStatusByTime } from './InstanceStatusByTime/types';
+import { LastNwcType } from './LastNwc/types';
+import { MonitorListType } from './MonitorList/types';
+import { NWCKeysType } from './NWCKeys/types';
+import { OfficeKeysType } from './OfficeKeys/types';
+import { PublisherCount } from './PublisherCount/types';
+import { TagsType } from './Tags/types';
+import { TopPublishersCountType } from './TopPublishersCount/types';
+import { UserType } from './User/types';
+import { WorkflowCount } from './WorkflowCount/types';
+import { WorkflowLocationCountType } from './WorkflowLocationCount/types';
+import { Workflows } from './Workflows/types';
+import { WorkflowUseCountType } from './WorkflowUseCount/types';
+
+export type ReduxStateType = ActionnameCount & InstanceCount & InstanceStatus
+& InstanceStatusByTime & LastNwcType & MonitorListType & NWCKeysType
+& OfficeKeysType & PublisherCount & TagsType & TopPublishersCountType & UserType
+& WorkflowCount & WorkflowLocationCountType & Workflows & WorkflowUseCountType;
+
 export default combineReducers({
   actionNameCount,
   instanceCount,
