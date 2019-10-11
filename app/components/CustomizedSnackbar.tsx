@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 import { Close as CloseIcon, CheckCircle as CheckCircleIcon } from '@material-ui/icons';
 import {
   IconButton, Fade, Snackbar, SnackbarContent,
@@ -29,7 +29,7 @@ const useStyles = makeStyles(theme => ({
 
 export const CustomizedSnackbar = ({
   open, handleClose, backgroundColor, content, duration = 3000,
-}: Props) => {
+}: Props): ReactElement => {
   const classes = useStyles({});
   return (
     <Snackbar
