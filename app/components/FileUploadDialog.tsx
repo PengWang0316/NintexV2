@@ -1,5 +1,5 @@
 import React, {
-  useState, Fragment, memo, useCallback,
+  useState, Fragment, memo, useCallback, ReactElement,
 } from 'react';
 import {
   Button, Input, Dialog, DialogActions, DialogContent, Typography,
@@ -27,7 +27,7 @@ const useStyles = makeStyles({
   successBg: { backgroundColor: green[600] },
 });
 
-export const FileUploadDialog = ({ open = false, handleClose }: Props) => {
+export const FileUploadDialog = ({ open = false, handleClose }: Props): ReactElement => {
   const classes = useStyles({});
   const [isOpenProgressDialog, setIsOpenProgressDialog] = useState(false);
   const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);
