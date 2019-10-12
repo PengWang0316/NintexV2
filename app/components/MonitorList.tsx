@@ -1,4 +1,4 @@
-import React, { memo } from 'react';
+import React, { memo, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { Typography, Paper } from '@material-ui/core';
 import I18n from '@kevinwang0316/i18n';
@@ -21,7 +21,7 @@ const useStyles = makeStyles({
   },
 });
 
-export const MonitorList = ({ workflows, monitorList }: Props) => {
+export const MonitorList = ({ workflows, monitorList }: Props): ReactElement => {
   const classes = useStyles({});
   return (
     <Paper className={classes.rootPaper}>
