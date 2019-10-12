@@ -136,12 +136,6 @@ export class Navbar extends Component {
               <Typography variant="h6" color="inherit">{I18n.get('appName')}</Typography>
             </Link>
             <Hidden only="xs">
-              {/* <Link to={HOME_PAGE_URL} className={classes.link}>
-                <Button color="inherit" data-testid="dashboardButton">{I18n.get('dashboard')}</Button>
-              </Link>
-              <Link to={WORKFLOW_MANAGER_PAGE_URL} className={classes.link}>
-                <Button color="inherit" data-testid="workflowManagerButton">{I18n.get('workflowManager')}</Button>
-              </Link> */}
               <FormControlLabel
                 control={(
                   <Switch
@@ -184,16 +178,6 @@ export class Navbar extends Component {
                 onClose={this.handleMenuIconClick}
                 data-testid="dropDownMenu"
               >
-                {/* <MenuItem>
-                  <Link to={HOME_PAGE_URL} className={classes.menuLink} data-testid="testLink">
-                    <Typography color="textPrimary">{I18n.get('dashboard')}</Typography>
-                  </Link>
-                </MenuItem>
-                <MenuItem>
-                  <Link to={WORKFLOW_MANAGER_PAGE_URL} className={classes.menuLink} data-testid="testLink">
-                    <Typography color="textPrimary">{I18n.get('workflowManager')}</Typography>
-                  </Link>
-                </MenuItem> */}
                 <MenuItem>
                   <FormControlLabel
                     control={(
