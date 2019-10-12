@@ -1,8 +1,7 @@
 /* eslint-disable react/destructuring-assignment */
-import React, { Component, Fragment } from 'react';
+import React, { Component, Fragment, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import { Link, withRouter } from 'react-router-dom';
-import PropTypes from 'prop-types';
 import {
   MenuItem, Menu, IconButton, Hidden, Button, Typography,
   Toolbar, AppBar, Avatar, Switch, FormControlLabel,
@@ -19,6 +18,10 @@ import {
 import * as UserActions from '../store/User/actions';
 import { fetchTags as fetchTagsAction } from '../store/Tags/actions';
 import { addNwcWorkflows as addNwcWorkflowsAction } from '../store/Workflows/actions';
+import { Workflows } from '../store/Workflows/types';
+import { TagsType } from '../store/Tags/types';
+import { NWCKeysType } from '../store/NWCKeys/types';
+import { UserType } from '../store/User/types';
 
 /* istanbul ignore next */
 const styles = theme => ({
@@ -58,24 +61,28 @@ const styles = theme => ({
   track: {},
 });
 
+interface PropType {
+  classes: any;
+  history: any;
+  workflows: Workflows;
+  user: UserType;
+  logout: Function;
+  currentAuthenticatedUser: Function;
+  addNwcWorkflows: Function;
+  fetchTags: Function;
+  tags: TagsType;
+  nwcKeys: NWCKeysType;
+}
+interface StateType {
+  anchorEl: boolean;
+  isAutoFetching: boolean;
+}
+
 /** Navbar component */
-export class Navbar extends Component {
-  static propTypes = {
-    classes: PropTypes.objectOf(PropTypes.string).isRequired,
-    history: PropTypes.objectOf(PropTypes.any).isRequired,
-    workflows: PropTypes.objectOf(PropTypes.any).isRequired,
-    user: PropTypes.objectOf(PropTypes.string),
-    logout: PropTypes.func.isRequired,
-    currentAuthenticatedUser: PropTypes.func.isRequired,
-    addNwcWorkflows: PropTypes.func.isRequired,
-    fetchTags: PropTypes.func.isRequired,
-    tags: PropTypes.objectOf(PropTypes.array),
-    nwcKeys: PropTypes.objectOf(PropTypes.any),
-  };
-
-  static defaultProps = { user: null, tags: null, nwcKeys: null };
-
+export class Navbar extends Component<PropType, StateType> {
   state = { anchorEl: null, isAutoFetching: false };
+
+  private autoFetchJob: any = null;
 
   /**
    * Get the authentication user information.
@@ -125,7 +132,7 @@ export class Navbar extends Component {
    * The render method to render the jsx.
    * @return {jsx} Return jsx.
    */
-  render() {
+  render(): ReactElement {
     const { classes, user, nwcKeys } = this.props;
     const { anchorEl, isAutoFetching } = this.state;
     return (
@@ -229,4 +236,5 @@ const mapDispatchToProps = dispatch => ({
 /* Putting the withRouter to the first position because when test code mocks Link
 the withRouter also has to be mocked. But it is hard to really return a react
 component to satisfy the whole chain call. */
+// @ts-ignore
 export default withRouter(connect(mapStateToProps, mapDispatchToProps)(withStyles(styles)(Navbar)));
