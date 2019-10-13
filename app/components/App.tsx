@@ -55,13 +55,13 @@ interface PropType {
 export const App = ({ monitorList, checkInstanceStatus }: PropType) => {
   useEffect(() => {
     if (Object.keys(monitorList.data).length !== 0) {
+      // item changed, start a new job
       if (autoMonitorJob) clearInterval(autoMonitorJob);
       autoMonitorJob = setInterval(() => checkInstanceStatus(monitorList.data), INTERVAL_TIME);
-      // console.log('item changed, start a new job');
     } else if (autoMonitorJob && Object.keys(monitorList.data).length === 0) {
+      // Stop the fetching job
       if (autoMonitorJob) clearInterval(autoMonitorJob);
       autoMonitorJob = null;
-      // console.log('empty list, stop job');
     }
   });
   return (
