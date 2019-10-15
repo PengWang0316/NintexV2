@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-one-expression-per-line */
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, ReactElement } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { lightBlue, red, lightGreen } from '@material-ui/core/colors';
@@ -27,7 +27,7 @@ interface Props {
   fetchInstanceStatus: () => void;
 }
 
-export const HealthScoreCard = ({ instanceStatus, fetchInstanceStatus }: Props) => {
+export const HealthScoreCard = ({ instanceStatus, fetchInstanceStatus }: Props): ReactElement => {
   const classes = useStyles({});
   useEffect(() => {
     if (!instanceStatus && !isFetching) {
