@@ -29,7 +29,7 @@ const NUM_FORMATE_REGEXP = /(\d)(?=(\d{3})+(?!\d))/g;
 
 export const DashboardNumCard = ({
   displayNum = null, title, icon, extraContent = null,
-}: Props) => {
+}: Props): ReactElement => {
   const classes = useStyles({});
   return (
     <Card className={classes.card}>
