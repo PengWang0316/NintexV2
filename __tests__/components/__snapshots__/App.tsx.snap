@@ -1,0 +1,58 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test App component should have the same snapshot 1`] = `
+<Router>
+  <div>
+    <Navbar />
+    <MenuDrawer />
+    <main>
+      <Switch>
+        <Route
+          component={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "done": Promise {},
+              "preload": [Function],
+              "render": [Function],
+            }
+          }
+          exact={true}
+          path="/"
+        />
+        <Route
+          component={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "done": Promise {},
+              "preload": [Function],
+              "render": [Function],
+            }
+          }
+          exact={true}
+          path="/workflowTable"
+        />
+        <Route
+          component={
+            Object {
+              "$$typeof": Symbol(react.forward_ref),
+              "done": Promise {},
+              "preload": [Function],
+              "render": [Function],
+            }
+          }
+          exact={true}
+          path="/monitorCenter"
+        />
+        <Route
+          component={[Function]}
+          exact={true}
+          path="/signin"
+        />
+        <Route
+          render={[Function]}
+        />
+      </Switch>
+    </main>
+  </div>
+</Router>
+`;
