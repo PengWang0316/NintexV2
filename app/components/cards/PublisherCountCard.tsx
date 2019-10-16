@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, ReactElement } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
 import { lightGreen } from '@material-ui/core/colors';
@@ -23,7 +23,9 @@ const useStyles = makeStyles({
 });
 let isFetching = false;
 
-export const PublisherCountCard = ({ publisherCount = null, fetchPublisherCount }: Props) => {
+export const PublisherCountCard = (
+  { publisherCount = null, fetchPublisherCount }: Props,
+): ReactElement => {
   const classes = useStyles({});
   useEffect(() => {
     if (!publisherCount && !isFetching) {
