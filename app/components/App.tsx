@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
@@ -53,7 +53,7 @@ interface PropType {
  * The root component that contains the theme, routers, navbar, and login dialog
  */
 export const App = ({ monitorList, checkInstanceStatus }: PropType) => {
-  useEffect(() => {
+  React.useEffect(() => {
     if (Object.keys(monitorList.data).length !== 0) {
       // item changed, start a new job
       if (autoMonitorJob) clearInterval(autoMonitorJob);
@@ -85,7 +85,9 @@ export const App = ({ monitorList, checkInstanceStatus }: PropType) => {
     </MuiThemeProvider>
   );
 };
+/* istanbul ignore next */
 const mapStateToProps = ({ monitorList }: { monitorList: MonitorListType }) => ({ monitorList });
+/* istanbul ignore next */
 const mapDispatchToProps = {
   checkInstanceStatus: checkInstanceStatusAction,
 };
