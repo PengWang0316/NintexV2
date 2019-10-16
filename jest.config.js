@@ -1,7 +1,12 @@
 module.exports = {
   preset: 'ts-jest',
   snapshotSerializers: ['enzyme-to-json/serializer'],
-  testEnvironment: 'jest-environment-jsdom-global',
+  // For some test need jsdom
+  /**
+ * @jest-environment jsdom
+ */
+  // testEnvironment: 'jest-environment-jsdom-global',
+  testEnvironment: 'node',
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },
