@@ -1,9 +1,8 @@
-import React from 'react';
+import React, { Suspense, lazy } from 'react';
 import { connect } from 'react-redux';
 // import PropTypes from 'prop-types';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 import { createMuiTheme, MuiThemeProvider } from '@material-ui/core/styles';
-import importedComponent from 'react-imported-component';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Amplify from 'aws-amplify';
 import { withAuthenticator } from 'aws-amplify-react';
@@ -39,9 +38,11 @@ const theme = createMuiTheme({
 });
 
 /* istanbul ignore next */
-const HomePage = importedComponent(() => import(/* webpackChunkName: "HomePageContainer" *//* webpackPrefetch: true */ './containers/HomePageContainer').catch(err => console.log(err)));
-const ManagementPage = importedComponent(() => import(/* webpackChunkName: "ManagementContainer" *//* webpackPrefetch: true */ './containers/ManagementContainer').catch(err => console.log(err)));
-const MonitorPage = importedComponent(() => import(/* webpackChunkName: "MonitorContainer" *//* webpackPrefetch: true */ './containers/MonitorContainer').catch(err => console.log(err)));
+const HomePage = lazy(() => import(/* webpackChunkName: "HomePageContainer" *//* webpackPrefetch: true */ './containers/HomePageContainer'));
+/* istanbul ignore next */
+const ManagementPage = lazy(() => import(/* webpackChunkName: "ManagementContainer" *//* webpackPrefetch: true */ './containers/ManagementContainer'));
+/* istanbul ignore next */
+const MonitorPage = lazy(() => import(/* webpackChunkName: "MonitorContainer" *//* webpackPrefetch: true */ './containers/MonitorContainer'));
 
 const INTERVAL_TIME = 1 * 60 * 1000;
 let autoMonitorJob = null;
@@ -72,13 +73,15 @@ export const App = ({ monitorList, checkInstanceStatus }: PropType) => {
           <Navbar />
           <MenuDrawer />
           <main>
-            <Switch>
-              <Route exact path={HOME_PAGE_URL} component={HomePage} />
-              <Route exact path={WORKFLOW_MANAGER_PAGE_URL} component={ManagementPage} />
-              <Route exact path={MONITOR_CENTER_PAGE_URL} component={MonitorPage} />
-              <Route exact path={SIGNIN_PAGE_URL} component={withAuthenticator(HomePage, amplifyAuthSignOption)} />
-              <Route render={() => <p>Not Fount!</p>} />
-            </Switch>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Switch>
+                <Route exact path={HOME_PAGE_URL} component={HomePage} />
+                <Route exact path={WORKFLOW_MANAGER_PAGE_URL} component={ManagementPage} />
+                <Route exact path={MONITOR_CENTER_PAGE_URL} component={MonitorPage} />
+                <Route exact path={SIGNIN_PAGE_URL} component={withAuthenticator(HomePage, amplifyAuthSignOption)} />
+                <Route render={() => <p>Not Fount!</p>} />
+              </Switch>
+            </Suspense>
           </main>
         </div>
       </Router>

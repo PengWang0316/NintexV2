@@ -10,10 +10,10 @@ exports[`Test App component should have the same snapshot 1`] = `
         <Route
           component={
             Object {
-              "$$typeof": Symbol(react.forward_ref),
-              "done": Promise {},
-              "preload": [Function],
-              "render": [Function],
+              "$$typeof": Symbol(react.lazy),
+              "_ctor": [Function],
+              "_result": null,
+              "_status": -1,
             }
           }
           exact={true}
@@ -22,10 +22,10 @@ exports[`Test App component should have the same snapshot 1`] = `
         <Route
           component={
             Object {
-              "$$typeof": Symbol(react.forward_ref),
-              "done": Promise {},
-              "preload": [Function],
-              "render": [Function],
+              "$$typeof": Symbol(react.lazy),
+              "_ctor": [Function],
+              "_result": null,
+              "_status": -1,
             }
           }
           exact={true}
@@ -34,10 +34,10 @@ exports[`Test App component should have the same snapshot 1`] = `
         <Route
           component={
             Object {
-              "$$typeof": Symbol(react.forward_ref),
-              "done": Promise {},
-              "preload": [Function],
-              "render": [Function],
+              "$$typeof": Symbol(react.lazy),
+              "_ctor": [Function],
+              "_result": null,
+              "_status": -1,
             }
           }
           exact={true}
