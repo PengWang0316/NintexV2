@@ -12,9 +12,11 @@
       "moduleResolution": "node",
       "lib": ["es2017", "dom"],
       "importHelpers": true,
+      "types": ["cypress"],
   },
   "include": [
-      "./app/**/*"
+      // "./app/**/*"
+      "**/*.ts"
   ],
   "exclude": [
     "node_modules"

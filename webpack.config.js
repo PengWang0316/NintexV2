@@ -31,7 +31,14 @@ const config = {
   devtool: 'source-map',
   module: {
     rules: [
-      { test: /\.(ts|tsx)$/, loader: 'awesome-typescript-loader' },
+      {
+        test: /\.(ts|tsx)$/,
+        loader: 'awesome-typescript-loader',
+        options: {
+          // skip typechecking for speed
+          transpileOnly: true,
+        },
+      },
       // All output '.js' files will have any sourcemaps re-processed by 'source-map-loader'.
       { enforce: 'pre', test: /\.(tsx | ts | js)$/, loader: 'source-map-loader' },
       { test: /\.(js)$/, exclude: /node_modules/, use: 'babel-loader' },
