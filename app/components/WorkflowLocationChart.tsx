@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import {
   BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer,
@@ -15,7 +15,9 @@ interface Props {
 
 let isFetching = false;
 
-const WorkflowLocationChart = ({ fetchWorkflowLocationCount, workflowLocationCount }: Props) => {
+const WorkflowLocationChart = ({
+  fetchWorkflowLocationCount, workflowLocationCount,
+}: Props): ReactElement => {
   useEffect(() => {
     if (!workflowLocationCount.isFetched && !isFetching) {
       fetchWorkflowLocationCount();
