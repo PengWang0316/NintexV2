@@ -115,6 +115,7 @@
     "redux-mock-store": "^1.5.3",
     "sinon": "^7.2.6",
     "source-map-loader": "^0.2.4",
+    "start-server-and-test": "^1.10.6",
     "style-loader": "^0.23.1",
     "ts-jest": "^24.0.2",
     "ts-loader": "^6.2.0",
