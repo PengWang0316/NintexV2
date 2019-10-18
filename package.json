@@ -11,7 +11,10 @@
     "cypress:open": "cypress open",
     "testCoverage": "jest --coverage --runInBand",
     "testWatch": "jest --watch",
-    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls"
+    "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
+    "cy:start": "npm start",
+    "cy:run": "cypress run  --record --key 254ee831-8532-4088-a9bf-3d42104a657d",
+    "cy:ci": "START_SERVER_AND_TEST_INSECURE=1 start-server-and-test cy:start https-get://localhost:8080 cy:run"
   },
   "keywords": [
     "Nintex",
