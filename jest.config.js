@@ -5,8 +5,8 @@ module.exports = {
   /**
  * @jest-environment jsdom
  */
-  // testEnvironment: 'jest-environment-jsdom-global',
-  testEnvironment: 'node',
+  testEnvironment: 'jest-environment-jsdom-global',
+  // testEnvironment: 'node',
   transform: {
     '^.+\\.tsx?$': 'ts-jest',
   },

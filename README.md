@@ -2,6 +2,8 @@
 
 A web application helps managing, monitor Nintex workflows under different tenants. This is a POC version.
 
+[![Build Status](https://travis-ci.org/PengWang0316/NintexV2.svg?branch=master)](https://travis-ci.org/PengWang0316/NintexV2)  [![Coverage Status](https://coveralls.io/repos/github/PengWang0316/NintexV2/badge.svg?branch=master)](https://coveralls.io/github/PengWang0316/NintexV2?branch=master)
+
 ## Technical stack
 - React
 - Redux
