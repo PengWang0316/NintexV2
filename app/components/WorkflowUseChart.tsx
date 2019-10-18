@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import {
   Pie, PieChart, Cell, Legend, Tooltip, ResponsiveContainer,
@@ -40,7 +40,9 @@ interface WorkflowUseCount {
   workflowUseCount: WorkflowUseCountType;
 }
 
-export const WorkflowUseChart = ({ fetchWorkflowUseCount, workflowUseCount }: WorkflowUseCount) => {
+export const WorkflowUseChart = ({
+  fetchWorkflowUseCount, workflowUseCount,
+}: WorkflowUseCount): ReactElement => {
   useEffect(() => {
     if (!workflowUseCount.isFetched && !isFetching) {
       fetchWorkflowUseCount();
