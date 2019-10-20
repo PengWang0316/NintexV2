@@ -31,7 +31,7 @@ export const WorkflowActionUseWordCloud = ({ actionNameCount, fetchActionNameCou
 
   const classes = useStyles({});
   return (
-    <div className={classes.rootDiv}>
+    <div className={classes.rootDiv} data-testId="WorkflowActionUseWordCloud">
       <ReactWordcloud
         words={actionNameCount.data}
         maxWords={60}
