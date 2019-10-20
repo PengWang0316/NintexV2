@@ -4,7 +4,6 @@ import { Provider } from 'react-redux';
 // import { AppContainer } from 'react-hot-loader';
 import { PersistGate } from 'redux-persist/integration/react';
 import I18n from '@kevinwang0316/i18n';
-import axios from 'axios';
 
 import App from './components/App';
 import configureStore from './store/ConfigureStore';
