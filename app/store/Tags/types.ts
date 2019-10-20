@@ -3,7 +3,7 @@ export const REMOVE_TAG_SUCCESS = 'removeTagSuccess';
 export const ADD_TAG_SUCCESS = 'addTagSuccess';
 
 export interface TagsType {
-  [id: number]: [string, string];
+  [id: string]: [string, string];
 }
 
 export interface RawTag {

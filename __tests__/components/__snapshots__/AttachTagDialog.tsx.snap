@@ -1,0 +1,105 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test AttachTagDialog Snapshot test for having two CustomizedChip 1`] = `
+<Dialog
+  TransitionComponent={
+    Object {
+      "$$typeof": Symbol(react.forward_ref),
+      "render": [Function],
+    }
+  }
+  aria-describedby="alert-dialog-slide-description"
+  aria-labelledby="alert-dialog-slide-title"
+  keepMounted={true}
+  maxWidth="md"
+  onClose={[MockFunction]}
+  open={false}
+>
+  <DialogTitle
+    id="alert-dialog-slide-title"
+  >
+    addTagDialogTitle
+  </DialogTitle>
+  <DialogContent>
+    <DialogContentText
+      id="alert-dialog-slide-description"
+    >
+      attachTagDialogContent
+    </DialogContentText>
+    <div>
+      <Chip
+        clickable={true}
+        label="Marketing"
+        name="3"
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#607d8b",
+            "color": "white",
+            "margin": "0 10px 5px 0",
+          }
+        }
+      />
+      <Chip
+        clickable={true}
+        label="SDE"
+        name="4"
+        onClick={[Function]}
+        style={
+          Object {
+            "backgroundColor": "#ff5722",
+            "color": "white",
+            "margin": "0 10px 5px 0",
+          }
+        }
+      />
+    </div>
+  </DialogContent>
+  <DialogActions>
+    <Button
+      color="primary"
+      onClick={[MockFunction]}
+    >
+      close
+    </Button>
+  </DialogActions>
+</Dialog>
+`;
+
+exports[`Test AttachTagDialog Snapshot test for no CustomizedChip 1`] = `
+<Dialog
+  TransitionComponent={
+    Object {
+      "$$typeof": Symbol(react.forward_ref),
+      "render": [Function],
+    }
+  }
+  aria-describedby="alert-dialog-slide-description"
+  aria-labelledby="alert-dialog-slide-title"
+  keepMounted={true}
+  maxWidth="md"
+  onClose={[MockFunction]}
+  open={false}
+>
+  <DialogTitle
+    id="alert-dialog-slide-title"
+  >
+    addTagDialogTitle
+  </DialogTitle>
+  <DialogContent>
+    <DialogContentText
+      id="alert-dialog-slide-description"
+    >
+      attachTagDialogContent
+    </DialogContentText>
+  </DialogContent>
+  <DialogActions>
+    <Button
+      color="primary"
+      onClick={[MockFunction]}
+    >
+      close
+    </Button>
+  </DialogActions>
+</Dialog>
+`;
