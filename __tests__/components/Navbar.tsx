@@ -32,6 +32,11 @@ describe('Navbar', () => {
     currentAuthenticatedUser: jest.fn(),
     user: null,
     history: { push: jest.fn() },
+    workflows: null,
+    addNwcWorkflows: jest.fn(),
+    tags: null,
+    nwcKeys: { isFetch: false, data: null },
+    fetchTags: jest.fn(),
   };
   const getShallowComponent = (props = defaultProps) => shallow(<Navbar {...props} />);
 
@@ -49,22 +54,22 @@ describe('Navbar', () => {
 
   test('handleMenuIconClick', () => {
     const component = getShallowComponent();
-    component.instance().handleMenuIconClick({ currentTarget: 'currentTarget' });
+    (component.instance() as Navbar).handleMenuIconClick({ currentTarget: 'currentTarget' });
     expect(component.state('anchorEl')).toEqual('currentTarget');
-    component.instance().handleMenuIconClick({ currentTarget: 'currentTarget' });
+    (component.instance() as Navbar).handleMenuIconClick({ currentTarget: 'currentTarget' });
     expect(component.state('anchorEl')).toBe(null);
   });
 
   test('handleLoginButtonClick', () => {
     const component = getShallowComponent();
-    component.instance().handleLoginButtonClick();
+    (component.instance() as Navbar).handleLoginButtonClick();
 
     expect(defaultProps.logout).not.toHaveBeenCalled();
     expect(defaultProps.history.push).toHaveBeenCalledTimes(1);
     expect(defaultProps.history.push).toHaveBeenLastCalledWith(SIGNIN_PAGE_URL);
 
     component.setProps({ user: { nickname: 'name' } });
-    component.instance().handleLoginButtonClick();
+    (component.instance() as Navbar).handleLoginButtonClick();
     expect(defaultProps.logout).toHaveBeenCalledTimes(1);
     expect(defaultProps.history.push).toHaveBeenCalledTimes(2);
     expect(defaultProps.history.push).toHaveBeenLastCalledWith(HOME_PAGE_URL);
