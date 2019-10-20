@@ -8,11 +8,11 @@
     "start": "webpack-dev-server --mode development --open",
     "build": "NODE_ENV=production webpack --mode=production -p",
     "test": "jest",
-    "cypress:open": "cypress open",
     "testCoverage": "jest --coverage --runInBand",
     "testWatch": "jest --watch",
     "coveralls": "cat ./coverage/lcov.info | node node_modules/.bin/coveralls",
     "typedoc": "typedoc --out docs app/components app/store",
+    "cy:open": "cypress open",
     "cy:start": "npm start",
     "cy:run": "cypress run  --record --key 254ee831-8532-4088-a9bf-3d42104a657d",
     "cy:ci": "START_SERVER_AND_TEST_INSECURE=1 start-server-and-test cy:start https-get://localhost:8080 cy:run"
