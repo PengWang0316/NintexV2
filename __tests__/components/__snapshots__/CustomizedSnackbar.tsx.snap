@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test CustomizedSnackbar component Snapshot test 1`] = `
+<Snackbar
+  TransitionComponent="Fade"
+  autoHideDuration={2}
+  onClose={[MockFunction]}
+  open={false}
+>
+  <SnackbarContent
+    action={
+      Array [
+        <IconButton
+          color="inherit"
+          onClick={[MockFunction]}
+        >
+          <Close
+            className="makeStyles-icon-1"
+          />
+        </IconButton>,
+      ]
+    }
+    message={
+      <span
+        className="makeStyles-message-3"
+      >
+        <CheckCircle
+          className="makeStyles-iconVariant-2"
+        />
+        content
+      </span>
+    }
+    style={
+      Object {
+        "backgroundColor": "backgroundColor",
+      }
+    }
+  />
+</Snackbar>
+`;
