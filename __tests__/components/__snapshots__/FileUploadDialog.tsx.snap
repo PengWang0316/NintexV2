@@ -1,3 +1,129 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`Test FileUploadDialog component Snapshot test 1`] = `null`;
+exports[`Test FileUploadDialog component Snapshot test 1`] = `
+Array [
+  <Dialog
+    aria-labelledby="form-dialog-title"
+    onClose={[MockFunction]}
+    open={false}
+  >
+    <DialogTitle
+      id="form-dialog-title"
+    >
+      Upload data
+    </DialogTitle>
+    <DialogContent>
+      <DialogContentText>
+        You can upload workflows, instances, and actions CSV files. Please use different file input to upload files.
+      </DialogContentText>
+      <Typography
+        className="makeStyles-uploadTitle-1"
+        color="inherit"
+        variant="body1"
+      >
+        Workflows file
+      </Typography>
+      <div
+        className="makeStyles-inputDiv-2"
+      >
+        <Input
+          fullWidth={true}
+          id="workflows"
+          inputProps={
+            Object {
+              "accept": ".csv",
+            }
+          }
+          onChange={[Function]}
+          type="file"
+        />
+        <Button
+          className="makeStyles-uploadBtn-3"
+          color="primary"
+          onClick={[Function]}
+          size="small"
+        >
+          Upload
+        </Button>
+      </div>
+      <Typography
+        className="makeStyles-uploadTitle-1"
+        color="inherit"
+        variant="body1"
+      >
+        Instances file
+      </Typography>
+      <div
+        className="makeStyles-inputDiv-2"
+      >
+        <Input
+          fullWidth={true}
+          id="instances"
+          inputProps={
+            Object {
+              "accept": ".csv",
+            }
+          }
+          onChange={[Function]}
+          type="file"
+        />
+        <Button
+          className="makeStyles-uploadBtn-3"
+          color="primary"
+          onClick={[Function]}
+          size="small"
+        >
+          Upload
+        </Button>
+      </div>
+      <Typography
+        className="makeStyles-uploadTitle-1"
+        color="inherit"
+        variant="body1"
+      >
+        Actions file
+      </Typography>
+      <div
+        className="makeStyles-inputDiv-2"
+      >
+        <Input
+          fullWidth={true}
+          id="actions"
+          inputProps={
+            Object {
+              "accept": ".csv",
+            }
+          }
+          onChange={[Function]}
+          type="file"
+        />
+        <Button
+          className="makeStyles-uploadBtn-3"
+          color="primary"
+          onClick={[Function]}
+          size="small"
+        >
+          Upload
+        </Button>
+      </div>
+    </DialogContent>
+    <DialogActions>
+      <Button
+        color="primary"
+        onClick={[MockFunction]}
+      >
+        Close
+      </Button>
+    </DialogActions>
+  </Dialog>,
+  <ProgressDialog
+    open={false}
+  />,
+  <CustomizedSnackbar
+    backgroundColor="#43a047"
+    content="Upload success"
+    handleClose={[Function]}
+    open={false}
+  />,
+]
+`;
