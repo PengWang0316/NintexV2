@@ -10,18 +10,18 @@ Array [
     <DialogTitle
       id="form-dialog-title"
     >
-      Upload data
+      addAccountDialogTitle
     </DialogTitle>
     <DialogContent>
       <DialogContentText>
-        You can upload workflows, instances, and actions CSV files. Please use different file input to upload files.
+        uploadFileDialogContent
       </DialogContentText>
       <Typography
         className="makeStyles-uploadTitle-1"
         color="inherit"
         variant="body1"
       >
-        Workflows file
+        uploadWorkflowTitle
       </Typography>
       <div
         className="makeStyles-inputDiv-2"
@@ -51,7 +51,7 @@ Array [
         color="inherit"
         variant="body1"
       >
-        Instances file
+        uploadInstanceTitle
       </Typography>
       <div
         className="makeStyles-inputDiv-2"
@@ -81,7 +81,7 @@ Array [
         color="inherit"
         variant="body1"
       >
-        Actions file
+        uploadActionTitle
       </Typography>
       <div
         className="makeStyles-inputDiv-2"
@@ -112,7 +112,7 @@ Array [
         color="primary"
         onClick={[MockFunction]}
       >
-        Close
+        close
       </Button>
     </DialogActions>
   </Dialog>,
@@ -121,7 +121,7 @@ Array [
   />,
   <CustomizedSnackbar
     backgroundColor="#43a047"
-    content="Upload success"
+    content="snackbarMessage"
     handleClose={[Function]}
     open={false}
   />,
