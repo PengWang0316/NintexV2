@@ -40,6 +40,7 @@ Array [
         <Button
           className="makeStyles-uploadBtn-3"
           color="primary"
+          data-testid="uploadBtn"
           onClick={[Function]}
           size="small"
         >
