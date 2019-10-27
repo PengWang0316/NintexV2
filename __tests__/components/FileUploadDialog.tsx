@@ -47,5 +47,15 @@ describe('Test FileUploadDialog component', () => {
     expect(DialogContentText.text()).toBe('uploadFileDialogContent');
   });
 
+  it('Should do nothing when workflows is undefined', () => {
+    const component = shallow(<FileUploadDialog {...defaultProps} />);
+    const uploadBtn = component.find('[data-testid="uploadBtn"]');
+    expect(uploadBtn).not.toBeUndefined();
+    expect(uploadBtn.text()).toBe('Upload');
+    expect(component.find('ProgressDialog').prop('open')).toBe(false);
+    uploadBtn.simulate('click');
+    expect(component.find('ProgressDialog').prop('open')).toBe(false);
+  });
+
   test('Snapshot test', () => expect(renderer.create(<FileUploadDialog {...defaultProps} />).toJSON()).toMatchSnapshot());
 });
