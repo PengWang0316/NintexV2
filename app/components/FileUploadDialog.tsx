@@ -114,7 +114,7 @@ export const FileUploadDialog = ({ open = false, handleClose }: Props): ReactEle
               onChange={handleWorkflowsChange}
               inputProps={{ accept: '.csv' }}
             />
-            <Button size="small" className={classes.uploadBtn} color="primary" onClick={handleWorkflowsUpload}>Upload</Button>
+            <Button size="small" className={classes.uploadBtn} color="primary" onClick={handleWorkflowsUpload} data-testid="uploadBtn">Upload</Button>
           </div>
           <Typography color="inherit" variant="body1" className={classes.uploadTitle}>{I18n.get('uploadInstanceTitle')}</Typography>
           <div className={classes.inputDiv}>
