@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, Profiler } from 'react';
 import { withAuthenticator } from 'aws-amplify-react';
 import { makeStyles } from '@material-ui/core/styles';
 import { connect } from 'react-redux';
@@ -8,6 +8,7 @@ import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../.
 import WorkflowTable from '../WorkflowTable';
 import { AppState } from '../../store/ConfigureStore';
 import { UserType } from '../../store/User/types';
+import onRenderCallback from '../../libs/ProfilerCallback';
 
 interface Props {
   user: UserType | null;
@@ -30,7 +31,9 @@ export const ManagementContainer = ({ user = null, currentAuthenticatedUser }: P
   });
   return (
     <div className={classes.rootDiv}>
-      <WorkflowTable />
+      <Profiler id="WorkflowTable" onRender={onRenderCallback}>
+        <WorkflowTable />
+      </Profiler>
     </div>
   );
 };

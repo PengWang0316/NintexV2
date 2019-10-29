@@ -1,4 +1,4 @@
-import React, { useEffect, memo, ReactElement } from 'react';
+import React, { useEffect, memo, ReactElement, Profiler } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import { Grid } from '@material-ui/core';
@@ -17,6 +17,7 @@ import WorkflowActionUseWordCloud from '../WorkflowActionUseWordCloud';
 import { currentAuthenticatedUser as currentAuthenticatedUserAction } from '../../store/User/actions';
 import { AppState } from '../../store/ConfigureStore';
 import { UserType } from '../../store/User/types';
+import onRenderCallback from '../../libs/ProfilerCallback';
 
 interface Props {
   user: UserType | null;
@@ -48,8 +49,12 @@ export const HomePage = ({ user = null, currentAuthenticatedUser }: Props): Reac
     <div className={classes.rootDiv}>
       <div className={classes.cardContainer}>
         <div className={classes.cardContainer}>
-          <WorkflowCountCard />
-          <InstanceCountCard />
+          <Profiler id="WorkflowCountCard" onRender={onRenderCallback}>
+            <WorkflowCountCard />
+          </Profiler>
+          <Profiler id="InstanceCountCard" onRender={onRenderCallback}>
+            <InstanceCountCard />
+          </Profiler>
         </div>
         <div className={classes.cardContainer}>
           <PublisherCountCard />
