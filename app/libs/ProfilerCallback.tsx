@@ -1,5 +1,3 @@
-import chalk from 'chalk';
-
 const onRenderCallback = (
   id: string, // the "id" prop of the Profiler tree that has just committed
   phase: string, // either "mount" (if the tree just mounted) or "update" (if it re-rendered)
@@ -9,13 +7,14 @@ const onRenderCallback = (
   commitTime: number, // when React committed this update
   interactions, // the Set of interactions belonging to this update
 ) => {
-  console.log(chalk.white.bgBlueBright.bold(id));
-  console.log(`${chalk.blue.bold('Phase')} : ${phase}`);
-  console.log(`${chalk.blue.bold('ActualDuration')} : ${actualDuration}`);
-  console.log(`${chalk.blue.bold('BaseDuration')} : ${baseDuration}`);
-  console.log(`${chalk.blue.bold('StartTime')} : ${startTime}`);
-  console.log(`${chalk.blue.bold('CommitTime')} : ${commitTime}`);
-  console.log(`${chalk.blue.bold('Interactions')} : ${interactions}`);
+  console.log(`%c id: ${id} `, 'color: white; background-color: #36bfff; size: 18px; font-weight: bold;');
+  console.log(`Phase : ${phase}`);
+  console.log(`ActualDuration : ${actualDuration}`);
+  console.log(`BaseDuration : ${baseDuration}`);
+  console.log(`StartTime : ${startTime}`);
+  console.log(`CommitTime : ${commitTime}`);
+  console.log(`Interactions : ${interactions}`);
+  console.log('');
 };
 
 export default onRenderCallback;
