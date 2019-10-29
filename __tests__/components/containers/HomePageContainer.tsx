@@ -20,6 +20,7 @@ describe('HomePageContainer componnet', () => {
     user: null,
     currentAuthenticatedUser: jest.fn(),
   };
+
   beforeEach(() => jest.clearAllMocks());
 
   test('Test the useEffect call the currentAuthenticatedUser fn', () => {
