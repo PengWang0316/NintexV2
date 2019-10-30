@@ -3,6 +3,7 @@ import { shallow } from 'enzyme';
 import renderer from 'react-test-renderer';
 
 import { FileUploadDialog } from '../../app/components/FileUploadDialog';
+import { uploadWorkflows } from '../../app/actions/WorkflowActions';
 
 jest.mock('@material-ui/core/Button', () => 'Button');
 jest.mock('@material-ui/core/Input', () => 'Input');
@@ -56,6 +57,17 @@ describe('Test FileUploadDialog component', () => {
     uploadBtn.simulate('click');
     expect(component.find('ProgressDialog').prop('open')).toBe(false);
   });
+
+  // it('Should do nothing when workflows is not undefined', () => {
+  //   const component = shallow(<FileUploadDialog {...defaultProps} />);
+  //   const uploadBtn = component.find('[data-testid="uploadBtn"]');
+  //   const workflowsInput = component.find('#workflows');
+
+  //   workflowsInput.simulate('change', { target: { files: ['filesA'] } });
+  //   uploadBtn.simulate('click');
+
+  //   expect(uploadWorkflows).toHaveBeenCalledTimes(1);
+  // });
 
   test('Snapshot test', () => expect(renderer.create(<FileUploadDialog {...defaultProps} />).toJSON()).toMatchSnapshot());
 });
