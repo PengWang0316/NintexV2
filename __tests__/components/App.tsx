@@ -57,7 +57,10 @@ describe('Test App component', () => {
 
   it('should only call setInterval and call clearInterval after update', () => {
     const mockCkeckInstanceStatus = jest.fn();
-    const component = shallow(<App monitorList={mockedMonitorList} checkInstanceStatus={mockCkeckInstanceStatus} />);
+    const component = shallow(<App
+      monitorList={mockedMonitorList}
+      checkInstanceStatus={mockCkeckInstanceStatus}
+    />);
     expect(window.clearInterval).not.toHaveBeenCalled();
     expect(window.setInterval).toHaveBeenCalledTimes(1);
     expect(mockCkeckInstanceStatus).toHaveBeenCalledTimes(1);
