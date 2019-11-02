@@ -111,7 +111,7 @@ let isFetchingTags = false;
 export const WorkflowTable = ({
   workflows, fetchWorkflowsByUser, tags = null, switchMonitor, fetchTags,
   updateTagFromWorkflow, nwcKeys, runWorkflow, stopWorkflow,
-}: Props) => {
+}: Props): ReactElement => {
   const [isOpenSnackbar, setIsOpenSnackbar] = useState(false);
   const workflowData = useMemo(() => Object.values(workflows.data), [workflows.data]);
   useEffect(() => {
