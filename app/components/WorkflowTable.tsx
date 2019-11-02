@@ -1,5 +1,5 @@
 import React, {
-  useEffect, useState, Fragment, useMemo, useCallback, memo,
+  useEffect, useState, Fragment, useMemo, useCallback, memo, ReactElement,
 } from 'react';
 import { connect } from 'react-redux';
 import { red } from '@material-ui/core/colors';
@@ -108,7 +108,7 @@ const tableOptions = {
 let isFetching = false;
 let isFetchingTags = false;
 
-export const WorkflowTable = memo(({
+export const WorkflowTable = ({
   workflows, fetchWorkflowsByUser, tags = null, switchMonitor, fetchTags,
   updateTagFromWorkflow, nwcKeys, runWorkflow, stopWorkflow,
 }: Props) => {
@@ -200,7 +200,7 @@ export const WorkflowTable = memo(({
       />
     </Fragment>
   );
-});
+};
 
 const mapStateToProps = ({
   workflows, tags, nwcKeys,
