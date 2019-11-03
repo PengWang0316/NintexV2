@@ -1,4 +1,4 @@
-import React, { useEffect, memo } from 'react';
+import React, { useEffect, memo, ReactElement } from 'react';
 import { connect } from 'react-redux';
 import ReactWordcloud from 'react-wordcloud';
 import { makeStyles } from '@material-ui/core/styles';
@@ -21,7 +21,9 @@ const useStyles = makeStyles(() => ({
 
 let isFetching = false;
 
-export const WorkflowActionUseWordCloud = ({ actionNameCount, fetchActionNameCount }: Props) => {
+export const WorkflowActionUseWordCloud = (
+  { actionNameCount, fetchActionNameCount }: Props,
+): ReactElement => {
   useEffect(() => {
     if (!actionNameCount.isFetched && !isFetching) {
       fetchActionNameCount();
