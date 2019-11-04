@@ -1,35 +1,14 @@
-// import expect from 'expect';
-
-const ENTRY_URL = 'https://localhost:8080/';
-
 describe('Home page testing', () => {
-  it('Visits the home page without login', () => {
+  const ENTRY_URL = 'https://localhost:8080/';
+
+  beforeEach(() => {
     cy.visit(ENTRY_URL);
-
-    cy.contains('Workflow Manager');
-    cy.contains('Auto Fetching');
-    cy.get('button[data-testid=loginButton]').should('contain', 'login');
-    cy.contains('Sign in to your account');
-    cy.contains('Username *');
-    cy.contains('Password *');
-    cy.contains('Forget your password? Reset password');
-    cy.contains('No account? Create account');
-    cy.get('button[type=submit]').should('contain', 'Sign In');
-    cy.get('span[class=MuiSwitch-root]');
-    cy.get('div[title=Dashboard]');
-    cy.get('div[title="Workflow Manager"]');
-    cy.get('div[title="Monitor Center"]');
-    cy.get('div[title="API keys"]');
-    cy.get('div[title="New tag"]');
-    cy.get('div[title="Upload Files"]');
-  });
-
-  it('Visits the home page and login', () => {
-    cy.visit(ENTRY_URL);
-
     cy.get('input[name=username]').type('rocwang0316@gmail.com').should('have.value', 'rocwang0316@gmail.com');
     cy.get('input[name=password]').type('Jiajia19822').should('have.value', 'Jiajia19822');
     cy.get('button[type=submit]').click();
+  });
+
+  it('Should show all element on the home page', () => {
     cy.contains('logout');
     cy.contains('Total Workflows');
     cy.contains('Workflow Instances');
