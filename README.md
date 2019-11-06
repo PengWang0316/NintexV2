@@ -1,6 +1,6 @@
 ## Nintex-Worflow
 
-A web application helps managing, monitor Nintex workflows under different tenants. This is a POC version.
+A web application helps managing, monitor Nintex workflows under different tenants as well as offering a dashboard for all workflows. This is a POC version.
 
 [![Build Status](https://travis-ci.org/PengWang0316/NintexV2.svg?branch=master)](https://travis-ci.org/PengWang0316/NintexV2)  [![Coverage Status](https://coveralls.io/repos/github/PengWang0316/NintexV2/badge.svg?branch=master)](https://coveralls.io/github/PengWang0316/NintexV2?branch=master)
 
